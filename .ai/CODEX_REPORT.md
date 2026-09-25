@@ -40,7 +40,7 @@ Status: PASS
 - STATIC: PASS
 - UNIT: PASS
 - INTEGRATION: PASS (headless scenario and save/resume)
-- REAL ENV: NOT VERIFIED until GitHub Actions reports for the pushed commit
+- REAL ENV: PASS (GitHub Actions run [36116354315](https://github.com/weiyang02520-ops/gu-open-world-game/actions/runs/36116354315), conclusion `success`)
 
 ## Files Changed
 
@@ -75,15 +75,16 @@ Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
 ## Commit
 
-The final M1 commit is the current `HEAD`; record the exact value with `git rev-parse HEAD` after commit.
+M1 implementation commit: `2d5a7f9d3735bd5111b40cd63d26958eba538c34`.
+The final verification-record commit is the current `HEAD`; record its exact SHA with `git rev-parse HEAD` after this documentation update.
 
 ## Push
 
-PENDING until the final M1 commit is pushed.
+SUCCESS (M1 implementation commit pushed; verification-record commit pending this final documentation update).
 
 ## Remote Verified
 
-PENDING until `git ls-remote origin refs/heads/main` matches the final local HEAD.
+YES for M1 implementation commit: remote `refs/heads/main` matched `2d5a7f9d3735bd5111b40cd63d26958eba538c34` before this verification-record commit.
 
 ## Known Issues
 

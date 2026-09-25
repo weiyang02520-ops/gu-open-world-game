@@ -2,6 +2,6 @@
   "actor": "codex",
   "task_id": "TASK-M1-001",
   "state": "STOPPED_AT_GATE",
-  "last_seen_at": "2026-09-25T16:59:13+08:00",
-  "last_progress": "M1 Day 1~2 sandbox complete; tests, install and smoke passed locally; waiting for final push and External ChatGPT review."
+  "last_seen_at": "2026-09-25T17:04:43+08:00",
+  "last_progress": "M1 implementation pushed at 2d5a7f9; GitHub Actions passed; verification-record commit will be pushed and checked before STOP."
 }
