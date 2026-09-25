@@ -822,3 +822,333 @@ someone reports an incident
 ```
 
 with the event log explaining every institutional step.
+
+
+---
+
+# 28. Expanded M4 content target
+
+M4 should not stop at proving isolated schemas. Build enough content to make the institutional layer feel like a small living political environment.
+
+Minimum target content:
+
+- 3 distinct local factions/organizations;
+- 8–12 important faction-linked NPCs in total;
+- at least 6 office assignments;
+- at least 4 political blocs/interests across the three factions;
+- at least 3 different FactionNeed profiles;
+- at least 2 simultaneous FactionCases;
+- at least 3 proposal types exercised in scenarios;
+- at least 2 different mission types generated from faction state;
+- at least 2 recruitment/affiliation outcomes;
+- at least 2 official standing changes;
+- at least 2 audience reputation vectors for the same identity;
+- at least one alias/unknown-identity case.
+
+Suggested GAME_EXTENSION local faction archetypes:
+
+1. **Settlement governing clan / local authority**
+   - cares about security, stability and prestige;
+   - formal offices and council;
+   - can investigate/watch/recruit/sanction.
+
+2. **Merchant / market organization**
+   - cares about revenue, routes, reliability and supply;
+   - evaluates player through trade reputation and risk;
+   - can issue supply/contact missions.
+
+3. **Independent Gu Master / hunter association**
+   - looser governance;
+   - values strength, information and mutual benefit;
+   - may recruit useful outsiders or avoid dangerous ones.
+
+Names may remain clearly GAME_EXTENSION placeholders until Canon data is ready.
+
+---
+
+# 29. Important NPC political content
+
+Create 8–12 important NPCs connected to M4 factions.
+
+Each important NPC should have enough deterministic state to matter politically:
+
+- faction membership;
+- office where applicable;
+- bloc/interests;
+- personal M3 beliefs;
+- relationship toward player/other office holders;
+- influence vector;
+- risk tolerance or political priorities;
+- current institutional concern.
+
+At least four NPCs should have clearly different political incentives.
+
+Example pattern:
+
+- security officer: strongly prefers WATCH / investigation;
+- merchant steward: prefers useful outsider cooperation;
+- conservative elder: dislikes unstable reputation risk;
+- ambitious officer: may support recruitment to gain influence.
+
+Do not script dialogue trees. Their disagreement should come from state.
+
+---
+
+# 30. Two concurrent case chains
+
+M4 smoke/integration must exercise two different case chains at once.
+
+## Case Chain A — violence accusation
+
+A combat incident from M2/M3 is reported.
+
+Possible flow:
+
+RUMOR
+→ UNDER_INVESTIGATION
+→ SUSPECTED
+→ DISPUTED or CLOSED
+
+The result must depend on delivered evidence.
+
+## Case Chain B — economic / theft / reliability issue
+
+Create a second institutional issue using M1 economy state, such as:
+
+- missing resource lot;
+- disputed market theft;
+- broken delivery promise;
+- suspected hoarding/manipulation.
+
+This second case must not simply duplicate the violence case.
+
+Purpose:
+
+prove FactionCase is generic institutional machinery rather than combat-only logic.
+
+---
+
+# 31. Cross-faction disagreement
+
+At least one player action should be interpreted differently by two factions.
+
+Example:
+
+- local authority sees player as dangerous / WATCHED;
+- merchant organization sees player as reliable / FRIENDLY;
+- independent association sees player as strong and potentially recruitable.
+
+Required:
+
+the same identity can simultaneously hold different reputation vectors and standings across factions.
+
+---
+
+# 32. Political leverage actions
+
+M4 may add a bounded set of political/social actions that operate on existing information/economic systems:
+
+- PERSUADE_OFFICER
+- OFFER_FAVOR
+- OFFER_RESOURCE_SUPPORT
+- SHARE_EVIDENCE
+- WITHHOLD_INFORMATION
+- REQUEST_REVIEW
+- REQUEST_MEMBERSHIP
+
+Optional if clean:
+
+- BRIBE
+- THREATEN
+- BLACKMAIL
+
+Do not implement generic speech AI.
+
+Each action must:
+
+- validate preconditions;
+- consume time/resource/favor where appropriate;
+- create durable events;
+- influence a relationship, proposal, case or vote through deterministic rules.
+
+At least three such actions must be exercised by tests/scenario.
+
+---
+
+# 33. Contribution and favor
+
+Membership should have a minimal contribution/favor mechanism.
+
+Support:
+
+- faction contribution;
+- owed favor / favor balance;
+- service history.
+
+These can influence:
+
+- mission eligibility;
+- recruitment;
+- proposal support;
+- resource access.
+
+Do not turn contribution into generic EXP.
+
+---
+
+# 34. Access control
+
+Faction standing / membership should change actual access.
+
+At minimum one of:
+
+- market/member discount;
+- restricted location entry;
+- faction warehouse/resource access;
+- mission eligibility;
+- information access.
+
+Required test:
+
+changing official standing or membership materially changes at least one available action.
+
+No purely cosmetic standing.
+
+---
+
+# 35. Mission lifecycle
+
+At least two missions must run through real lifecycle states:
+
+AVAILABLE
+→ ACCEPTED
+→ IN_PROGRESS
+→ COMPLETED / FAILED / EXPIRED
+
+Mission progress should result from ordinary world actions rather than a special quest-only bypass.
+
+Example:
+
+GATHER mission completion checks actual inventory/resource delivery.
+
+DELIVER_MESSAGE mission uses M3 report/transmission delivery.
+
+Ignoring an available mission must allow the faction/NPCs to continue and may cause:
+
+- expiry;
+- reassignment;
+- NPC completion;
+- unmet faction need.
+
+---
+
+# 36. NPC institutional action
+
+At least two missions/proposals/case actions must be performed by NPCs without player input.
+
+Examples:
+
+- NPC investigator inspects a scene;
+- NPC member fulfills a supply mission;
+- officer opens proposal;
+- council resolves vote;
+- NPC recruit approaches another NPC.
+
+This prevents the institutional system from being player-centric.
+
+---
+
+# 37. Institutional time evolution
+
+Add a bounded institutional scheduler/tick.
+
+Over 24–48 game hours, without player input:
+
+- faction needs may change;
+- open case may progress or wait for evidence;
+- proposals may reach vote deadline;
+- missions may expire/reassign;
+- NPC office holders may act.
+
+Use coarse deterministic scheduling; do not simulate politics every combat tick.
+
+Required idle-world test:
+
+advance 48h with no player action and demonstrate at least 5 institutional events across 2+ factions.
+
+---
+
+# 38. M4 strategy divergence test
+
+From the same seed and same initial incident, run at least two player strategies:
+
+## Cooperative strategy
+
+- share evidence;
+- help faction need;
+- accept/complete mission;
+- pursue affiliation.
+
+Expected possible outcome:
+
+- higher trust/reliability reputation;
+- case weakened/closed;
+- FRIENDLY/AFFILIATE path;
+- access/mission opportunities.
+
+## Adversarial strategy
+
+- withhold or distort information;
+- refuse cooperation;
+- exploit faction need;
+- accumulate suspicion.
+
+Expected possible outcome:
+
+- danger/unpredictability reputation;
+- WATCHED/SUSPICIOUS;
+- investigation remains open;
+- recruitment withheld or restrictions applied.
+
+Final states must differ materially in at least:
+
+- one case status;
+- one reputation dimension;
+- official standing;
+- one relationship;
+- one mission/access state;
+- at least one future faction goal/proposal.
+
+If only a numeric reputation differs, the test fails.
+
+---
+
+# 39. M4 scale and code quality
+
+This milestone is intentionally large.
+
+Do not stop after the first faction model passes unit tests.
+
+Continue through:
+
+- domain models;
+- institutional engine;
+- M3 hardening;
+- three factions;
+- important NPC content;
+- cases;
+- proposals/governance;
+- missions;
+- access control;
+- 24–48h autonomous institutional evolution;
+- strategy divergence scenario;
+- save/resume;
+- regression;
+- docs/CI/Gate.
+
+However:
+
+- keep M4 implementation modular;
+- do not create one giant faction engine file if clean domain separation is possible;
+- do not prematurely generalize into a universal political framework beyond V0.1 needs.
+
