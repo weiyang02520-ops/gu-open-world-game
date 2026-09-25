@@ -40,7 +40,7 @@ Status: PASS
 - STATIC: PASS
 - UNIT: PASS
 - INTEGRATION: PASS (M1 regression, M1 smoke, M2 smoke and active combat resume)
-- REAL ENV: PENDING final GitHub Actions run for the pushed M2 commit
+- REAL ENV: PASS (GitHub Actions run [36122088404](https://github.com/weiyang02520-ops/gu-open-world-game/actions/runs/36122088404), conclusion `success`)
 
 ## Files Changed
 
@@ -74,15 +74,16 @@ Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
 ## Commit
 
-The M2 implementation commit will be recorded exactly in CURRENT_STATE before the final Gate. The final verification-record commit will be shown by `git rev-parse HEAD` after push.
+M2 implementation commit: `3c6c573a178370be66e668340f707d9c774cf603`.
+The final verification-record commit will be shown by `git rev-parse HEAD` after the Gate state update.
 
 ## Push
 
-PENDING until the final M2 commit is pushed.
+SUCCESS (M2 implementation commit pushed; Gate state commit pending).
 
 ## Remote Verified
 
-PENDING until `git ls-remote origin refs/heads/main` matches the final pushed SHA.
+YES for M2 implementation commit: remote `refs/heads/main` matched `3c6c573a178370be66e668340f707d9c774cf603` before the Gate state commit.
 
 ## Known Issues
 

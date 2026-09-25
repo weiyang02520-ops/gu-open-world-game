@@ -1,7 +1,7 @@
 {
   "actor": "codex",
-  "task_id": "TASK-M1-001",
+  "task_id": "TASK-M2-001",
   "state": "STOPPED_AT_GATE",
-  "last_seen_at": "2026-09-25T17:06:54+08:00",
-  "last_progress": "M1 implementation and verification-record commits pushed; GitHub Actions passed; final report correction is being committed before STOP."
+  "last_seen_at": "2026-09-25T18:06:41+08:00",
+  "last_progress": "M2 combat/injury package complete; 22 tests, M1/M2 smoke and GitHub Actions passed; waiting for External ChatGPT review."
 }

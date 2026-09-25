@@ -10,6 +10,7 @@
 - M1 Day 1~2 Living Sandbox：**PASS_WITH_NOTES**
 - 当前里程碑：**M2**
 - 当前任务：**TASK-M2-001 — Combat, Injury and Hostile Decision Loop**
+- M2：**实现完成，等待 External ChatGPT Review**
 - 当前仍以纯 Python Core Simulation 为主，不锁定最终图形引擎。
 
 ## 已经跑通
