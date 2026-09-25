@@ -20,20 +20,20 @@ This is **not** a human Gate.
 
 ## Continue now
 
-Phase B / M5:
+Phase B / M5 is complete as an internal checkpoint:
 
-- resource-node expansion;
-- multiple markets;
-- local supply/demand pricing;
-- market belief;
-- Shipment;
-- Caravan;
-- actual cargo;
-- routes and route risk;
-- faction treasury/warehouse/procurement;
-- systemic shortage;
-- player/NPC multiple responses;
-- save/resume while cargo is in transit.
+- 20 finite nodes with health/overharvest/regeneration;
+- three divergent local markets and supply/demand pricing;
+- actual-cargo Shipment/Caravan across six stateful routes;
+- faction treasury, warehouse, procurement, shortage and NPC goal changes;
+- deterministic in-transit Save/Resume.
+
+Continue immediately with Phase C / M6:
+
+- Rank1 progression and cultivation sessions;
+- safe and forced breakthrough;
+- PathDefinition, PathAttainmentState, InsightEvent;
+- knowledge versus attainment and study/inheritance.
 
 Then continue automatically through M6 → M7 → M8.
 

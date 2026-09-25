@@ -20,9 +20,15 @@ M4 is now treated as an **internal checkpoint**, not a human-review stop.
 
 ### Continue now
 
-Next internal phase:
+Completed internal checkpoint:
 
 **Phase B / M5 — Resource Crisis, Logistics and World Economy**
+
+Evidence: `tests/test_m5_economy.py`, 45-test regression, and `--scenario m5` smoke.
+
+Next internal phase:
+
+**Phase C / M6 — Rank1 progression, breakthrough, attainment**
 
 Then continue automatically:
 

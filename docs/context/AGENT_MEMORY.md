@@ -10,7 +10,8 @@
 - M4: completed as internal checkpoint
 - M4 code-bearing commit: `40597c401743dc79aa0baedf126c273507047838`
 - M4 Gate-state commit: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
-- Current internal phase: M5
+- Current internal phase: M6
+- M5 completed as an internal checkpoint: 20 finite nodes, 3 markets, 6 routes, actual-cargo logistics, faction procurement, shortage and deterministic transit saves.
 - No human Gate is required between M4/M5/M6/M7/M8.
 
 ## Important correction
@@ -33,22 +34,18 @@ The repository has now restored the user's explicit instruction:
 6. `docs/CODEX_EXECUTION_POLICY.md`
 7. `docs/GATE_SHA_PROTOCOL.md`
 
-## Current phase M5
+## Current phase M6
 
-Build the real shortage/logistics loop:
+Build Rank1 progression and attainment:
 
-- 15–25 nodes target;
-- 3–4 markets target;
-- 5–8 routes;
-- local price divergence;
-- overharvest/node health;
-- shipments;
-- caravans;
-- actual cargo transfers;
-- route risk;
-- faction reserves/procurement;
-- shortage affecting NPC/faction goals;
-- save/resume in transit.
+- Rank1 Initial/Middle/Upper/Peak;
+- cultivation session time/essence/rest costs;
+- safe and forced breakthrough;
+- essence quality and aptitude effects;
+- PathDefinition and PathAttainmentState;
+- InsightEvent novelty/diminishing returns;
+- knowledge separate from attainment;
+- local study/inheritance source.
 
 Then continue M6/M7/M8 without human review.
 

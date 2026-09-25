@@ -66,30 +66,30 @@
 ## F. Economy / Resources
 
 - [ ] 1 currency.
-- [ ] finite inventories.
-- [ ] 15–25 resource nodes target.
-- [ ] node stock/capacity/health.
-- [ ] deterministic regeneration.
-- [ ] overharvest harms future output.
-- [ ] 3–4 markets target.
-- [ ] local supply/demand pricing.
-- [ ] at least two markets can diverge in price.
-- [ ] NPCs trade real inventory.
-- [ ] Gu feeding/refinement/faction demand influence markets.
-- [ ] no infinite-shop core behavior.
+- [x] finite inventories.
+- [x] 15–25 resource nodes target.
+- [x] node stock/capacity/health.
+- [x] deterministic regeneration.
+- [x] overharvest harms future output.
+- [x] 3–4 markets target.
+- [x] local supply/demand pricing.
+- [x] at least two markets can diverge in price.
+- [x] NPCs trade real inventory.
+- [x] Gu feeding/refinement/faction demand influence markets.
+- [x] no infinite-shop core behavior.
 
 ## G. Logistics
 
-- [ ] Shipment state.
-- [ ] Caravan state.
-- [ ] cargo is actual world inventory.
-- [ ] 5–8 routes target.
-- [ ] route travel consumes time.
-- [ ] route risk stateful.
-- [ ] successful shipment moves stock.
-- [ ] lost shipment removes/delays stock.
-- [ ] market prices react to shipment outcome.
-- [ ] save/resume while in transit deterministic.
+- [x] Shipment state.
+- [x] Caravan state.
+- [x] cargo is actual world inventory.
+- [x] 5–8 routes target.
+- [x] route travel consumes time.
+- [x] route risk stateful.
+- [x] successful shipment moves stock.
+- [x] lost shipment removes/delays stock.
+- [x] market prices react to shipment outcome.
+- [x] save/resume while in transit deterministic.
 
 ## H. Combat
 

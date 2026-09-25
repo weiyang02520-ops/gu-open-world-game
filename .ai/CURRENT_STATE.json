@@ -4,9 +4,10 @@
   "status": "READY_FOR_CODEX",
   "next_actor": "codex",
   "active_task": "TASK-V0.1-FULL-001",
-  "internal_phase": "M5",
+  "internal_phase": "M6",
   "completed_checkpoints": [
-    "M4"
+    "M4",
+    "M5"
   ],
   "baseline_commit": "6d291afba23907768725ce9136414b673bdb3533",
   "working_branch": "main",
