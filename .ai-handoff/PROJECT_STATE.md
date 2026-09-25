@@ -4,12 +4,15 @@
 - M0: PASS
 - M1: PASS_WITH_NOTES
 - M2: PASS_WITH_NOTES
-- M3: CHANGES_REQUESTED
-- Active task: TASK-M3-FIX-001
+- M3: PASS_WITH_NOTES
+- Current milestone: M4
+- Active task: TASK-M4-001
 - Gate: READY_FOR_CODEX
 - Next actor: codex
-- Reviewed M3 Gate: `d13f7e71e5a7fa597c5d54efcc25d385eca54c09`
+- Reviewed M3 Gate HEAD: `6d291afba23907768725ce9136414b673bdb3533`
 
-M3 information architecture exists and passes CI, but semantic repair is required before faction/institutional work.
+Current product boundary:
 
-M4 is not authorized.
+Faction state, membership/offices, political blocs, FactionNeeds, institutional beliefs, SocialIdentity, audience reputation, official standing, cases, investigation, proposals/governance and missions.
+
+M5 logistics/resource-crisis expansion is not authorized.
