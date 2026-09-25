@@ -2,16 +2,14 @@
 
 No review is currently pending.
 
-M3 / TASK-M3-001 was reviewed at remote HEAD:
+M3 / TASK-M3-FIX-001 was reviewed at remote Gate HEAD:
 
-`d13f7e71e5a7fa597c5d54efcc25d385eca54c09`
+`6d291afba23907768725ce9136414b673bdb3533`
 
-Verdict: **CHANGES_REQUESTED**.
+Verdict: **PASS_WITH_NOTES**.
 
-Authorized repair:
+M4 / TASK-M4-001 is authorized.
 
-`TASK-M3-FIX-001`
+Codex should execute `docs/M4_TASK_SPEC.md` completely and return a new review request only after the code-bearing implementation commit is pushed, Gate state is recorded, CI passes and final remote HEAD is verified according to `docs/GATE_SHA_PROTOCOL.md`.
 
-Codex must complete `docs/M3_REPAIR_SPEC.md`, push/verify the repair, return WAITING_FOR_MASTER / next_actor=chatgpt, and STOP.
-
-M4 is not authorized.
+M5 is not authorized.
