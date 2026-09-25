@@ -43,7 +43,7 @@ Status: PASS
 - STATIC: PASS
 - UNIT: PASS
 - INTEGRATION: PASS (M1/M2/M3 smoke, repair semantics and Save/Resume)
-- REAL ENV: PENDING final GitHub Actions run for the repair commit
+- REAL ENV: PASS (GitHub Actions run [36134880203](https://github.com/weiyang02520-ops/gu-open-world-game/actions/runs/36134880203), conclusion `success`)
 
 ## Files Changed
 
@@ -74,15 +74,16 @@ Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
 ## Implementation Commit
 
-Pending final repair commit; record exact code-bearing SHA in CURRENT_STATE.
+M3 repair implementation commit: `ed3c40f64e58c25cfe9611e4c7bcdbd9ff8a4043`.
+Gate state commit is recorded externally after push; see `docs/GATE_SHA_PROTOCOL.md`.
 
 ## Push
 
-PENDING until repair implementation is pushed.
+SUCCESS (repair implementation pushed; Gate state commit pending).
 
 ## Remote Verified
 
-PENDING until final remote verification.
+YES for repair implementation commit: remote `refs/heads/main` matched `ed3c40f64e58c25cfe9611e4c7bcdbd9ff8a4043` before the Gate state commit.
 
 ## Known Issues
 
