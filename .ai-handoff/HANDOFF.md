@@ -1,19 +1,45 @@
 # Handoff
 
-## Completed
+## Master verdict
 
-- Created the repository skeleton and Python package.
-- Added deterministic clock, RNG, entity IDs, event bus and minimal world state.
-- Added versioned JSON persistence and provenance model.
-- Added pytest coverage and CI configuration.
+M0 / TASK-M0-001: **PASS**
 
-## Verify next
+Reviewed remote commit:
 
-- Run the documented test and smoke commands.
-- Review the final commit and decide whether M0 passes.
-- GitHub remote is configured and the initial M0 commit has passed SHA verification.
-- The final state commit must also be pushed and verified before this Gate is closed.
+`ba27a449af05484a437f46a650b1692fb1d121b2`
+
+GitHub Actions for that remote commit: PASS.
+
+## Current authorized work
+
+M1 / TASK-M1-001 is authorized.
+
+Read in this order:
+
+1. `.ai/CURRENT_STATE.json`
+2. `.ai/ACTIVE_TASK.md`
+3. `docs/M1_TASK_SPEC.md`
+4. `.ai/MASTER_REVIEW.md`
+5. `docs/context/AGENT_MEMORY.md`
+6. `docs/context/CHATGPT_MEMORY.md`
+
+## Important carried notes
+
+- Make DomainEvent payload effectively immutable.
+- Establish one authoritative durable event log.
+- Expand CI to install + smoke.
+- Do not expand into M2 systems.
 
 ## Stop rule
 
-Do not start M1 until an external review records a verdict and a new task packet.
+When M1 acceptance is complete:
+
+- test;
+- update Memory/Handoff/CODEX_REPORT;
+- commit;
+- push;
+- remote verify exact final SHA;
+- set WAITING_FOR_MASTER;
+- next_actor=chatgpt;
+- release lock;
+- STOP.

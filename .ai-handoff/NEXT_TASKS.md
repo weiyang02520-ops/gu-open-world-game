@@ -1,16 +1,19 @@
 # Next Tasks
 
-## M1 after approval
+## Authorized now
 
-Implement the Day 1~2 Sandbox described in `docs/M1_TASK_SPEC.md`:
+### TASK-M1-001 — Day 1~2 Headless Sandbox
 
-- Character/player/NPC minimum model
-- Three basic Gu instances and feeding demand
-- Primeval essence and aperture state
-- One resource node and one local market
-- Three to five NPCs with Need/Goal actions
-- Buy, sell, gather, feed Gu and cultivate
+Implement only the task in `.ai/ACTIVE_TASK.md`.
 
-## Not authorized by this handoff
+## Planned but NOT authorized
 
-Combat, faction politics, rumor propagation, complete refinement, caravans, full map and UI.
+- M2: combat + injury + reaction-window slice
+- M3: information / observation / rumor / belief slice
+- M4: faction / reputation / case slice
+- M5: resource crisis + shipment / caravan slice
+- M6: breakthrough + attainment slice
+- M7: basic killer-move composition
+- M8: integrated Day 1~10 Vertical Slice
+
+No later milestone may start automatically.
