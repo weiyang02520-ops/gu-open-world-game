@@ -4,46 +4,54 @@
 
 - Repository: `weiyang02520-ops/gu-open-world-game`
 - Branch: `main`
-- Current milestone: M4
-- Current task: `TASK-M4-001`
-- M0: PASS
-- M1: PASS_WITH_NOTES
-- M2: PASS_WITH_NOTES
-- M3: PASS_WITH_NOTES
-- M4 implementation is complete and waiting for External ChatGPT review.
-- Reviewed M3 repair Gate: `6d291afba23907768725ce9136414b673bdb3533`
+- Active task: `TASK-V0.1-FULL-001`
+- Execution mode: LONG RUN
+- M0–M3: completed/reviewed
+- M4: completed as internal checkpoint
+- M4 code-bearing commit: `40597c401743dc79aa0baedf126c273507047838`
+- M4 Gate-state commit: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
+- Current internal phase: M5
+- No human Gate is required between M4/M5/M6/M7/M8.
 
-## User preference
+## Important correction
 
-Large useful work packages; manual control at major Gates. Continue through implementation/tests/smoke/docs without routine micro-questions.
+A previous Codex run mistakenly reverted CURRENT_STATE to TASK-M4-001 / WAITING_FOR_MASTER despite the user's full-V0.1 authorization.
 
-## Stable project invariants
+That stop was procedural, not a product blocker.
 
-- deterministic WorldClock/RNG;
-- one durable event log;
-- save schema remains versioned;
-- Canon/Fan/Game provenance remains explicit;
-- player/NPC share world rules;
-- NPC/institutions do not read hidden WorldTruth;
-- no generic character EXP;
-- no single scalar reputation;
-- official faction policy distinct from personal opinion;
-- no M5 systems in this M4 task.
+The repository has now restored the user's explicit instruction:
 
-## M4 delivered baseline
+**continue automatically to full V0.1.**
 
-- three local factions with needs, states, memberships and offices;
-- political blocs, influence and deterministic governance votes;
-- institutional beliefs sourced from delivered M3 reports only;
-- social identities, audience-scoped reputation and official standing;
-- non-binary cases and deterministic investigation;
-- recruitment, standing changes and faction missions;
-- integrated M4 smoke and faction Save/Resume.
+## Read order
 
-## Gate SHA
+1. `docs/V0_1_FULL_EXECUTION_SPEC.md`
+2. `docs/V0_1_ACCEPTANCE_MATRIX.md`
+3. `docs/V0_1_CONTENT_TARGETS.md`
+4. `docs/PRODUCT_DIRECTION.md`
+5. `docs/DEVELOPMENT_ROADMAP.md`
+6. `docs/CODEX_EXECUTION_POLICY.md`
+7. `docs/GATE_SHA_PROTOCOL.md`
 
-`last_codex_commit` records the code-bearing implementation commit. The final remote Gate HEAD is verified externally under `docs/GATE_SHA_PROTOCOL.md`.
+## Current phase M5
+
+Build the real shortage/logistics loop:
+
+- 15–25 nodes target;
+- 3–4 markets target;
+- 5–8 routes;
+- local price divergence;
+- overharvest/node health;
+- shipments;
+- caravans;
+- actual cargo transfers;
+- route risk;
+- faction reserves/procurement;
+- shortage affecting NPC/faction goals;
+- save/resume in transit.
+
+Then continue M6/M7/M8 without human review.
 
 ## Stop
 
-At M4 completion: tests + four smoke commands + docs/report → push/remote verify → WAITING_FOR_MASTER / chatgpt → STOP before M5.
+Only at complete V0.1 or genuine product-level blocker.
