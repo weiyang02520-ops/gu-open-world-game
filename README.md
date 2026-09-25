@@ -7,50 +7,59 @@
 ## 当前状态
 
 - M0 deterministic core：**PASS**
-- M1 / TASK-M1-001：**实现完成，等待 External ChatGPT Review**
-- 当前阶段仍以纯 Python Core Simulation 为主，不锁定最终图形引擎。
+- M1 Day 1~2 Living Sandbox：**PASS_WITH_NOTES**
+- 当前里程碑：**M2**
+- 当前任务：**TASK-M2-001 — Combat, Injury and Hostile Decision Loop**
+- 当前仍以纯 Python Core Simulation 为主，不锁定最终图形引擎。
 
-## 开发总方向
+## 已经跑通
 
-先做：
+M1 已证明：
 
-**小地图 + 完整系统闭环**
+```text
+有限资源点
+→ 玩家 / NPC 采集
+→ 真实 ResourceLot
+→ 有限市场交易
+→ 蛊虫饥饿 / 喂养
+→ 修炼消耗真元和时间
+→ NPC 自主行动
+→ 世界时间推进
+→ Save / Resume 可复现
+```
 
-而不是：
+## 当前 M2 要证明
 
-**巨大五域地图 + 浅层功能**
+```text
+敌对意图
+→ 蛊虫准备 / 激活
+→ 感知
+→ Reaction Window
+→ 移动 / 闪避 / 逃跑
+→ 攻击结算
+→ 具体部位伤势
+→ 后续行动受伤势影响
+```
 
-V0.1 最终目标是一个 10 个游戏日的局部世界 Vertical Slice。
+详细要求：
 
-长期核心包括：
-
-- 修炼 / 空窍 / 真元；
-- GuDefinition / GuInstance / 喂养；
-- 资源生态与真实市场库存；
-- NPC Needs / Goals / Risk / Beliefs；
-- 战斗与伤势；
-- 情报 / 传闻 / 证据；
-- 多维信誉与势力政治；
-- 世界时间与分级模拟；
-- Effect Graph 与杀招组合；
-- Canon Database 与动态 World State 分离。
-
-详细方向：
-
+- `docs/M2_TASK_SPEC.md`
 - `docs/PRODUCT_DIRECTION.md`
 - `docs/DEVELOPMENT_ROADMAP.md`
 - `docs/CODEX_EXECUTION_POLICY.md`
 
 ## Codex 工作模式
 
-项目默认使用“大任务模式”。
+采用“大任务模式”。
 
-一个授权 Task 应尽量完成一个完整可验证闭环，包括代码、测试、smoke、文档、Memory、CI、Commit、Push 与 Remote Verify，而不是每完成几个文件就回来请求下一句话。
+一个授权 Milestone 尽量一次完成完整可验证闭环：
 
-但仍然保留人工 Gate：
+代码 → 测试 → smoke → 文档 → Memory → CI → Commit → Push → Remote Verify。
+
+但保留人工 Gate：
 
 - Codex 不能自动跨 Milestone。
-- 大方向和重要产品决策由用户 / External ChatGPT 决定。
+- 大方向由用户 / External ChatGPT 决定。
 - 每个阶段完成后进入 `WAITING_FOR_MASTER`。
 
 ## 本地运行
@@ -65,33 +74,16 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m gu_game --scenario day1-2 --seed 20260925
 ```
 
-M1 smoke 会推进到 Day 2，并输出最终摘要和持久事件日志尾部。
+M2 完成后 README 应增加 combat smoke 命令。
 
 ## 数据与设定
-
-设定事实不得混为一谈。
 
 - `CANON_EXPLICIT`：原作 / 明确作者来源
 - `FAN_COMPILED`：书友 / Wiki / 社区整理
 - `GAME_EXTENSION`：游戏为可玩性添加的规则与数值
 
 不要把粉丝整理自动升级为 Canon。
-不要在仓库中批量保存完整原著文本；保存结构化事实、摘要、来源定位与必要证据。
-
-M1 的玩家和 NPC 共用 `Character` 模型；有限资源节点、有限市场库存和 `ResourceLot` 共同构成真实转移路径。所有 M1 平衡值集中在 `src/gu_game/m1/balance.py`，并标记为 `GAME_EXTENSION`。
-
-## 当前目录
-
-```text
-src/gu_game/       Python Core Simulation
- data/canon/       原作明确设定
- data/fan/         粉丝整理资料
- data/game/        游戏扩展规则与平衡
- tests/            自动测试
-docs/              产品、架构、路线和 Memory
-.ai/               当前任务 / 状态 / Review
-.ai-handoff/       跨 Agent 阶段交接
-```
+不要在仓库中批量保存完整原著文本。
 
 GitHub remote：
 
