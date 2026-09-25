@@ -1,35 +1,43 @@
 # Master Review
 
-## Review
+## M1 / TASK-M1-001
 
-- Milestone: M0
-- Task: TASK-M0-001
-- Reviewed remote commit: `ba27a449af05484a437f46a650b1692fb1d121b2`
-- Verdict: **PASS**
+- Reviewed remote HEAD: `4d3523dc0fe42d799b34654e4ca2fe67ede6d82f`
+- Verdict: **PASS_WITH_NOTES**
 - Reviewer: External ChatGPT Web Master
 - Date: 2026-09-25
 
-## Evidence checked
+## Verified from the remote implementation
 
-- Remote `main` resolves to `ba27a449af05484a437f46a650b1692fb1d121b2`.
-- GitHub Actions push run for the reviewed commit completed successfully.
-- `WorldClock` is detached from wall-clock time.
-- `DeterministicRNG` persists and restores its internal state.
-- Save/Load round-trips core state and continues the RNG sequence.
-- `EventBus` keeps pending delivery separate from event history.
-- Canon/Fan/Game provenance is explicit and serializable.
-- M0 stayed within scope and did not start M1 early.
-- Lock is released and state is recoverable from the repository.
+- shared Character model with HUMAN / AI controller;
+- separate GuDefinition / GuInstance;
+- finite ResourceLot / ResourceNode / LocalMarket;
+- real gather / buy / sell transfers;
+- Gu hunger and feeding consuming owned resources;
+- cultivation consuming primeval essence and world time;
+- autonomous NPC actions while the player idles;
+- one durable event-log path through WorldState.event_log;
+- recursively frozen DomainEvent payloads;
+- deterministic Day 1–2 scenario;
+- save/resume equivalence tests;
+- CI install + pytest + Day 1–2 smoke;
+- final remote HEAD CI success.
 
-## Non-blocking notes carried into M1
+## Result
 
-1. `DomainEvent` is frozen only at the dataclass level; the payload remains a mutable dict. Harden event immutability before events become durable audit truth.
-2. `EventBus.history` and `WorldState.event_log` are currently separate mechanisms. M1 must define one authoritative event-recording path to prevent divergence.
-3. CI currently proves pytest on Python 3.12. Add install + smoke coverage while implementing M1.
-4. Provenance tests should use neutral synthetic examples rather than pairing `CANON_EXPLICIT` with a source explicitly named “unverified”.
+M1 fulfills its product question: the deterministic core can support a small living two-day world where player and NPC actions compete for real resources and time continues without player participation.
+
+M1 is closed.
+
+## Notes carried into M2
+
+1. M1 NPC autonomy is intentionally coarse: one abstract NPC decision per simulated hour. Acceptable for economy, not for combat timing.
+2. M2 requires deterministic sub-second/equivalent integer combat ordering while keeping M1 save compatibility.
+3. CURRENT_STATE bookkeeping must record the exact final pushed Codex HEAD before returning WAITING_FOR_MASTER.
+4. M2 combat AI may use directly perceivable combat state, but must not introduce omniscient hidden-player reads that would conflict with future M3 information/belief work.
 
 ## Gate
 
-M0 is closed.
+M2 / TASK-M2-001 is authorized.
 
-M1 / TASK-M1-001 is authorized.
+Do not begin M3 without a new Master review.
