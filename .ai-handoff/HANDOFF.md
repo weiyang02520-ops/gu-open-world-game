@@ -1,49 +1,46 @@
-# Handoff
+# Handoff — Full V0.1 Run
 
-## Completed Gate
+## Reviewed baseline
 
-M3 / TASK-M3-FIX-001: **PASS_WITH_NOTES**
-
-Reviewed Gate HEAD:
+M3 repair Gate:
 
 `6d291afba23907768725ce9136414b673bdb3533`
 
-M3 now provides:
+M0–M3 are complete.
 
-- incomplete Observation;
-- structured Evidence / Hypothesis / Report;
-- claimed vs actual report basis;
-- evaluator-local SourceProfile credibility;
-- correlated source discount;
-- delayed channels;
-- rumor mutation that changes interpreted Belief;
-- per-NPC BeliefStore;
-- Memory / directional Relationship;
-- investigation via evidence rather than truth reveal;
-- deterministic Save/Resume.
+## Current authorization
 
-## Authorized now
+`TASK-V0.1-FULL-001`
 
-M4 / TASK-M4-001 — Factions, Reputation, Cases and Institutional Politics.
+Sol/Codex is authorized to continue through all remaining V0.1 internal phases without waiting for a human Gate.
 
 Read:
 
 1. `.ai/CURRENT_STATE.json`
 2. `.ai/ACTIVE_TASK.md`
-3. `docs/M4_TASK_SPEC.md`
-4. `.ai/MASTER_REVIEW.md`
-5. `docs/PRODUCT_DIRECTION.md`
-6. `docs/context/AGENT_MEMORY.md`
+3. `docs/V0_1_FULL_EXECUTION_SPEC.md`
+4. `docs/V0_1_ACCEPTANCE_MATRIX.md`
+5. `docs/V0_1_CONTENT_TARGETS.md`
+6. `docs/M4_TASK_SPEC.md`
+7. `docs/PRODUCT_DIRECTION.md`
+8. `docs/GATE_SHA_PROTOCOL.md`
 
-## Carried hardening
+## Internal sequence
 
-- source credibility penalties must only hit actually contradicted claims/sources;
-- report arrival must not blindly increase trust;
-- institutional investigations must use deterministic M3 evidence rules;
-- follow non-self-referential Gate SHA protocol.
+A. M4 factions/institutions
+B. M5 economy/logistics/crisis
+C. M6 cultivation/breakthrough/attainment
+D. M7 Effect Graph/killer move
+E. M8 integrated Day1–10 V0.1
+
+Commit and push at each internal checkpoint, but continue.
 
 ## Stop
 
-Finish M4 → test/smoke/docs → push/verify → WAITING_FOR_MASTER / chatgpt → STOP.
+Only stop for:
 
-M5 is not authorized.
+- full V0.1 Gate;
+- true product blocker;
+- repository/data/licensing risk.
+
+Do not stop for routine implementation questions.
