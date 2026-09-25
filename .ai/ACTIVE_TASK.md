@@ -67,6 +67,23 @@ Reviewed M3 repair Gate:
 
 `6d291afba23907768725ce9136414b673bdb3533`
 
+### Expanded workload
+
+This task intentionally includes the expanded content targets in M4 spec sections 28–39.
+
+Do not stop after schema/framework completion. Build the full small political environment:
+- 3 factions;
+- 8–12 important faction-linked NPCs;
+- 2 concurrent case chains;
+- cross-faction disagreement;
+- political leverage actions;
+- contribution/favor;
+- real access control;
+- mission lifecycle;
+- NPC institutional actions;
+- 24–48h autonomous institutional evolution;
+- same-seed cooperative vs adversarial divergence validation.
+
 ### Completion
 
 Complete the entire coherent M4 package before returning unless a genuine product-level blocker prevents it.
