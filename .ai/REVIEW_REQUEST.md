@@ -1,20 +1,13 @@
 # Review Request
 
-M1 / TASK-M1-001 was reviewed at remote HEAD:
+No review is currently pending.
 
-`4d3523dc0fe42d799b34654e4ca2fe67ede6d82f`
+M2 / TASK-M2-001 was reviewed at remote HEAD:
+
+`60b4b776ef18c5992ceb6b7ed3131feac7f17469`
 
 Verdict: **PASS_WITH_NOTES**.
 
-M2 / TASK-M2-001 is complete and ready for External ChatGPT review.
+M3 / TASK-M3-001 is authorized.
 
-Review focus:
-
-1. Integer combat timing and deterministic same-tick ordering.
-2. Serializable active encounter and M1 save compatibility.
-3. Body-part injury, bleeding, impairment and later movement consequence.
-4. Attack/movement/perception Gu roles, reaction windows and real essence costs.
-5. NPC decisions using `PerceivedCombatSnapshot` without hidden target essence/injury reads.
-6. M1 regression and CI install/test/M1 smoke/M2 smoke.
-
-Do not authorize M3 from this request; issue a separate Master task packet after review.
+Codex should execute the active M3 package and replace this file with a review request only after the exact final M3 HEAD has been pushed and remote-verified.
