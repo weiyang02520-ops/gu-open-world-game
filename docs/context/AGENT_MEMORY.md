@@ -4,74 +4,90 @@
 
 - Repository: `weiyang02520-ops/gu-open-world-game`
 - Branch: `main`
-- Current milestone: M1
-- Current task: `TASK-M1-001`
-- M0 was reviewed PASS by External ChatGPT.
-- M1 implementation is complete and waiting for External ChatGPT review.
-- Read `docs/PRODUCT_DIRECTION.md`, `docs/DEVELOPMENT_ROADMAP.md` and `docs/CODEX_EXECUTION_POLICY.md` before making broad implementation decisions.
+- Current milestone: M2
+- Current task: `TASK-M2-001`
+- M0: PASS
+- M1: PASS_WITH_NOTES
+- M1 reviewed HEAD: `4d3523dc0fe42d799b34654e4ca2fe67ede6d82f`
+- M2 is authorized.
+- Read `docs/PRODUCT_DIRECTION.md`, `docs/DEVELOPMENT_ROADMAP.md`, `docs/CODEX_EXECUTION_POLICY.md`, and `docs/M2_TASK_SPEC.md`.
 
 ## User working preference
 
-The user prefers **large, useful work batches**.
+The user prefers large useful work batches and manual control at major Gates.
 
-Do not repeatedly stop for minor implementation choices. Within an authorized task, continue through related subtasks, tests, documentation and verification.
+Within M2:
+- continue through related implementation, tests and docs;
+- do not stop for routine micro-decisions;
+- do not cross into M3.
 
-The user still wants manual project direction at milestone / major-design level. Do not automatically cross milestone Gates.
-
-## Technical constraints
+## Stable technical constraints
 
 - Python 3.12+
-- standard-library-first core remains preferred while sufficient
-- pytest for tests
-- deterministic WorldClock and dedicated RNG
-- JSON save with schema version
-- no wall-clock time in authoritative simulation
+- deterministic WorldClock / RNG
 - no global random state
-- GitHub remote is the durable cross-agent truth
-- all game-balance values introduced without source support are GAME_EXTENSION
-- M1 balance values are centralized in `src/gu_game/m1/balance.py`
-- `WorldState.event_log` is the single durable event log; M1 EventBus references it
+- versioned save schema
+- one durable event log
+- GitHub remote is cross-agent truth
+- unsourced tuning numbers are GAME_EXTENSION
+- Player and NPC share Character/world rules
+- no generic Character EXP as core progression
+- Canon/Fan/Game provenance remains first-class
 
-## Architecture invariants
+## M1 delivered baseline
 
-- Player and NPC use a shared Character direction.
-- Canon / Fan / Game provenance remains first-class.
-- Canon Database and mutable save-world state must not be merged.
-- World changes should move through explicit action / validation / event / state mutation boundaries.
-- NPCs must not gain omniscient WorldTruth as later information systems are added.
-- Generic Character EXP must not become the central progression mechanic.
-- Infinite shops / unexplained resource creation must not become the core economy.
-- LLMs may assist language later but do not authorize world-rule violations.
-
-## M1 delivered requirements
-
-- hardened DomainEvent payload immutability;
-- one authoritative durable event log;
-- CI install + test + smoke;
-- neutral provenance test fixture;
-- shared HUMAN / AI Character minimum;
-- cultivation minimum;
-- three player starter Gu + feeding;
-- finite regenerating resource node;
-- finite market with real transfers;
-- 3 NPC Needs / Goals and deterministic Day 1–2 scenario;
+- shared HUMAN / AI Character;
+- aperture / primeval essence / wall progress minimum;
+- three starter Gu;
+- Gu hunger and feeding;
+- finite resource node;
+- finite market;
+- real ResourceLot transfers;
+- gather / buy / sell / feed / cultivate / wait action path;
+- 3 NPC autonomous Need/Goal actions;
+- deterministic Day 1–2 scenario;
+- authoritative event log;
 - save/resume equivalence.
+
+## M2 architecture requirements
+
+- combat timing must not use M1 hourly NPC cadence;
+- use deterministic integer sub-second/equivalent combat ordering;
+- serializable active CombatEncounter;
+- body-part injuries rather than visible HP-only combat;
+- attack / movement / perception Gu roles;
+- reaction window before resolution;
+- real essence costs;
+- local distance / position;
+- NPC attack / avoid / flee based on perceived visible state;
+- mid-combat save/resume determinism;
+- M1 regression preserved.
+
+## M1 review notes
+
+- M1 hourly NPC scheduling remains acceptable for coarse economic simulation.
+- CURRENT_STATE bookkeeping must record the exact final Codex HEAD at the next Gate.
+- M2 must not introduce omniscient NPC knowledge as a shortcut.
 
 ## Common failure modes
 
-- turning the game into a quest checklist;
-- overbuilding future systems before the current loop works;
-- treating planning docs as implemented features;
-- treating FAN_COMPILED as CANON_EXPLICIT;
-- NPCs reading hidden authoritative state they should not know;
-- using a single reputation / morality integer for future social simulation;
-- claiming remote verification without checking exact remote SHA;
-- stopping after a tiny subtask while most authorized work remains.
+- attack becomes only hidden HP subtraction;
+- combat resolves instantly with no reaction window;
+- using floats for authoritative combat time;
+- NPC reads exact hidden player essence/injury values;
+- overbuilding full M3 information system;
+- overbuilding M7 Effect Graph;
+- breaking M1 save/scenario without migration;
+- stopping after only one combat file while the bounded package remains incomplete.
 
 ## Stop rules
 
-Stop at WAITING_FOR_MASTER when the active milestone acceptance criteria are complete.
-
-Also stop if a remaining decision would change product direction or cross into the next milestone.
-
-Do not start M2 merely because M1 finished locally.
+At full M2 completion:
+- test / smoke;
+- docs / Memory / report;
+- commit / push / exact remote verify;
+- CURRENT_STATE final Codex HEAD exact;
+- WAITING_FOR_MASTER;
+- next_actor=chatgpt;
+- release lock;
+- STOP.
