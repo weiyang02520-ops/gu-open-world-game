@@ -1,41 +1,88 @@
 # Master Review
 
-## M2 / TASK-M2-001
+## M3 / TASK-M3-001
 
-- Reviewed remote HEAD: `60b4b776ef18c5992ceb6b7ed3131feac7f17469`
-- Verdict: **PASS_WITH_NOTES**
+- Reviewed remote HEAD: `d13f7e71e5a7fa597c5d54efcc25d385eca54c09`
+- Verdict: **CHANGES_REQUESTED**
 - Reviewer: External ChatGPT Web Master
 - Date: 2026-09-25
 
-## Verified from remote implementation
+## What passed
 
-- integer millisecond combat time with deterministic `(execute_at_ms, sequence)` ordering;
-- serializable `CombatEncounter`;
-- six body parts, bleeding, impairment, incapacitation/death;
-- attack / movement / perception Gu roles over real owned Gu instances;
-- preparation → perception → reaction → resolution pipeline;
-- real primeval essence costs and integer local positions;
-- reaction can change attack outcome;
-- leg injury changes later movement;
-- NPC ATTACK/HOLD/FLEE through `PerceivedCombatSnapshot`;
-- active-combat save/resume determinism;
-- M1 save compatibility and M1 regressions;
-- final Gate HEAD CI success.
+Remote implementation and CI confirm that M3 has a strong structural base:
 
-## Result
+- WorldTruth is separated from per-NPC information state.
+- Observation is incomplete and does not copy hidden essence/injury dictionaries.
+- Structured Hypothesis / Evidence / EvidenceSupport / Report / Belief models exist.
+- Claimed basis and actual basis are separated.
+- False reports do not mutate the underlying World Event.
+- origin_chain_id / independence_group_id survive transmission.
+- Correlated reports are discounted.
+- Belief decay, MemoryRecord, RelationshipState, delayed channels and investigation exist.
+- M1/M2 regressions pass.
+- Equal-time combat ordering now has explicit regression coverage.
+- Pending-transmission Save/Resume is deterministic.
+- Final Gate CI passed at `d13f7e71e5a7fa597c5d54efcc25d385eca54c09`.
 
-M2 fulfills its product question. Combat is no longer a direct HP subtraction loop: time, perception, reaction, movement, essence and concrete injury all affect outcomes.
+## Blocking semantic issues
 
-M2 is closed.
+### 1. Relationship direction is reversed during report delivery
 
-## Notes carried into M3
+The model is directional:
 
-1. `PerceivedCombatSnapshot.target_movement_impairment` is currently derived from authoritative body state. This is acceptable as an immediate visible combat signal, but M3 must formalize the truth→observation boundary and prevent exact hidden injury data from leaking into persistent beliefs.
-2. Equal-time ordering is correctly implemented by `(execute_at_ms, sequence)`, but there is no dedicated regression test asserting two same-time actions resolve by sequence. M3 must add this test.
-3. Codex Gate bookkeeping still recorded `last_codex_commit` as the implementation commit rather than the final Gate HEAD. Future Gate state must record the exact final pushed Codex HEAD.
+`RelationshipState.source_id -> target_id`
+
+but report delivery currently updates:
+
+`relationship(report.sender_id, receiver_id).trust`
+
+This means receiving a report makes the sender trust the receiver more, instead of changing the receiver's trust in the sender.
+
+This must be corrected and tested before M4.
+
+### 2. SourceProfile fields are mostly inert
+
+SourceProfile stores:
+
+- trustworthiness
+- domain_expertise
+- honesty_history
+- relationship_bias
+- motive_modifier
+
+but the actual report belief calculation currently uses only a subset (primarily trustworthiness, channel quality and claimed basis).
+
+M3 explicitly requires credibility to depend on source expertise/history/bias/motive/relationship. These fields must become operational and tested.
+
+### 3. Rumor mutation is currently mostly metadata-only
+
+`RumorThread.semantic_slots` mutates, but the receiver still receives the original report claims.
+
+Therefore a changed initiator/action slot can be visible in rumor metadata while the receiver's BeliefStore still reflects the unmutated semantic claim.
+
+Mutation must affect interpreted information while preserving provenance and correlation lineage.
+
+### 4. Gate SHA invariant is self-referential
+
+The previous task required CURRENT_STATE inside the final commit to contain that same final commit SHA. A Git commit cannot contain its own SHA because changing the file changes the SHA.
+
+The workflow must stop claiming this impossible invariant.
+
+Recommended semantics:
+
+- `last_codex_commit` = final code-bearing implementation commit;
+- remote HEAD is resolved externally at review time;
+- optional gate verification metadata may refer to the known parent or be stored out-of-band;
+- reports must state exactly what was verified without creating an endless “record the new HEAD in another commit” loop.
+
+The repair task must document and normalize this protocol.
 
 ## Gate
 
-M3 / TASK-M3-001 is authorized.
+M3 is **not closed yet**.
 
-Do not begin M4 without a new Master review.
+Authorized task: `TASK-M3-FIX-001`.
+
+See `docs/M3_REPAIR_SPEC.md`.
+
+M4 is not authorized.
