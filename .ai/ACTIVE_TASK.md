@@ -1,54 +1,83 @@
 # Active Task
 
-## TASK-M3-FIX-001 — M3 Semantic Repair
+## TASK-M4-001 — Factions, Reputation, Cases and Institutional Politics
 
 ### Execution mode
 
-**LARGE TASK MODE / BOUNDED REPAIR**
+**LARGE TASK MODE**
 
-M3 implementation is structurally strong but did not pass Master Review due to semantic defects that would contaminate M4 faction behavior.
+M3 has passed Master Review.
 
-Read:
+Before coding read:
 
-1. `.ai/MASTER_REVIEW.md`
-2. `docs/M3_REPAIR_SPEC.md`
-3. `docs/M3_TASK_SPEC.md`
-4. `docs/M3_ARCHITECTURE.md`
-5. `docs/PRODUCT_DIRECTION.md`
-6. `docs/CODEX_EXECUTION_POLICY.md`
+1. `docs/PRODUCT_DIRECTION.md`
+2. `docs/DEVELOPMENT_ROADMAP.md`
+3. `docs/CODEX_EXECUTION_POLICY.md`
+4. `docs/M4_TASK_SPEC.md`
+5. `.ai/MASTER_REVIEW.md`
+6. `docs/context/AGENT_MEMORY.md`
+7. `docs/GATE_SHA_PROTOCOL.md`
 
 ### Goal
 
-Repair M3 semantics without starting M4.
+Implement a local institutional layer where factions act from incomplete information, needs and internal politics rather than a global reputation switch.
 
-Required focus:
+Core proof:
 
-- correct directional relationship updates;
-- make SourceProfile dimensions operational;
-- connect relationship/source credibility to report impact;
-- update source credibility after evaluator-specific contradiction;
-- make structured rumor mutation affect interpreted belief;
-- strengthen multi-hop lineage/correlation tests;
-- define mixed rumor/direct-evidence decay category semantics;
-- keep investigation evidence-producing rather than truth-revealing;
-- resolve the impossible self-referential Gate SHA protocol truthfully;
-- preserve all M1/M2/M3 regressions and Save/Resume determinism.
+```text
+individual belief
+→ institutional belief
+→ case / proposal
+→ office-holder disagreement
+→ governance resolution
+→ official standing / mission / recruitment / sanction
+```
+
+while keeping personal opinion, audience reputation, institutional belief and official policy separate.
+
+### Required package
+
+- M3 hardening from M4 spec section 1;
+- at least 3 local factions/organizations;
+- membership states;
+- office authority;
+- 2+ blocs/interests in at least one faction;
+- FactionNeeds;
+- institutional beliefs from delivered information only;
+- minimal SocialIdentity;
+- audience-scoped multidimensional ReputationVector;
+- official FactionStanding;
+- FactionCase state machine;
+- institutional investigation over M3 evidence;
+- FactionProposal;
+- deterministic governance / voting;
+- InfluenceVector minimum;
+- recruitment / watch / sanction / close-case actions;
+- faction-generated missions;
+- integrated M4 scenarios;
+- Save/Resume determinism;
+- M1/M2/M3 regression;
+- CI M1/M2/M3/M4 smoke;
+- docs / Memory / Handoff / Report;
+- push and remote verify according to Gate SHA protocol.
 
 ### Baseline
 
-Reviewed M3 Gate:
+Reviewed M3 repair Gate:
 
-`d13f7e71e5a7fa597c5d54efcc25d385eca54c09`
+`6d291afba23907768725ce9136414b673bdb3533`
 
 ### Completion
 
-Follow `docs/M3_REPAIR_SPEC.md` completely.
+Complete the entire coherent M4 package before returning unless a genuine product-level blocker prevents it.
 
-At completion:
-- all tests/smokes/CI pass;
-- status = WAITING_FOR_MASTER;
-- next_actor = chatgpt;
-- Gate reporting is truthful under the revised non-self-referential SHA semantics;
-- STOP.
+When complete:
 
-Do not begin M4.
+- status = WAITING_FOR_MASTER
+- next_actor = chatgpt
+- last_codex_commit = final code-bearing implementation commit
+- final Gate HEAD verified externally per `docs/GATE_SHA_PROTOCOL.md`
+- lock released
+- STOP
+
+Do not begin M5.
