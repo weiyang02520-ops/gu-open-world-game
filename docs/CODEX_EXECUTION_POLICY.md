@@ -123,6 +123,13 @@ CODEX_REPORT should summarize:
 
 Do not inflate verification level.
 
+### Gate SHA protocol
+
+Git cannot store its own final commit SHA inside that same commit. Use
+`docs/GATE_SHA_PROTOCOL.md`: `CURRENT_STATE.last_codex_commit` records the
+code-bearing implementation commit, while the final remote HEAD is verified
+externally and recorded in `CODEX_REPORT.md` and the final response.
+
 ## 9. Quality preference
 
 Prefer:

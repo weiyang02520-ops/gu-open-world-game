@@ -298,6 +298,15 @@ class InformationEngine:
     ) -> RumorThread:
         report = self.reports[origin_report_id]
         first_hypothesis = report.claims[0].hypothesis_id
+        parent_rumor = next(
+            (
+                item
+                for item in self.rumors.values()
+                if self._root_report_id(item.origin_report_id) == self._root_report_id(origin_report_id)
+            ),
+            None,
+        )
+        inherited_slots = dict(parent_rumor.semantic_slots) if parent_rumor else {}
         rumor = RumorThread(
             rumor_id=self._id("rumor"),
             primary_hypothesis_id=first_hypothesis,
@@ -307,9 +316,9 @@ class InformationEngine:
             origin_location_id=self._character(report.sender_id).location_id,
             current_locations=[self._character(report.sender_id).location_id],
             spread_strength=report.asserted_confidence,
-            mutation_level=1,
+            mutation_level=(parent_rumor.mutation_level + 1) if parent_rumor else 1,
             public_visibility=report.asserted_confidence,
-            semantic_slots=dict(semantic_slots or {}),
+            semantic_slots=dict(semantic_slots or inherited_slots),
         )
         self.rumors[rumor.rumor_id] = rumor
         self._queue_report(report, receiver_id, mutation_level=rumor.mutation_level)
@@ -341,7 +350,7 @@ class InformationEngine:
         self,
         investigator_id: str,
         event_id: str,
-        supports: list[tuple[str, int, int]],
+        supports: list[tuple[str, int, int]] | None = None,
     ) -> EvidenceItem | None:
         investigation_id = self._id("investigation")
         self._emit(
@@ -361,7 +370,7 @@ class InformationEngine:
             investigator_id,
             observation.observation_id,
             evidence_type="PHYSICAL_TRACE",
-            supports=supports,
+            supports=supports or self.investigation_supports(event_id, list(self.hypotheses)),
             independence_group_id=f"investigation-{investigation_id}",
         )
         self._emit(
@@ -370,6 +379,30 @@ class InformationEngine:
             payload={"investigation_id": investigation_id, "evidence_id": evidence.evidence_id},
         )
         return evidence
+
+    def investigation_supports(
+        self, event_id: str, hypothesis_ids: list[str]
+    ) -> list[tuple[str, int, int]]:
+        """Derive evidence relations from observable event traces.
+
+        This is a small deterministic rule table, not a truth-reveal API. The
+        caller gets only relations that the registered trace rule can justify.
+        """
+
+        event = self._event(event_id)
+        relations: list[tuple[str, int, int]] = []
+        for hypothesis_id in hypothesis_ids:
+            hypothesis = self.hypotheses[hypothesis_id]
+            if event.event_type in {"ATTACK_HIT", "INJURY_APPLIED"}:
+                if hypothesis.predicate == "initiated_attack":
+                    if hypothesis.subject_id == event.actor_id and hypothesis.object_value is True:
+                        relations.append((hypothesis_id, 45, 0))
+                    elif hypothesis.subject_id in event.target_ids and hypothesis.object_value is True:
+                        relations.append((hypothesis_id, 0, 45))
+                elif hypothesis.predicate == "dangerous" and hypothesis.object_value is True:
+                    if hypothesis.subject_id in event.target_ids:
+                        relations.append((hypothesis_id, 0, 30))
+        return relations
 
     def decide(self, actor_id: str, target_id: str, hypothesis_id: str) -> InformationDecision:
         belief = self.beliefs.get(actor_id, {}).get(hypothesis_id)
@@ -444,6 +477,7 @@ class InformationEngine:
     def _apply_evidence(self, evaluator_id: str, evidence: EvidenceItem) -> None:
         for support in evidence.supports:
             record = self._belief_record(evaluator_id, support.hypothesis_id, category="IMMEDIATE")
+            record.category = "IMMEDIATE"
             if evidence.independence_group_id not in record.origin_groups_seen:
                 delta = support.support_strength - support.contradiction_strength + B["independent_evidence_bonus"]
                 record.origin_groups_seen.append(evidence.independence_group_id)
@@ -457,11 +491,23 @@ class InformationEngine:
             record.last_updated = self.world.clock.elapsed_seconds
             record.refresh_class()
             self._emit_belief_update(evaluator_id, record, "evidence")
+            if support.contradiction_strength > support.support_strength:
+                self._update_source_credibility_from_contradiction(evaluator_id, record)
 
     def _deliver_transmission(self, transmission: Transmission) -> None:
         report = self.reports[transmission.report_id]
         if transmission.mutation_level:
             self._mutate_rumor(report, transmission.mutation_level)
+            interpreted = self._derive_mutated_report(report, transmission)
+            if interpreted is not None:
+                self._deliver_report(interpreted, transmission.receiver_id)
+                self._emit(
+                    "REPORT_DELIVERED",
+                    actor_id=report.sender_id,
+                    target_ids=(transmission.receiver_id,),
+                    payload={"report_id": interpreted.report_id, "parent_report_id": report.report_id, "channel": transmission.channel.value, "origin_chain_id": report.origin_chain_id},
+                )
+                return
         if transmission.receiver_id not in report.delivered:
             report.delivered.add(transmission.receiver_id)
             self._deliver_report(report, transmission.receiver_id)
@@ -475,15 +521,7 @@ class InformationEngine:
     def _deliver_report(self, report: InformationReport, receiver_id: str) -> None:
         for claim in report.claims:
             record = self._belief_record(receiver_id, claim.hypothesis_id, category="RUMOR")
-            profile = self.source_profiles.get(self._source_key(receiver_id, report.sender_id), SourceProfile(receiver_id, report.sender_id))
-            base = claim.asserted_confidence * report.transmission_quality * max(1, profile.trustworthiness) // 10_000
-            basis_bonus = {
-                BasisType.FIRST_HAND: B["first_hand_gain"],
-                BasisType.SECOND_HAND: B["second_hand_gain"],
-                BasisType.DELIBERATE_LIE: B["deliberate_lie_gain"],
-                BasisType.INFERRED: 8,
-            }[report.claimed_basis]
-            gain = base + basis_bonus
+            gain = max(1, self._credibility_score(receiver_id, report, claim) * claim.asserted_confidence // 100)
             if report.independence_group_id in record.origin_groups_seen:
                 gain //= B["correlated_source_divisor"]
             else:
@@ -508,13 +546,92 @@ class InformationEngine:
             emotional_tags=["FEAR"] if report.intention is ReportIntention.WARN else ["CURIOSITY"],
             persistence=max(30, report.asserted_confidence // 2),
         )
-        self.relationship(report.sender_id, receiver_id).trust = max(
-            0, min(100, self.relationship(report.sender_id, receiver_id).trust + B["relationship_trust_report_delta"])
+        # RelationshipState(source_id -> target_id) is directional. Receiving
+        # a credible report changes the receiver's view of the sender.
+        relationship = self.relationship(receiver_id, report.sender_id)
+        relationship.trust = max(
+            0, min(100, relationship.trust + B["relationship_trust_report_delta"])
         )
+        relationship.last_updated = self.world.clock.elapsed_seconds
+        self._emit(
+            "RELATIONSHIP_CHANGED",
+            actor_id=receiver_id,
+            target_ids=(report.sender_id,),
+            payload={"trust": relationship.trust, "reason": "received_report"},
+        )
+
+    def _credibility_score(
+        self, evaluator_id: str, report: InformationReport, claim: ReportClaim
+    ) -> int:
+        """Return deterministic receiver-specific report credibility.
+
+        Actual basis is intentionally excluded: a receiver cannot use hidden
+        lie metadata before discovering an inconsistency.
+        """
+
+        profile = self.source_profiles.get(
+            self._source_key(evaluator_id, report.sender_id),
+            SourceProfile(evaluator_id, report.sender_id),
+        )
+        relationship = self.relationship(evaluator_id, report.sender_id)
+        basis_bonus = {
+            BasisType.FIRST_HAND: B["first_hand_gain"],
+            BasisType.SECOND_HAND: B["second_hand_gain"],
+            BasisType.DELIBERATE_LIE: B["deliberate_lie_gain"],
+            BasisType.INFERRED: 8,
+        }[report.claimed_basis]
+        weighted = (
+            claim.asserted_confidence * 25
+            + report.transmission_quality * 15
+            + profile.trustworthiness * 15
+            + profile.domain_expertise * 10
+            + profile.honesty_history * 15
+            + relationship.trust * 10
+            + max(0, relationship.respect) * 5
+        ) // 100
+        return max(
+            1,
+            min(
+                100,
+                weighted
+                + basis_bonus
+                + profile.relationship_bias
+                + profile.motive_modifier
+                - relationship.fear // 4
+                - relationship.resentment // 4,
+            ),
+        )
+
+    def _update_source_credibility_from_contradiction(
+        self, evaluator_id: str, belief: BeliefRecord
+    ) -> None:
+        for report_id in belief.report_ids:
+            report = self.reports.get(report_id)
+            if report is None:
+                continue
+            key = self._source_key(evaluator_id, report.sender_id)
+            profile = self.source_profiles.get(key)
+            if profile is None:
+                profile = SourceProfile(evaluator_id, report.sender_id)
+                self.source_profiles[key] = profile
+            profile.trustworthiness = max(0, profile.trustworthiness - 12)
+            profile.honesty_history = max(0, profile.honesty_history - 15)
+            profile.last_updated = self.world.clock.elapsed_seconds
+            self._emit(
+                "SOURCE_CREDIBILITY_UPDATED",
+                actor_id=evaluator_id,
+                target_ids=(report.sender_id,),
+                payload={
+                    "source_id": report.sender_id,
+                    "trustworthiness": profile.trustworthiness,
+                    "honesty_history": profile.honesty_history,
+                    "reason": "contradictory_independent_evidence",
+                },
+            )
 
     def _mutate_rumor(self, report: InformationReport, mutation_level: int) -> None:
         for rumor in self.rumors.values():
-            if rumor.origin_report_id != report.report_id:
+            if self._root_report_id(report.report_id) != self._root_report_id(rumor.origin_report_id):
                 continue
             if mutation_level % 2 == 1 and "initiator" in rumor.semantic_slots:
                 rumor.semantic_slots["initiator"] = "unknown-third-party"
@@ -529,6 +646,61 @@ class InformationEngine:
                 actor_id=report.sender_id,
                 payload={"rumor_id": rumor.rumor_id, "origin_chain_id": rumor.origin_chain_id},
             )
+
+    def _derive_mutated_report(
+        self, report: InformationReport, transmission: Transmission
+    ) -> InformationReport | None:
+        if transmission.mutation_level <= 0:
+            return None
+        rumor = next(
+            (
+                item
+                for item in self.rumors.values()
+                if self._root_report_id(item.origin_report_id) == self._root_report_id(report.report_id)
+            ),
+            None,
+        )
+        if rumor is None or rumor.semantic_slots.get("initiator") != "unknown-third-party":
+            return None
+        derived_claims: list[ReportClaim] = []
+        for claim in report.claims:
+            hypothesis = self.hypotheses.get(claim.hypothesis_id)
+            if hypothesis and hypothesis.predicate == "initiated_attack":
+                derived_id = f"derived:{rumor.rumor_id}:{claim.hypothesis_id}"
+                if derived_id not in self.hypotheses:
+                    self.register_hypothesis(
+                        derived_id,
+                        "unknown-third-party",
+                        hypothesis.predicate,
+                        hypothesis.object_value,
+                        {"parent_hypothesis_id": hypothesis.hypothesis_id, "origin_chain_id": report.origin_chain_id},
+                    )
+                derived_claims.append(
+                    ReportClaim(derived_id, "unknown-third-party", claim.supports, claim.asserted_confidence)
+                )
+            else:
+                derived_claims.append(claim)
+        derived_id = self._id("derived-report")
+        derived = InformationReport(
+            report_id=derived_id,
+            sender_id=report.sender_id,
+            receiver_id=transmission.receiver_id,
+            audience=[transmission.receiver_id],
+            created_at=self.world.clock.elapsed_seconds,
+            source_type=report.source_type,
+            claims=derived_claims,
+            claimed_basis=report.claimed_basis,
+            actual_basis=report.actual_basis,
+            asserted_confidence=report.asserted_confidence,
+            evidence_references=list(report.evidence_references),
+            intention=report.intention,
+            transmission_quality=report.transmission_quality,
+            parent_report_id=report.report_id,
+            origin_chain_id=report.origin_chain_id,
+            independence_group_id=report.independence_group_id,
+        )
+        self.reports[derived.report_id] = derived
+        return derived
 
     def _queue_report(self, report: InformationReport, receiver_id: str, mutation_level: int = 0) -> None:
         delay = self._channel_delay(report.source_type)
@@ -564,6 +736,10 @@ class InformationEngine:
         store = self.beliefs.setdefault(character_id, {})
         if hypothesis_id not in store:
             store[hypothesis_id] = BeliefRecord(hypothesis_id=hypothesis_id, category=category)
+        elif category == "IMMEDIATE":
+            # Strong/current evidence upgrades a rumor-origin belief; it does
+            # not remain subject to rumor decay merely because rumor arrived first.
+            store[hypothesis_id].category = "IMMEDIATE"
         return store[hypothesis_id]
 
     def _remember(
@@ -663,6 +839,14 @@ class InformationEngine:
     @staticmethod
     def _relationship_key(source_id: str, target_id: str) -> str:
         return f"{source_id}::{target_id}"
+
+    def _root_report_id(self, report_id: str) -> str:
+        seen: set[str] = set()
+        current = report_id
+        while current in self.reports and self.reports[current].parent_report_id and current not in seen:
+            seen.add(current)
+            current = self.reports[current].parent_report_id or current
+        return current
 
     @staticmethod
     def _channel_delay(channel: Channel) -> int:
