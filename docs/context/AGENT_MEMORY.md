@@ -4,103 +4,75 @@
 
 - Repository: `weiyang02520-ops/gu-open-world-game`
 - Branch: `main`
-- Current milestone: M2
-- Current task: `TASK-M2-001`
+- Current milestone: M3
+- Current task: `TASK-M3-001`
 - M0: PASS
 - M1: PASS_WITH_NOTES
-- M1 reviewed HEAD: `4d3523dc0fe42d799b34654e4ca2fe67ede6d82f`
-- M2 is authorized.
-- M2 implementation is complete and waiting for External ChatGPT review.
-- Read `docs/PRODUCT_DIRECTION.md`, `docs/DEVELOPMENT_ROADMAP.md`, `docs/CODEX_EXECUTION_POLICY.md`, and `docs/M2_TASK_SPEC.md`.
+- M2: PASS_WITH_NOTES
+- M2 reviewed HEAD: `60b4b776ef18c5992ceb6b7ed3131feac7f17469`
+- M3 is authorized.
+
+Read `docs/M3_TASK_SPEC.md` plus product/roadmap/execution-policy docs before coding.
 
 ## User working preference
 
-The user prefers large useful work batches and manual control at major Gates.
+The user prefers large useful work packages and manual control at major Gates.
 
-Within M2:
-- continue through related implementation, tests and docs;
-- do not stop for routine micro-decisions;
-- do not cross into M3.
+Within M3, continue through implementation, tests, smoke, docs and verification without asking routine micro-questions.
 
-## Stable technical constraints
+## Stable constraints
 
-- Python 3.12+
-- deterministic WorldClock / RNG
-- no global random state
-- versioned save schema
-- one durable event log
-- GitHub remote is cross-agent truth
-- unsourced tuning numbers are GAME_EXTENSION
-- Player and NPC share Character/world rules
-- no generic Character EXP as core progression
-- Canon/Fan/Game provenance remains first-class
+- deterministic WorldClock/RNG;
+- one durable event log;
+- versioned save state;
+- no wall-clock or unseeded random;
+- unsourced coefficients are GAME_EXTENSION;
+- Player/NPC share world rules;
+- Canon/Fan/Game provenance remains first-class;
+- NPCs must not gain omniscient WorldTruth;
+- no generic Character EXP.
 
-## M1 delivered baseline
+## Delivered baseline
 
-- shared HUMAN / AI Character;
-- aperture / primeval essence / wall progress minimum;
-- three starter Gu;
-- Gu hunger and feeding;
-- finite resource node;
-- finite market;
-- real ResourceLot transfers;
-- gather / buy / sell / feed / cultivate / wait action path;
-- 3 NPC autonomous Need/Goal actions;
-- deterministic Day 1–2 scenario;
-- authoritative event log;
-- save/resume equivalence.
+M1:
+- living Day 1–2 economy/cultivation/Gu loop.
 
-## M2 architecture requirements
+M2:
+- integer-ms combat;
+- CombatEncounter;
+- body-part injury;
+- attack/movement/perception Gu roles;
+- Reaction Window;
+- flee/disengage;
+- PerceivedCombatSnapshot;
+- combat save/resume.
 
-- combat timing must not use M1 hourly NPC cadence;
-- use deterministic integer sub-second/equivalent combat ordering;
-- serializable active CombatEncounter;
-- body-part injuries rather than visible HP-only combat;
-- attack / movement / perception Gu roles;
-- reaction window before resolution;
-- real essence costs;
-- local distance / position;
-- NPC attack / avoid / flee based on perceived visible state;
-- mid-combat save/resume determinism;
-- M1 regression preserved.
+## M3 hard requirements
 
-## M1 review notes
+- structured hypotheses;
+- incomplete Observation;
+- Evidence and EvidenceSupport;
+- Report with claimed/actual basis and intention;
+- source credibility;
+- origin-chain / independence-group lineage;
+- correlated-source discount;
+- per-NPC beliefs that may be wrong;
+- belief decay;
+- memories;
+- multidimensional relationships;
+- delayed rumor channels;
+- structured rumor mutation;
+- minimal investigation;
+- information-aware NPC actions;
+- save/resume exactness;
+- absent NPC cannot know events before delivery.
 
-- M1 hourly NPC scheduling remains acceptable for coarse economic simulation.
-- CURRENT_STATE bookkeeping must record the exact final Codex HEAD at the next Gate.
-- M2 must not introduce omniscient NPC knowledge as a shortcut.
+## Carried review notes
 
-## M2 delivered baseline
+- M2 visible movement impairment must become a formal perceptual signal rather than persistent direct truth leakage.
+- Add explicit same-execute-time combat sequence ordering test.
+- At Gate, `last_codex_commit` must equal exact final pushed Codex HEAD.
 
-- integer millisecond combat timing with deterministic sequence ordering;
-- serializable `CombatEncounter` stored under `WorldState.game_state["m2_combat"]`;
-- six-part `BodyState` with bleeding, impairment and incapacitation;
-- attack / movement / perception Gu role profiles over owned M1 Gu instances;
-- preparation, activation, perception, reaction and resolution events;
-- local integer positions and real primeval essence costs;
-- visible-state `PerceivedCombatSnapshot` for NPC attack/hold/flee choices;
-- deterministic evade, injury, retreat and mid-combat save/resume scenarios;
-- M1 regression, install, M1 smoke and M2 smoke coverage.
+## Stop
 
-## Common failure modes
-
-- attack becomes only hidden HP subtraction;
-- combat resolves instantly with no reaction window;
-- using floats for authoritative combat time;
-- NPC reads exact hidden player essence/injury values;
-- overbuilding full M3 information system;
-- overbuilding M7 Effect Graph;
-- breaking M1 save/scenario without migration;
-- stopping after only one combat file while the bounded package remains incomplete.
-
-## Stop rules
-
-At full M2 completion:
-- test / smoke;
-- docs / Memory / report;
-- commit / push / exact remote verify;
-- CURRENT_STATE final Codex HEAD exact;
-- WAITING_FOR_MASTER;
-- next_actor=chatgpt;
-- release lock;
-- STOP.
+At M3 completion: test/smoke/docs/report → commit/push/exact remote verify → WAITING_FOR_MASTER / chatgpt → STOP before M4.
