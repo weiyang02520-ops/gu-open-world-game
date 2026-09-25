@@ -4,87 +4,41 @@
 
 - Repository: `weiyang02520-ops/gu-open-world-game`
 - Branch: `main`
-- Current milestone: M3
-- Current task: `TASK-M3-001`
+- Current milestone: M3 repair
+- Active task: `TASK-M3-FIX-001`
 - M0: PASS
 - M1: PASS_WITH_NOTES
 - M2: PASS_WITH_NOTES
-- M2 reviewed HEAD: `60b4b776ef18c5992ceb6b7ed3131feac7f17469`
-- M3 is authorized.
-- M3 implementation is complete and waiting for External ChatGPT review.
+- M3 review: CHANGES_REQUESTED
+- Reviewed M3 Gate: `d13f7e71e5a7fa597c5d54efcc25d385eca54c09`
 
-Read `docs/M3_TASK_SPEC.md` plus product/roadmap/execution-policy docs before coding.
+## Why repair is required
 
-## User working preference
+The M3 structure is good, but Master found:
 
-The user prefers large useful work packages and manual control at major Gates.
+- directional RelationshipState update is reversed on report delivery;
+- SourceProfile expertise/honesty/bias/motive are mostly inert;
+- rumor semantic mutation does not alter the receiver's interpreted belief;
+- prior Gate SHA requirement was self-referential/impossible.
 
-Within M3, continue through implementation, tests, smoke, docs and verification without asking routine micro-questions.
+These are blocking because M4 institutional decisions will depend on M3 credibility and relationship semantics.
 
-## Stable constraints
+## Repair invariants
 
-- deterministic WorldClock/RNG;
-- one durable event log;
-- versioned save state;
-- no wall-clock or unseeded random;
-- unsourced coefficients are GAME_EXTENSION;
-- Player/NPC share world rules;
-- Canon/Fan/Game provenance remains first-class;
-- NPCs must not gain omniscient WorldTruth;
-- no generic Character EXP.
+- receiver -> sender is the relevant relationship direction for trust in a received report;
+- credibility must be deterministic and use declared source-profile dimensions;
+- actual_basis remains hidden unless legitimately discovered;
+- rumor mutation must affect interpreted claims while preserving origin-chain/correlation;
+- investigations generate evidence, not direct truth;
+- all old tests/smokes/save-resume remain deterministic;
+- no M4 scope.
 
-## Delivered baseline
+## Gate SHA semantics
 
-M1:
-- living Day 1–2 economy/cultivation/Gu loop.
+Do not attempt to make a commit contain its own SHA.
 
-M2:
-- integer-ms combat;
-- CombatEncounter;
-- body-part injury;
-- attack/movement/perception Gu roles;
-- Reaction Window;
-- flee/disengage;
-- PerceivedCombatSnapshot;
-- combat save/resume.
+Normalize workflow semantics so `last_codex_commit` means the last code-bearing Codex implementation commit. External Master resolves and verifies the actual current remote HEAD separately.
 
-## M3 hard requirements
+## User preference
 
-- structured hypotheses;
-- incomplete Observation;
-- Evidence and EvidenceSupport;
-- Report with claimed/actual basis and intention;
-- source credibility;
-- origin-chain / independence-group lineage;
-- correlated-source discount;
-- per-NPC beliefs that may be wrong;
-- belief decay;
-- memories;
-- multidimensional relationships;
-- delayed rumor channels;
-- structured rumor mutation;
-- minimal investigation;
-- information-aware NPC actions;
-- save/resume exactness;
-- absent NPC cannot know events before delivery.
-
-## Carried review notes
-
-- M2 visible movement impairment must become a formal perceptual signal rather than persistent direct truth leakage.
-- Add explicit same-execute-time combat sequence ordering test.
-- At Gate, `last_codex_commit` must equal exact final pushed Codex HEAD.
-
-## M3 delivered baseline
-
-- structured hypotheses, incomplete observations and evidence support;
-- reports with claimed versus actual basis, intention, credibility and lineage;
-- correlated-source discount using origin and independence groups;
-- per-NPC beliefs, deterministic decay, memories and multidimensional relationships;
-- delayed rumor channels, structured mutation and pending transmission save/resume;
-- minimal scene investigation and incomplete-information NPC decisions;
-- M1/M2 regression plus same-time combat ordering coverage;
-- deterministic M3 integrated smoke scenario.
-
-## Stop
-
-At M3 completion: test/smoke/docs/report → commit/push/exact remote verify → WAITING_FOR_MASTER / chatgpt → STOP before M4.
+Large useful work batches, manual control at major Gates. Do not stop for routine implementation questions.
