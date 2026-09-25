@@ -1,51 +1,35 @@
 # Handoff
 
-## Completed Gate
+## M3 Review
 
-M2 / TASK-M2-001: **PASS_WITH_NOTES**
+M3 / TASK-M3-001: **CHANGES_REQUESTED**
 
 Reviewed remote HEAD:
 
-`60b4b776ef18c5992ceb6b7ed3131feac7f17469`
+`d13f7e71e5a7fa597c5d54efcc25d385eca54c09`
 
-Verified:
-- integer deterministic combat timing;
-- reaction windows;
-- real Gu essence costs;
-- body-part injuries and movement impairment;
-- flee/disengage;
-- perceived-state NPC combat decisions;
-- active combat save/resume;
-- M1 regressions and final CI.
+The structural information system passed most requirements, but four semantic issues block M4:
 
-## M3 result
+1. report-delivery relationship trust updates the wrong direction;
+2. SourceProfile expertise/history/bias/motive fields are stored but not materially used;
+3. rumor semantic mutation does not yet alter the receiver's interpreted Belief;
+4. the previous exact-final-SHA-in-itself Gate invariant is impossible and must be normalized.
 
-M3 / TASK-M3-001 implementation is complete and ready for External ChatGPT review.
+## Authorized now
 
-Read:
-1. `.ai/CURRENT_STATE.json`
-2. `.ai/ACTIVE_TASK.md`
-3. `docs/M3_TASK_SPEC.md`
-4. `.ai/MASTER_REVIEW.md`
-5. `docs/PRODUCT_DIRECTION.md`
-6. `docs/context/AGENT_MEMORY.md`
+TASK-M3-FIX-001 — see `docs/M3_REPAIR_SPEC.md`.
 
-## Carried notes
+## Preserve
 
-- Formalize the M2 visible-state shortcut into a true observation/information boundary.
-- Add explicit same-time combat ordering regression coverage.
-- Final Gate bookkeeping must use exact final pushed Codex HEAD.
+- M1/M2/M3 regression suite;
+- WorldTruth / information separation;
+- report lineage;
+- correlated-source discount;
+- delayed delivery and Save/Resume;
+- same-time combat ordering test.
 
-## Evidence to review
+## Stop
 
-- `python -m pytest` passes 28 tests, including M1/M2 regressions, same-time combat ordering and M3 privacy/lineage cases.
-- M1, M2 and M3 CLI smoke scenarios pass.
-- Delayed transmission Save/Resume produces the same beliefs, rumor mutation and ordered durable events.
-- False reports do not mutate WorldTruth; correlated retellings are discounted; investigation generates evidence rather than revealing truth.
-- CI installs the project and runs M1, M2 and M3 smoke commands.
-
-## Stop rule
-
-Finish M3, push and remote-verify, return WAITING_FOR_MASTER / next_actor=chatgpt, then STOP.
+Complete repair → WAITING_FOR_MASTER / chatgpt → STOP.
 
 M4 is not authorized.
