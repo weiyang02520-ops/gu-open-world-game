@@ -10,6 +10,7 @@
 - M1: PASS_WITH_NOTES
 - M1 reviewed HEAD: `4d3523dc0fe42d799b34654e4ca2fe67ede6d82f`
 - M2 is authorized.
+- M2 implementation is complete and waiting for External ChatGPT review.
 - Read `docs/PRODUCT_DIRECTION.md`, `docs/DEVELOPMENT_ROADMAP.md`, `docs/CODEX_EXECUTION_POLICY.md`, and `docs/M2_TASK_SPEC.md`.
 
 ## User working preference
@@ -68,6 +69,18 @@ Within M2:
 - M1 hourly NPC scheduling remains acceptable for coarse economic simulation.
 - CURRENT_STATE bookkeeping must record the exact final Codex HEAD at the next Gate.
 - M2 must not introduce omniscient NPC knowledge as a shortcut.
+
+## M2 delivered baseline
+
+- integer millisecond combat timing with deterministic sequence ordering;
+- serializable `CombatEncounter` stored under `WorldState.game_state["m2_combat"]`;
+- six-part `BodyState` with bleeding, impairment and incapacitation;
+- attack / movement / perception Gu role profiles over owned M1 Gu instances;
+- preparation, activation, perception, reaction and resolution events;
+- local integer positions and real primeval essence costs;
+- visible-state `PerceivedCombatSnapshot` for NPC attack/hold/flee choices;
+- deterministic evade, injury, retreat and mid-combat save/resume scenarios;
+- M1 regression, install, M1 smoke and M2 smoke coverage.
 
 ## Common failure modes
 

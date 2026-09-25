@@ -1,10 +1,10 @@
 # Next Tasks
 
-## Authorized now
+## Completed
 
 ### TASK-M2-001 — Combat, Injury and Hostile Decision Loop
 
-Execute the complete package in `docs/M2_TASK_SPEC.md`.
+Implementation is complete and awaiting External ChatGPT review.
 
 This is a large coherent task. Do not stop for routine micro-decisions.
 

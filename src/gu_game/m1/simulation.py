@@ -271,7 +271,7 @@ class Simulation:
         return [event.to_dict() for event in self.world.event_log[-count:]]
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        data = {
             "m1_schema_version": self.M1_SCHEMA_VERSION,
             "location_id": self.LOCATION_ID,
             "market_id": self.MARKET_ID,
@@ -296,6 +296,11 @@ class Simulation:
             },
             "markets": {key: value.to_dict() for key, value in sorted(self.markets.items())},
         }
+        # M2 combat is an optional layer over M1. Preserve an active encounter
+        # when a generic M1 save is requested instead of silently dropping it.
+        if "m2_combat" in self.world.game_state:
+            data["m2_combat"] = self.world.game_state["m2_combat"]
+        return data
 
     def _sync_world_state(self) -> None:
         self.world.game_state = self.to_dict()

@@ -72,9 +72,12 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pytest
 .\.venv\Scripts\python.exe -m gu_game --seed 42 --seconds 60
 .\.venv\Scripts\python.exe -m gu_game --scenario day1-2 --seed 20260925
+.\.venv\Scripts\python.exe -m gu_game --scenario m2 --seed 20260925
 ```
 
-M2 完成后 README 应增加 combat smoke 命令。
+M2 smoke 会运行检测后闪避、攻击命中造成具体部位伤势、以及 NPC 依据可见状态逃跑三个场景。
+
+M2 架构说明见 `docs/M2_ARCHITECTURE.md`。
 
 ## 数据与设定
 

@@ -53,3 +53,5 @@ Milestone: M2
 Active task: TASK-M2-001
 
 Goal: add the first deterministic hostile encounter with combat timing, perception/reaction, Gu use, movement, body-part injury, flee/attack risk and combat save/resume, without yet implementing the persistent M3 rumor/belief system or M7 killer-move graph.
+
+M2 implementation is complete and awaiting External ChatGPT review. The combat layer uses integer millisecond ticks over M1, preserves M1 saves, and keeps NPC decisions behind `PerceivedCombatSnapshot`.

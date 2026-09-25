@@ -19,3 +19,5 @@ jobs:
         run: python -m pytest
       - name: Run Day 1~2 smoke
         run: python -m gu_game --scenario day1-2 --seed 20260925
+      - name: Run M2 combat smoke
+        run: python -m gu_game --scenario m2 --seed 20260925

@@ -48,7 +48,7 @@ Create a recoverable deterministic base.
 
 # M1 — Day 1–2 Living Sandbox
 
-Status: ACTIVE
+Status: PASS_WITH_NOTES
 
 Goal:
 
@@ -80,6 +80,8 @@ A 48-hour headless simulation demonstrates the whole local loop and remains dete
 ---
 
 # M2 — Combat, injury and hostile decision loop
+
+Status: COMPLETE_PENDING_MASTER_REVIEW
 
 Goal:
 
@@ -141,6 +143,15 @@ full killer-move editor and advanced path interactions.
 Exit condition:
 
 Combat meaningfully changes character state, resources and future NPC decisions.
+
+Delivered in TASK-M2-001:
+
+- integer millisecond ordering and serializable active encounters;
+- six-part injuries, bleeding, impairment and movement consequences;
+- attack/movement/perception Gu roles and reaction windows;
+- visible-state NPC attack/hold/flee decisions;
+- deterministic evade, injury, retreat and mid-combat resume scenarios;
+- M1 regression and M1/M2 CI smoke coverage.
 
 ---
 

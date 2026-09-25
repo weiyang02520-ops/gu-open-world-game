@@ -19,9 +19,9 @@ Verified by Master:
 - save/resume deterministic scenario;
 - successful final GitHub Actions.
 
-## Authorized now
+## M2 result
 
-M2 / TASK-M2-001 — Combat, Injury and Hostile Decision Loop.
+M2 / TASK-M2-001 implementation is complete and ready for External ChatGPT review.
 
 Read:
 
@@ -39,6 +39,14 @@ Read:
 - NPC combat decisions may use perceived visible state, not hidden exact player state.
 - Preserve M1 regressions and save compatibility/migration.
 - Record exact final pushed Codex HEAD in CURRENT_STATE.
+
+## Evidence to review
+
+- `python -m pytest` passes 22 tests, including M1 regression and M2 combat cases.
+- `python -m gu_game --scenario day1-2 --seed 20260925` remains passing.
+- `python -m gu_game --scenario m2 --seed 20260925` runs detected evade, concrete injury and NPC retreat.
+- Active combat save/resume produces the same state and ordered durable event log as uninterrupted combat.
+- GitHub Actions installs the project and runs tests, M1 smoke and M2 smoke.
 
 ## Stop rule
 
