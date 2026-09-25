@@ -1,83 +1,54 @@
 # Active Task
 
-## TASK-M3-001 — Information, Memory, Relationships and Rumor
+## TASK-M3-FIX-001 — M3 Semantic Repair
 
 ### Execution mode
 
-**LARGE TASK MODE**
+**LARGE TASK MODE / BOUNDED REPAIR**
 
-M2 has passed Master Review.
+M3 implementation is structurally strong but did not pass Master Review due to semantic defects that would contaminate M4 faction behavior.
 
-Before coding read:
+Read:
 
-1. `docs/PRODUCT_DIRECTION.md`
-2. `docs/DEVELOPMENT_ROADMAP.md`
-3. `docs/CODEX_EXECUTION_POLICY.md`
-4. `docs/M3_TASK_SPEC.md`
-5. `.ai/MASTER_REVIEW.md`
-6. `docs/context/AGENT_MEMORY.md`
+1. `.ai/MASTER_REVIEW.md`
+2. `docs/M3_REPAIR_SPEC.md`
+3. `docs/M3_TASK_SPEC.md`
+4. `docs/M3_ARCHITECTURE.md`
+5. `docs/PRODUCT_DIRECTION.md`
+6. `docs/CODEX_EXECUTION_POLICY.md`
 
 ### Goal
 
-Implement the full bounded M3 information package:
+Repair M3 semantics without starting M4.
 
-```text
-World Event
-→ Observation
-→ Evidence
-→ Report
-→ Rumor
-→ Belief
-→ Memory / Relationship
-→ Decision under incomplete information
-→ New World Event
-```
+Required focus:
 
-The same underlying event must be able to produce different beliefs and different NPC behavior.
-
-### Required package
-
-- structured hypotheses;
-- rule-gated incomplete observations;
-- evidence + support/contradiction;
-- reports with claimed vs actual basis;
-- deliberate lies without mutating WorldTruth;
-- source credibility;
-- origin_chain_id / independence_group_id;
-- correlated-source discount;
-- per-NPC BeliefStore;
-- deterministic belief decay;
-- MemoryRecord;
-- multidimensional relationships;
-- RumorThread and delayed channels;
-- structured rumor mutation;
-- minimal investigation;
-- NPC information actions / incomplete-information decisions;
-- deterministic M3 smoke;
-- pending transmission save/resume equivalence;
-- M1/M2 regressions;
-- dedicated same-time combat ordering test;
-- CI, docs, Memory, Handoff, Report, commit/push/remote verify.
+- correct directional relationship updates;
+- make SourceProfile dimensions operational;
+- connect relationship/source credibility to report impact;
+- update source credibility after evaluator-specific contradiction;
+- make structured rumor mutation affect interpreted belief;
+- strengthen multi-hop lineage/correlation tests;
+- define mixed rumor/direct-evidence decay category semantics;
+- keep investigation evidence-producing rather than truth-revealing;
+- resolve the impossible self-referential Gate SHA protocol truthfully;
+- preserve all M1/M2/M3 regressions and Save/Resume determinism.
 
 ### Baseline
 
-Reviewed M2 remote HEAD:
+Reviewed M3 Gate:
 
-`60b4b776ef18c5992ceb6b7ed3131feac7f17469`
+`d13f7e71e5a7fa597c5d54efcc25d385eca54c09`
 
 ### Completion
 
-Execution status: COMPLETE; waiting for External ChatGPT review.
+Follow `docs/M3_REPAIR_SPEC.md` completely.
 
-M3 remains bounded to information, memory, relationships and rumor. M4 institutional response, M5 logistics, M6 attainment and M7 Effect Graph systems were not started.
-
-Complete the entire coherent M3 package unless a genuine product-level blocker prevents it.
-
-At Gate:
-- WAITING_FOR_MASTER
-- next_actor=chatgpt
-- last_codex_commit must equal exact final pushed Codex HEAD
-- lock released
-- STOP
+At completion:
+- all tests/smokes/CI pass;
+- status = WAITING_FOR_MASTER;
+- next_actor = chatgpt;
+- Gate reporting is truthful under the revised non-self-referential SHA semantics;
+- STOP.
 
 Do not begin M4.
