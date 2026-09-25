@@ -1,13 +1,13 @@
 {
   "project": "gu-open-world-game",
-  "milestone": "M1",
-  "status": "WAITING_FOR_MASTER",
-  "next_actor": "chatgpt",
-  "active_task": "TASK-M1-001",
-  "baseline_commit": "ba27a449af05484a437f46a650b1692fb1d121b2",
+  "milestone": "M2",
+  "status": "READY_FOR_CODEX",
+  "next_actor": "codex",
+  "active_task": "TASK-M2-001",
+  "baseline_commit": "4d3523dc0fe42d799b34654e4ca2fe67ede6d82f",
   "working_branch": "main",
-  "last_codex_commit": "2d5a7f9d3735bd5111b40cd63d26958eba538c34",
-  "last_reviewed_commit": "ba27a449af05484a437f46a650b1692fb1d121b2",
-  "review_verdict": "PASS",
-  "updated_at": "2026-09-25T17:04:43+08:00"
+  "last_codex_commit": "4d3523dc0fe42d799b34654e4ca2fe67ede6d82f",
+  "last_reviewed_commit": "4d3523dc0fe42d799b34654e4ca2fe67ede6d82f",
+  "review_verdict": "PASS_WITH_NOTES",
+  "updated_at": "2026-09-25"
 }
