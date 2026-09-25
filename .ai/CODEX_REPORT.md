@@ -42,7 +42,7 @@ Status: PASS
 - STATIC: PASS
 - UNIT: PASS
 - INTEGRATION: PASS (M1/M2/M3 smoke, privacy, lineage and Save/Resume)
-- REAL ENV: PENDING final GitHub Actions run for the pushed M3 commit
+- REAL ENV: PASS (GitHub Actions run [36124320516](https://github.com/weiyang02520-ops/gu-open-world-game/actions/runs/36124320516), conclusion `success`)
 
 ## Files Changed
 
@@ -76,15 +76,16 @@ Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
 ## Commit
 
-The M3 implementation commit will be recorded exactly in CURRENT_STATE before the final Gate. The final Gate state commit will be shown by `git rev-parse HEAD` after push.
+M3 implementation commit: `626c5e677abb8d3740e06bee1a562ae8520789cd`.
+The final Gate state commit will be shown by `git rev-parse HEAD` after the state update.
 
 ## Push
 
-PENDING until the final M3 commit is pushed.
+SUCCESS (M3 implementation commit pushed; Gate state commit pending).
 
 ## Remote Verified
 
-PENDING until `git ls-remote origin refs/heads/main` matches the final pushed SHA.
+YES for M3 implementation commit: remote `refs/heads/main` matched `626c5e677abb8d3740e06bee1a562ae8520789cd` before the Gate state commit.
 
 ## Known Issues
 
