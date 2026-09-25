@@ -216,6 +216,8 @@ Delivered in TASK-M3-001:
 
 # M4 — Factions, reputation and institutional response
 
+Status: COMPLETE_PENDING_MASTER_REVIEW
+
 Goal:
 
 Turn local social consequences into collective action.
@@ -247,6 +249,14 @@ The same player action can produce different reactions from:
 Exit condition:
 
 A faction response is explainable from information, interests and internal rules, not a global red-name switch.
+
+Delivered in TASK-M4-001:
+
+- three local factions with membership, offices, blocs, needs and influence;
+- institutional belief from M3 delivery only;
+- identity-scoped reputation and official faction standing;
+- cases, deterministic investigation, proposals, votes, recruitment and missions;
+- integrated M4 smoke and Save/Resume.
 
 ---
 

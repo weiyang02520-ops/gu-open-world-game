@@ -491,8 +491,7 @@ class InformationEngine:
             record.last_updated = self.world.clock.elapsed_seconds
             record.refresh_class()
             self._emit_belief_update(evaluator_id, record, "evidence")
-            if support.contradiction_strength > support.support_strength:
-                self._update_source_credibility_from_contradiction(evaluator_id, record)
+            self._update_source_credibility_from_evidence(evaluator_id, record, support)
 
     def _deliver_transmission(self, transmission: Transmission) -> None:
         report = self.reports[transmission.report_id]
@@ -519,9 +518,12 @@ class InformationEngine:
             )
 
     def _deliver_report(self, report: InformationReport, receiver_id: str) -> None:
+        credibility_scores: list[int] = []
         for claim in report.claims:
             record = self._belief_record(receiver_id, claim.hypothesis_id, category="RUMOR")
-            gain = max(1, self._credibility_score(receiver_id, report, claim) * claim.asserted_confidence // 100)
+            credibility = self._credibility_score(receiver_id, report, claim)
+            credibility_scores.append(credibility)
+            gain = max(1, credibility * claim.asserted_confidence // 100)
             if report.independence_group_id in record.origin_groups_seen:
                 gain //= B["correlated_source_divisor"]
             else:
@@ -549,9 +551,13 @@ class InformationEngine:
         # RelationshipState(source_id -> target_id) is directional. Receiving
         # a credible report changes the receiver's view of the sender.
         relationship = self.relationship(receiver_id, report.sender_id)
-        relationship.trust = max(
-            0, min(100, relationship.trust + B["relationship_trust_report_delta"])
-        )
+        average_credibility = sum(credibility_scores) // max(1, len(credibility_scores))
+        if average_credibility >= 70:
+            relationship.trust = max(
+                0, min(100, relationship.trust + B["relationship_trust_report_delta"])
+            )
+        elif average_credibility <= 35:
+            relationship.trust = max(0, relationship.trust - 1)
         relationship.last_updated = self.world.clock.elapsed_seconds
         self._emit(
             "RELATIONSHIP_CHANGED",
@@ -602,12 +608,18 @@ class InformationEngine:
             ),
         )
 
-    def _update_source_credibility_from_contradiction(
-        self, evaluator_id: str, belief: BeliefRecord
+    def _update_source_credibility_from_evidence(
+        self, evaluator_id: str, belief: BeliefRecord, support: EvidenceSupport
     ) -> None:
+        evidence_supports_hypothesis = support.support_strength >= support.contradiction_strength
         for report_id in belief.report_ids:
             report = self.reports.get(report_id)
             if report is None:
+                continue
+            matching_claims = [claim for claim in report.claims if claim.hypothesis_id == support.hypothesis_id]
+            # Only a report whose polarity conflicts with the new evidence is
+            # actually contradicted. Corroborated claims are never penalized.
+            if not matching_claims or all(claim.supports == evidence_supports_hypothesis for claim in matching_claims):
                 continue
             key = self._source_key(evaluator_id, report.sender_id)
             profile = self.source_profiles.get(key)

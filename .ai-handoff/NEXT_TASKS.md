@@ -1,34 +1,23 @@
 # Next Tasks
 
-## Authorized now — one continuous task
+## Completed
 
-### TASK-V0.1-FULL-001
+### TASK-M4-001 — Factions, Reputation, Cases and Institutional Politics
 
-Complete all remaining V0.1 work.
+Implementation is complete and awaiting External ChatGPT review.
 
-Internal checkpoints:
+## Planned — not authorized by this task
 
-1. M4 institutional world
-2. M5 resource crisis/logistics
-3. M6 cultivation/breakthrough/attainment
-4. M7 Effect Graph/killer move
-5. M8 integrated Day1–10 V0.1
+### M5 — Resource crisis / logistics / world evolution
+Expanded resource nodes and markets, shipments/caravans, route risk, shortage propagation and faction procurement.
 
-See:
+### M6 — Breakthrough / attainment
+Rank-1 stages, breakthrough risk, path attainment, insight events and inheritance hooks.
 
-- `docs/V0_1_FULL_EXECUTION_SPEC.md`
-- `docs/V0_1_ACCEPTANCE_MATRIX.md`
-- `docs/V0_1_CONTENT_TARGETS.md`
+### M7 — Gu composition / killer-move prototype
+Effect graph, multi-Gu composition, stability, complexity and backlash.
 
-There are no separate M4/M5/M6/M7 human Gates during this run.
+### M8 — Integrated Day 1–10 V0.1
+Full strategy divergence validation.
 
-## After V0.1 — not authorized
-
-- graphical client/engine selection;
-- wider South Border expansion;
-- large canon import;
-- Gu Immortal systems;
-- Five Regions simulation;
-- production release engineering.
-
-Stop at final V0.1 Gate.
+No later milestone starts automatically.

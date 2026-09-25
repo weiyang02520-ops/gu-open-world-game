@@ -158,7 +158,7 @@ def test_relationship_report_update_is_receiver_to_sender_only() -> None:
     info.create_report(
         sender,
         receiver,
-        [ReportClaim(hypothesis.hypothesis_id, True, True, 10)],
+        [ReportClaim(hypothesis.hypothesis_id, True, True, 90)],
         channel=Channel.FACE_TO_FACE,
     )
     info.advance_time(0)

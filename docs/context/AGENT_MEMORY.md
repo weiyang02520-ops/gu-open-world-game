@@ -4,73 +4,46 @@
 
 - Repository: `weiyang02520-ops/gu-open-world-game`
 - Branch: `main`
-- Active task: `TASK-V0.1-FULL-001`
-- Execution mode: LONG RUN
-- M0–M3: completed and reviewed
-- Reviewed baseline: `6d291afba23907768725ce9136414b673bdb3533`
-- M4 code had not started when full-run authorization was issued.
-- M4→M8 are now one continuous authorized task.
+- Current milestone: M4
+- Current task: `TASK-M4-001`
+- M0: PASS
+- M1: PASS_WITH_NOTES
+- M2: PASS_WITH_NOTES
+- M3: PASS_WITH_NOTES
+- M4 implementation is complete and waiting for External ChatGPT review.
+- Reviewed M3 repair Gate: `6d291afba23907768725ce9136414b673bdb3533`
 
 ## User preference
 
-The user explicitly wants a very large one-shot task for Sol so they can leave it working.
+Large useful work packages; manual control at major Gates. Continue through implementation/tests/smoke/docs without routine micro-questions.
 
-Do not stop after M4/M5/M6/M7.
+## Stable project invariants
 
-Do not ask routine implementation questions.
-
-Use internal checkpoint commits and keep going.
-
-## Read order
-
-1. `docs/V0_1_FULL_EXECUTION_SPEC.md`
-2. `docs/V0_1_ACCEPTANCE_MATRIX.md`
-3. `docs/V0_1_CONTENT_TARGETS.md`
-4. `docs/M4_TASK_SPEC.md`
-5. `docs/PRODUCT_DIRECTION.md`
-6. `docs/DEVELOPMENT_ROADMAP.md`
-7. `docs/CODEX_EXECUTION_POLICY.md`
-8. `docs/GATE_SHA_PROTOCOL.md`
-
-## Stable invariants
-
-- deterministic simulation;
+- deterministic WorldClock/RNG;
 - one durable event log;
-- save/resume;
-- player/NPC shared core rules;
-- NPC/institutional information cannot bypass M3 truth boundary;
-- finite physical resources;
-- no generic XP progression;
+- save schema remains versioned;
+- Canon/Fan/Game provenance remains explicit;
+- player/NPC share world rules;
+- NPC/institutions do not read hidden WorldTruth;
+- no generic character EXP;
 - no single scalar reputation;
-- Canon/Fan/Game provenance;
-- no full novel ingestion;
-- no graphical engine during V0.1.
+- official faction policy distinct from personal opinion;
+- no M5 systems in this M4 task.
 
-## Remaining internal phases
+## M4 delivered baseline
 
-### A / M4
-Institutional world:
-factions, reputation, cases, politics, governance, missions.
+- three local factions with needs, states, memberships and offices;
+- political blocs, influence and deterministic governance votes;
+- institutional beliefs sourced from delivered M3 reports only;
+- social identities, audience-scoped reputation and official standing;
+- non-binary cases and deterministic investigation;
+- recruitment, standing changes and faction missions;
+- integrated M4 smoke and faction Save/Resume.
 
-### B / M5
-Resource/logistics:
-expanded nodes/markets, caravans, shipments, shortage propagation.
+## Gate SHA
 
-### C / M6
-Cultivation:
-full Rank1 minor stages, breakthrough, attainment, insight.
+`last_codex_commit` records the code-bearing implementation commit. The final remote Gate HEAD is verified externally under `docs/GATE_SHA_PROTOCOL.md`.
 
-### D / M7
-Gu composition:
-Effect Graph, killer-move composition, stability/research.
+## Stop
 
-### E / M8
-Integration:
-20–40 locations target, 15–30 important NPCs target, 3–5 factions, 30–50 Gu target, Day1–10 simulation, cooperative/adversarial same-seed divergence.
-
-## Stop rule
-
-Only final V0.1 Gate or a true product blocker.
-
-At final Gate:
-WAITING_FOR_MASTER / next_actor=chatgpt / STOP.
+At M4 completion: tests + four smoke commands + docs/report → push/remote verify → WAITING_FOR_MASTER / chatgpt → STOP before M5.

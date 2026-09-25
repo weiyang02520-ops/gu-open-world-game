@@ -5,15 +5,10 @@
 - M1: PASS_WITH_NOTES
 - M2: PASS_WITH_NOTES
 - M3: PASS_WITH_NOTES
-- Remaining V0.1 M4→M8: AUTHORIZED AS ONE LONG RUN
-- Active task: TASK-V0.1-FULL-001
-- Gate: READY_FOR_CODEX
-- Next actor: codex
-- Reviewed baseline: `6d291afba23907768725ce9136414b673bdb3533`
-- Execution mode: LONG_RUN_NO_INTERMEDIATE_HUMAN_GATE
-
-Current target:
-
-A complete deterministic headless Day1–10 V0.1 proving institutions, logistics/resource crisis, cultivation/breakthrough/attainment, compositional killer moves and same-seed strategy divergence.
-
-Post-V0.1 graphical/client work is not authorized.
+- Current milestone: M4
+- Active task: TASK-M4-001 (implementation complete)
+- Gate: WAITING_FOR_MASTER
+- Next actor: chatgpt
+- Reviewed M3 repair Gate HEAD: `6d291afba23907768725ce9136414b673bdb3533`
+- Current product boundary: factions, reputation, cases, governance and missions; M5 logistics is not started.
+- Execution mode: LARGE TASK MODE.

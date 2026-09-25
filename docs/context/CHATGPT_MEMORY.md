@@ -10,30 +10,16 @@
 - M1 living economy/cultivation sandbox
 - M2 combat/reaction/injury
 - M3 information/rumor/belief + semantic repair
+- M4 factions/reputation/cases/governance/missions
 
-Reviewed baseline:
+Reviewed M3 repair Gate:
 
 `6d291afba23907768725ce9136414b673bdb3533`
 
-## Current user instruction
+## Current state
 
-用户明确要求“不再每个阶段回来一次”，而是把剩余 V0.1 一次性给 Sol 跑。
+Milestone: M4
 
-因此当前唯一任务：
+Active task: TASK-M4-001, implementation complete and waiting for External ChatGPT review.
 
-`TASK-V0.1-FULL-001`
-
-M4→M8 都属于该任务内部阶段，不再设置人工 Gate。
-
-## Remaining V0.1
-
-- faction/institutional world;
-- logistics/resource crisis;
-- Rank1 breakthrough/attainment;
-- Effect Graph/killer move;
-- integrated Day1–10 world;
-- cooperative vs adversarial divergence.
-
-## Final review
-
-External ChatGPT only reviews again at full V0.1 Gate, unless Sol encounters a product-level blocker.
+M4 is the current user-authorized boundary. Do not start M5.
