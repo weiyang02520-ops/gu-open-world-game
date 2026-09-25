@@ -1,13 +1,21 @@
 {
   "project": "gu-open-world-game",
-  "milestone": "M4",
+  "milestone": "V0.1_FULL",
   "status": "READY_FOR_CODEX",
   "next_actor": "codex",
-  "active_task": "TASK-M4-001",
+  "active_task": "TASK-V0.1-FULL-001",
   "baseline_commit": "6d291afba23907768725ce9136414b673bdb3533",
   "working_branch": "main",
   "last_codex_commit": "ed3c40f64e58c25cfe9611e4c7bcdbd9ff8a4043",
   "last_reviewed_commit": "6d291afba23907768725ce9136414b673bdb3533",
   "review_verdict": "PASS_WITH_NOTES",
+  "execution_mode": "LONG_RUN_NO_INTERMEDIATE_HUMAN_GATE",
+  "authorized_internal_phases": [
+    "M4",
+    "M5",
+    "M6",
+    "M7",
+    "M8"
+  ],
   "updated_at": "2026-09-25"
 }
