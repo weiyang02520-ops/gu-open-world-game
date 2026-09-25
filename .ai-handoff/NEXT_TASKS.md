@@ -1,28 +1,21 @@
 # Next Tasks
 
-## Completed
+## Authorized now
 
-### TASK-M3-001 — Information, Memory, Relationships and Rumor
+### TASK-M3-FIX-001 — M3 Semantic Repair
 
-Implementation is complete and awaiting External ChatGPT review.
+Repair credibility, relationship direction, effective rumor mutation, mixed-source decay semantics and Gate bookkeeping.
 
-This is a large coherent task. Do not stop for routine implementation choices.
+See `docs/M3_REPAIR_SPEC.md`.
 
 ## Planned — not authorized
 
 ### M4 — Faction / reputation / institutional response
-Faction state, offices, institutional belief, reputation, cases, investigation, proposals and missions.
+Faction state, membership/offices, institutional beliefs, audience reputation, official standing, cases, investigation, proposals, internal politics and missions.
 
 ### M5 — Resource crisis / logistics / world evolution
-More resource nodes, price divergence, shipments/caravans, route danger, shortage and faction procurement.
-
 ### M6 — Breakthrough / attainment
-Minor-stage breakthrough, deeper cultivation, path attainment, insights and inheritance hooks.
-
 ### M7 — Gu composition / killer-move prototype
-Effect nodes/graph, multi-Gu composition, stability, complexity and backlash.
-
 ### M8 — Integrated Day 1–10 V0.1
-Integration and multi-strategy divergence validation.
 
 No later milestone starts automatically.
