@@ -9,9 +9,9 @@ def test_provenance_claim_round_trips_as_json_safe_dict() -> None:
         provenance=Provenance.CANON_EXPLICIT,
         evidence_level=EvidenceLevel.EXPLICIT,
         source=Source(
-            source_id="source-example",
-            title="待核验原作来源",
-            locator="local://unverified",
+            source_id="fixture-example",
+            title="Synthetic provenance fixture",
+            locator="test://fixture",
         ),
         temporal_scope="原作设定",
         confidence=0.98,

@@ -1,13 +1,10 @@
 # Next Tasks
 
-## Authorized now
+## Completed
 
 ### TASK-M1-001 — Day 1–2 Headless Sandbox
 
-Implement the full package in `.ai/ACTIVE_TASK.md`.
-
-This is intentionally a substantial task.
-Complete related implementation, tests, deterministic scenario, documentation, CI, push and remote verification before returning to the Gate.
+Implementation is complete and awaiting External ChatGPT review. The package includes code, tests, deterministic scenario, save/resume validation, documentation, CI, and the final remote Gate.
 
 ## Planned roadmap — not yet authorized
 

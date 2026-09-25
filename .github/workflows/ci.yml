@@ -13,7 +13,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install test dependency
-        run: python -m pip install --upgrade pip pytest
+      - name: Install project and test dependency
+        run: python -m pip install --upgrade pip && python -m pip install -e ".[dev]"
       - name: Run tests
         run: python -m pytest
+      - name: Run Day 1~2 smoke
+        run: python -m gu_game --scenario day1-2 --seed 20260925

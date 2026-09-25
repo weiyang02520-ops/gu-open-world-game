@@ -86,3 +86,13 @@ Provide a scripted/test scenario that:
 ## Gate
 
 At completion, Codex must push and remote-verify the exact final SHA, set WAITING_FOR_MASTER / next_actor=chatgpt, and STOP.
+
+## Implementation entry point
+
+Run the deterministic headless scenario with:
+
+```powershell
+python -m gu_game --scenario day1-2 --seed 20260925
+```
+
+The command prints a concise Day 2 summary and the tail of the durable event log.

@@ -43,6 +43,8 @@ M0 non-blocking hardening notes were carried into M1.
 
 Milestone: M1
 
-Active task: TASK-M1-001
+Active task: TASK-M1-001, implementation complete and waiting for External ChatGPT review
 
-Goal: build the deterministic Day 1~2 headless sandbox with player/NPC shared Character state, minimal cultivation, three Gu instances with feeding, finite resource/market inventory and minimal autonomous NPC actions.
+Delivered: deterministic Day 1~2 headless sandbox with player/NPC shared Character state, minimal cultivation, three player Gu instances with feeding, finite resource/market inventory, NPC autonomous actions, durable event log, and save/resume equivalence.
+
+Stop condition: keep `status=WAITING_FOR_MASTER` and `next_actor=chatgpt`; do not begin M2 without a new review.

@@ -1,7 +1,7 @@
 {
   "actor": "codex",
-  "task_id": "TASK-M0-001",
+  "task_id": "TASK-M1-001",
   "state": "STOPPED_AT_GATE",
-  "last_seen_at": "2026-09-25T15:34:02+08:00",
-  "last_progress": "GitHub remote created, initial M0 commit pushed and SHA verified; final state commit is being recorded."
+  "last_seen_at": "2026-09-25T16:59:13+08:00",
+  "last_progress": "M1 Day 1~2 sandbox complete; tests, install and smoke passed locally; waiting for final push and External ChatGPT review."
 }

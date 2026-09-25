@@ -7,18 +7,16 @@
 - Current milestone: M1
 - Current task: `TASK-M1-001`
 - M0 was reviewed PASS by External ChatGPT.
-- Current authorized direction is the Day 1–2 headless living sandbox.
+- M1 implementation is complete and waiting for External ChatGPT review.
 - Read `docs/PRODUCT_DIRECTION.md`, `docs/DEVELOPMENT_ROADMAP.md` and `docs/CODEX_EXECUTION_POLICY.md` before making broad implementation decisions.
 
 ## User working preference
 
 The user prefers **large, useful work batches**.
 
-Do not repeatedly stop for minor implementation choices.
-Within an authorized task, continue through related subtasks, tests, documentation and verification.
+Do not repeatedly stop for minor implementation choices. Within an authorized task, continue through related subtasks, tests, documentation and verification.
 
-The user still wants manual project direction at milestone / major-design level.
-Do not automatically cross milestone Gates.
+The user still wants manual project direction at milestone / major-design level. Do not automatically cross milestone Gates.
 
 ## Technical constraints
 
@@ -31,6 +29,8 @@ Do not automatically cross milestone Gates.
 - no global random state
 - GitHub remote is the durable cross-agent truth
 - all game-balance values introduced without source support are GAME_EXTENSION
+- M1 balance values are centralized in `src/gu_game/m1/balance.py`
+- `WorldState.event_log` is the single durable event log; M1 EventBus references it
 
 ## Architecture invariants
 
@@ -43,20 +43,18 @@ Do not automatically cross milestone Gates.
 - Infinite shops / unexplained resource creation must not become the core economy.
 - LLMs may assist language later but do not authorize world-rule violations.
 
-## Current M1 carried requirements
+## M1 delivered requirements
 
-- harden DomainEvent payload immutability;
-- establish one authoritative durable event log;
+- hardened DomainEvent payload immutability;
+- one authoritative durable event log;
 - CI install + test + smoke;
-- correct the misleading provenance test example;
+- neutral provenance test fixture;
 - shared HUMAN / AI Character minimum;
 - cultivation minimum;
-- three starter Gu + feeding;
-- finite resource node;
-- finite market;
-- real inventory transfer;
-- 3–5 NPC Needs / Goals;
-- deterministic Day 1–2 scenario;
+- three player starter Gu + feeding;
+- finite regenerating resource node;
+- finite market with real transfers;
+- 3 NPC Needs / Goals and deterministic Day 1–2 scenario;
 - save/resume equivalence.
 
 ## Common failure modes

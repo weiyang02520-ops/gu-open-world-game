@@ -32,3 +32,35 @@ def test_event_bus_preserves_history_and_dispatches_handlers() -> None:
     assert received == ["event-000001"]
     assert bus.pending_count == 0
     assert bus.history == (event,)
+
+
+def test_event_payload_is_immutable_after_publication() -> None:
+    original = {"nested": {"values": [1, 2]}}
+    event = DomainEvent(
+        event_id="event-immutable",
+        event_type="TEST",
+        timestamp=0,
+        payload=original,
+    )
+
+    original["nested"]["values"].append(3)
+    assert event.to_dict()["payload"] == {"nested": {"values": [1, 2]}}
+
+    try:
+        event.payload["new"] = "forbidden"  # type: ignore[index]
+    except TypeError:
+        pass
+    else:  # pragma: no cover - defensive assertion
+        raise AssertionError("published event payload must be immutable")
+
+
+def test_world_state_event_bus_uses_the_authoritative_event_log() -> None:
+    from gu_game.core.state import WorldState
+
+    state = WorldState.new(1)
+    bus = state.create_event_bus()
+    event = DomainEvent(event_id="event-authoritative", event_type="TEST", timestamp=0)
+
+    bus.publish(event)
+    assert tuple(state.event_log) == bus.history
+    assert state.event_log[0] is event

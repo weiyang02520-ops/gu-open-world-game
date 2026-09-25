@@ -5,7 +5,8 @@ from __future__ import annotations
 from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from enum import StrEnum
-from typing import Any, Callable, Deque, Iterable
+from types import MappingProxyType
+from typing import Any, Callable, Deque, Iterable, Mapping
 
 
 class EventVisibility(StrEnum):
@@ -14,9 +15,33 @@ class EventVisibility(StrEnum):
     OBSERVERS = "OBSERVERS"
 
 
+def _freeze(value: Any) -> Any:
+    """Recursively freeze event payload values at the durable boundary."""
+
+    if isinstance(value, dict):
+        return MappingProxyType({key: _freeze(item) for key, item in value.items()})
+    if isinstance(value, (list, tuple)):
+        return tuple(_freeze(item) for item in value)
+    if isinstance(value, set):
+        return frozenset(_freeze(item) for item in value)
+    return value
+
+
+def _thaw(value: Any) -> Any:
+    """Convert a frozen payload back to JSON-compatible containers."""
+
+    if isinstance(value, Mapping):
+        return {str(key): _thaw(item) for key, item in value.items()}
+    if isinstance(value, (tuple, list)):
+        return [_thaw(item) for item in value]
+    if isinstance(value, (set, frozenset)):
+        return sorted(_thaw(item) for item in value)
+    return value
+
+
 @dataclass(frozen=True)
 class DomainEvent:
-    """An immutable event envelope; reducers may interpret its payload later."""
+    """An immutable event envelope with a recursively frozen payload."""
 
     event_id: str
     event_type: str
@@ -24,7 +49,7 @@ class DomainEvent:
     actor_id: str | None = None
     target_ids: tuple[str, ...] = ()
     location_id: str | None = None
-    payload: dict[str, Any] = field(default_factory=dict)
+    payload: Mapping[str, Any] = field(default_factory=dict)
     visibility: EventVisibility = EventVisibility.PUBLIC
     source: str | None = None
     provenance: str | None = None
@@ -35,7 +60,7 @@ class DomainEvent:
         if self.timestamp < 0:
             raise ValueError("timestamp cannot be negative")
         object.__setattr__(self, "target_ids", tuple(self.target_ids))
-        object.__setattr__(self, "payload", dict(self.payload))
+        object.__setattr__(self, "payload", _freeze(dict(self.payload)))
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -45,7 +70,7 @@ class DomainEvent:
             "actor_id": self.actor_id,
             "target_ids": list(self.target_ids),
             "location_id": self.location_id,
-            "payload": self.payload,
+            "payload": _thaw(self.payload),
             "visibility": self.visibility.value,
             "source": self.source,
             "provenance": self.provenance,
@@ -71,16 +96,21 @@ EventHandler = Callable[[DomainEvent], None]
 
 
 class EventBus:
-    """Queue events, preserve history, and dispatch handlers explicitly."""
+    """Queue events while exposing one authoritative durable event log.
 
-    def __init__(self) -> None:
+    Pass ``durable_log`` from ``WorldState.event_log`` for simulation use. In
+    that mode ``history`` is a read-only view over the same list, so the bus
+    and the save file cannot silently drift apart.
+    """
+
+    def __init__(self, durable_log: list[DomainEvent] | None = None) -> None:
         self._queue: Deque[DomainEvent] = deque()
-        self._history: list[DomainEvent] = []
+        self._durable_log = durable_log if durable_log is not None else []
         self._handlers: dict[str, list[EventHandler]] = defaultdict(list)
 
     @property
     def history(self) -> tuple[DomainEvent, ...]:
-        return tuple(self._history)
+        return tuple(self._durable_log)
 
     @property
     def pending_count(self) -> int:
@@ -92,8 +122,10 @@ class EventBus:
         self._handlers[event_type].append(handler)
 
     def publish(self, event: DomainEvent) -> None:
+        if any(existing.event_id == event.event_id for existing in self._durable_log):
+            raise ValueError(f"duplicate event_id: {event.event_id}")
         self._queue.append(event)
-        self._history.append(event)
+        self._durable_log.append(event)
 
     def dispatch_pending(self) -> int:
         dispatched = 0

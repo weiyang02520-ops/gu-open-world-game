@@ -7,8 +7,7 @@
 ## 当前状态
 
 - M0 deterministic core：**PASS**
-- 当前里程碑：**M1**
-- 当前任务：**TASK-M1-001 — Day 1~2 Headless Sandbox**
+- M1 / TASK-M1-001：**实现完成，等待 External ChatGPT Review**
 - 当前阶段仍以纯 Python Core Simulation 为主，不锁定最终图形引擎。
 
 ## 开发总方向
@@ -63,9 +62,10 @@ python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -e ".[dev]"
 .\.venv\Scripts\python.exe -m pytest
 .\.venv\Scripts\python.exe -m gu_game --seed 42 --seconds 60
+.\.venv\Scripts\python.exe -m gu_game --scenario day1-2 --seed 20260925
 ```
 
-M1 完成后 README 应增加 Day 1~2 sandbox 的实际运行命令。
+M1 smoke 会推进到 Day 2，并输出最终摘要和持久事件日志尾部。
 
 ## 数据与设定
 
@@ -78,14 +78,16 @@ M1 完成后 README 应增加 Day 1~2 sandbox 的实际运行命令。
 不要把粉丝整理自动升级为 Canon。
 不要在仓库中批量保存完整原著文本；保存结构化事实、摘要、来源定位与必要证据。
 
+M1 的玩家和 NPC 共用 `Character` 模型；有限资源节点、有限市场库存和 `ResourceLot` 共同构成真实转移路径。所有 M1 平衡值集中在 `src/gu_game/m1/balance.py`，并标记为 `GAME_EXTENSION`。
+
 ## 当前目录
 
 ```text
 src/gu_game/       Python Core Simulation
-data/canon/        原作明确设定
-data/fan/          粉丝整理资料
-data/game/         游戏扩展规则与平衡
-tests/             自动测试
+ data/canon/       原作明确设定
+ data/fan/         粉丝整理资料
+ data/game/        游戏扩展规则与平衡
+ tests/            自动测试
 docs/              产品、架构、路线和 Memory
 .ai/               当前任务 / 状态 / Review
 .ai-handoff/       跨 Agent 阶段交接

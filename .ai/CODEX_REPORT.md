@@ -1,45 +1,59 @@
 # Codex Report
 
-Task: `TASK-M0-001`
+Task: `TASK-M1-001`
 
 Status: PASS
 
 ## Implementation
 
-- Created dependency-light Python core with WorldClock, deterministic RNG, EntityIdFactory, DomainEvent/EventBus, WorldState and JSON Save/Load.
-- Added provenance-aware Source/Claim model with Canon/Fan/Game extension separation.
-- Added tests, CI workflow, README, M1 task spec, Memory and handoff state files.
+- Added a shared `Character` model for HUMAN and AI controllers.
+- Added cultivation state with aperture capacity, aptitude, primeval essence and wall progress.
+- Added separate `GuDefinition` / `GuInstance` records, three player starter Gu, hunger and feeding.
+- Added `ResourceDefinition`, finite `ResourceLot`, regenerating `ResourceNode` and finite `LocalMarket`.
+- Added validated `ActionIntent` execution for gather, buy, sell, feed, cultivate and wait.
+- Added deterministic NPC Need/Goal choices and `NPC_ACTION_SELECTED` events.
+- Hardened `DomainEvent` payloads with recursive freezing.
+- Made `WorldState.event_log` the EventBus durable history source.
+- Added Day 1~2 CLI scenario, save/resume path, tests and CI install + smoke coverage.
 
 ## Tests
 
 - Command: `python -m pytest`
-- Result: PASS (7 passed)
-- Command: `python -m gu_game --seed 42 --seconds 60`
-- Result: PASS (`seed=42 elapsed_seconds=60 day=1`)
+- Result: PASS (14 passed)
+- Command: `python -m pip install --no-deps -e ".[dev]"`
+- Result: PASS
+- Command: `python -m gu_game --scenario day1-2 --seed 20260925`
+- Result: PASS (Day 2; 337 durable events; 27 actions per NPC in the scripted scenario)
+- Command: scripted save/resume comparison
+- Result: PASS (resumed and uninterrupted snapshots and ordered event logs match)
+- Command: 48-hour player-idle check
+- Result: PASS (48 actions per NPC; resource node changed)
 - Command: `python -m compileall -q src tests`
 - Result: PASS
 - Command: `git diff --check`
 - Result: PASS
-- Command: `AI JSON parse`
-- Result: PASS
-- Command: `secret scan`
+- Command: secret scan
 - Result: CLEAN
 
 ## Verification Level
 
 - STATIC: PASS
 - UNIT: PASS
-- REAL ENV: NOT VERIFIED
+- INTEGRATION: PASS (headless scenario and save/resume)
+- REAL ENV: NOT VERIFIED until GitHub Actions reports for the pushed commit
 
 ## Files Changed
 
-- `src/gu_game/`
-- `tests/`
-- `docs/`
-- `.ai/`
-- `.ai-handoff/`
+- `src/gu_game/core/events.py`
+- `src/gu_game/core/state.py`
+- `src/gu_game/m1/`
+- `src/gu_game/__main__.py`
+- `tests/test_clock_events.py`
+- `tests/test_provenance.py`
+- `tests/test_m1_sandbox.py`
 - `.github/workflows/ci.yml`
-- `pyproject.toml`, `.gitignore`, `README.md`
+- `README.md`, `docs/M1_TASK_SPEC.md`
+- `.ai/`, `.ai-handoff/`, `docs/context/`
 
 ## Memory Updated
 
@@ -47,12 +61,11 @@ YES
 
 ## Agent Discovered Delta
 
-- The parent workspace already contains unrelated projects; this game is isolated in `gu-open-world-game`.
-- GitHub remote is configured as `https://github.com/weiyang02520-ops/gu-open-world-game.git`.
+- M1 runtime state is stored in `WorldState.game_state`; the existing versioned JSON save remains the single save format.
+- All M1 tuning values are centralized in `src/gu_game/m1/balance.py` and marked as `GAME_EXTENSION`.
+- The parent workspace remains untouched; this project stays in `gu-open-world-game`.
 
 ## Repository
-
-Local nested repository at `gu-open-world-game`.
 
 Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
@@ -62,27 +75,25 @@ Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
 ## Commit
 
-M0 implementation commit: `0526f5cbcfbc6a942036410787131cfd6a83df5a`.
-The remote-gate state commit is the current `HEAD`; verify its exact SHA with `git rev-parse HEAD`.
+The final M1 commit is the current `HEAD`; record the exact value with `git rev-parse HEAD` after commit.
 
 ## Push
 
-SUCCESS
+PENDING until the final M1 commit is pushed.
 
 ## Remote Verified
 
-YES
-
-Remote HEAD verified before the state commit: `0526f5cbcfbc6a942036410787131cfd6a83df5a`.
+PENDING until `git ls-remote origin refs/heads/main` matches the final local HEAD.
 
 ## Known Issues
 
-- External ChatGPT review is still pending; M1 is not authorized.
+- GitHub Actions result for the final M1 commit is pending.
+- External ChatGPT review is required before M2.
 
 ## Current Gate
 
-WAITING_FOR_MASTER; external ChatGPT review required.
+WAITING_FOR_MASTER; `next_actor=chatgpt`.
 
 ## Next Action
 
-External ChatGPT review required after final commit.
+Push and remote-verify the final M1 commit, then stop for External ChatGPT review. Do not begin M2.

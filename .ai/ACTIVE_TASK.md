@@ -17,6 +17,10 @@ Before coding, read:
 4. `docs/M1_TASK_SPEC.md`
 5. `docs/context/AGENT_MEMORY.md`
 
+Execution status: COMPLETE; waiting for External ChatGPT review.
+
+Implementation scope was kept to M1. No M2 systems were started.
+
 ### Goal
 
 Build the first actually running two-day local-world simulation on top of the approved M0 deterministic core.
