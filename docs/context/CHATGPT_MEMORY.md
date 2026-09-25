@@ -10,41 +10,46 @@
 - Player 与 NPC 尽量遵守相同世界规则。
 - Canon Database 与动态 World State 分离。
 - 事实按 CANON_EXPLICIT / FAN_COMPILED / GAME_EXTENSION 分层。
-- NPC 不应读取未来的全知 WorldTruth；后续通过 Observation / Evidence / Report / Rumor / Belief 行动。
+- NPC 后续通过 Observation / Evidence / Report / Rumor / Belief 行动，不应无条件读取隐藏 WorldTruth。
 - 核心成长不是通用 Character EXP，而是修为、空窍/真元、蛊虫资产、流派理解等独立轴。
-- GitHub 是 ChatGPT Web 与 Codex 的长期协作真实状态源。
-- External ChatGPT 负责架构、Review 和 Gate；Codex 负责实现、测试、提交、Push 和交接。
-- 每个 Milestone 必须通过 Review Gate，禁止自动跨阶段。
+- External ChatGPT 负责方向、Review 和 Gate；Codex 负责实现、测试、提交、Push 和交接。
+- 用户偏好大任务包，但重大阶段仍人工 Gate。
 
 ## Vertical Slice direction
 
-最终 V0.1 目标是 10 个游戏日的局部世界切片，依次把修炼、蛊虫、经济、NPC、战斗、情报、势力和世界演化闭成循环。
+V0.1 目标是 10 个游戏日的局部世界切片，把修炼、蛊虫、经济、NPC、战斗、情报、势力和世界演化闭成循环。
 
 ## Review history
 
 ### M0 — PASS
 
-Reviewed remote commit:
+Deterministic core established.
 
-`ba27a449af05484a437f46a650b1692fb1d121b2`
+### M1 — PASS_WITH_NOTES
 
-Verified:
-- deterministic clock/RNG;
-- RNG Save/Load continuation;
-- versioned JSON world state;
-- EventBus queue/history separation;
-- Canon/Fan/Game provenance;
-- pytest and GitHub Actions;
-- correct stop at WAITING_FOR_MASTER.
+Reviewed remote HEAD:
 
-M0 non-blocking hardening notes were carried into M1.
+`4d3523dc0fe42d799b34654e4ca2fe67ede6d82f`
+
+M1 delivered a deterministic Day 1–2 living sandbox with:
+
+- shared player/NPC Character;
+- minimal cultivation;
+- Gu hunger / feeding;
+- finite resource node;
+- finite local market;
+- real inventory transfers;
+- autonomous NPC actions;
+- durable event log;
+- save/resume equivalence;
+- successful CI.
+
+Non-blocking note: M1 NPC cadence is intentionally coarse and is not suitable for combat timing.
 
 ## Current state
 
-Milestone: M1
+Milestone: M2
 
-Active task: TASK-M1-001, implementation complete and waiting for External ChatGPT review
+Active task: TASK-M2-001
 
-Delivered: deterministic Day 1~2 headless sandbox with player/NPC shared Character state, minimal cultivation, three player Gu instances with feeding, finite resource/market inventory, NPC autonomous actions, durable event log, and save/resume equivalence.
-
-Stop condition: keep `status=WAITING_FOR_MASTER` and `next_actor=chatgpt`; do not begin M2 without a new review.
+Goal: add the first deterministic hostile encounter with combat timing, perception/reaction, Gu use, movement, body-part injury, flee/attack risk and combat save/resume, without yet implementing the persistent M3 rumor/belief system or M7 killer-move graph.
