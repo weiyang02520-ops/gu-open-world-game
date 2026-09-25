@@ -1,35 +1,49 @@
 # Handoff
 
-## M3 Review
+## Completed Gate
 
-M3 / TASK-M3-001: **CHANGES_REQUESTED**
+M3 / TASK-M3-FIX-001: **PASS_WITH_NOTES**
 
-Reviewed remote HEAD:
+Reviewed Gate HEAD:
 
-`d13f7e71e5a7fa597c5d54efcc25d385eca54c09`
+`6d291afba23907768725ce9136414b673bdb3533`
 
-The structural information system passed most requirements, but four semantic issues block M4:
+M3 now provides:
 
-1. report-delivery relationship trust updates the wrong direction;
-2. SourceProfile expertise/history/bias/motive fields are stored but not materially used;
-3. rumor semantic mutation does not yet alter the receiver's interpreted Belief;
-4. the previous exact-final-SHA-in-itself Gate invariant is impossible and must be normalized.
+- incomplete Observation;
+- structured Evidence / Hypothesis / Report;
+- claimed vs actual report basis;
+- evaluator-local SourceProfile credibility;
+- correlated source discount;
+- delayed channels;
+- rumor mutation that changes interpreted Belief;
+- per-NPC BeliefStore;
+- Memory / directional Relationship;
+- investigation via evidence rather than truth reveal;
+- deterministic Save/Resume.
 
 ## Authorized now
 
-TASK-M3-FIX-001 — see `docs/M3_REPAIR_SPEC.md`.
+M4 / TASK-M4-001 — Factions, Reputation, Cases and Institutional Politics.
 
-## Preserve
+Read:
 
-- M1/M2/M3 regression suite;
-- WorldTruth / information separation;
-- report lineage;
-- correlated-source discount;
-- delayed delivery and Save/Resume;
-- same-time combat ordering test.
+1. `.ai/CURRENT_STATE.json`
+2. `.ai/ACTIVE_TASK.md`
+3. `docs/M4_TASK_SPEC.md`
+4. `.ai/MASTER_REVIEW.md`
+5. `docs/PRODUCT_DIRECTION.md`
+6. `docs/context/AGENT_MEMORY.md`
+
+## Carried hardening
+
+- source credibility penalties must only hit actually contradicted claims/sources;
+- report arrival must not blindly increase trust;
+- institutional investigations must use deterministic M3 evidence rules;
+- follow non-self-referential Gate SHA protocol.
 
 ## Stop
 
-Complete repair → WAITING_FOR_MASTER / chatgpt → STOP.
+Finish M4 → test/smoke/docs → push/verify → WAITING_FOR_MASTER / chatgpt → STOP.
 
-M4 is not authorized.
+M5 is not authorized.
