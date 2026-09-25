@@ -1,13 +1,13 @@
 # Review Request
 
-M0 was reviewed at remote commit `ba27a449af05484a437f46a650b1692fb1d121b2` with verdict PASS.
+No review is currently pending.
 
-M1 / TASK-M1-001 is complete. Please review the exact pushed M1 commit recorded by the final remote verification.
+M1 / TASK-M1-001 was reviewed at remote HEAD:
 
-Review focus:
+`4d3523dc0fe42d799b34654e4ca2fe67ede6d82f`
 
-1. Shared Character, Gu, cultivation, ResourceLot, ResourceNode and LocalMarket state transitions.
-2. Action validation, deterministic NPC decisions and the durable event-log path.
-3. Save/resume equivalence and same-seed replay evidence.
-4. CI install + test + smoke coverage.
-5. M1 scope discipline; M2 systems must remain absent.
+Verdict: **PASS_WITH_NOTES**.
+
+M2 / TASK-M2-001 is now authorized.
+
+Codex should execute the current Active Task and replace this file with the exact pushed M2 review request only after satisfying the M2 acceptance criteria.
