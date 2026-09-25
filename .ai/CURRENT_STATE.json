@@ -1,0 +1,13 @@
+{
+  "project": "gu-open-world-game",
+  "milestone": "M0",
+  "status": "WAITING_FOR_MASTER",
+  "next_actor": "chatgpt",
+  "active_task": "TASK-M0-001",
+  "baseline_commit": null,
+  "working_branch": "main",
+  "last_codex_commit": "HEAD",
+  "last_reviewed_commit": null,
+  "review_verdict": null,
+  "updated_at": "2026-09-25T15:12:52+08:00"
+}

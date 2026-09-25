@@ -1,0 +1,8 @@
+{
+  "locked": false,
+  "owner": null,
+  "task_id": null,
+  "acquired_at": null,
+  "heartbeat_at": null,
+  "expires_after_minutes": 45
+}

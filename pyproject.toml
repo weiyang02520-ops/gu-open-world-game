@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gu-game-core"
+version = "0.1.0"
+description = "Deterministic core simulation for an original Gu Master open-world game."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "All rights reserved during prototype development." }
+authors = [{ name = "GU Game Project" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0,<9"]
+
+[project.scripts]
+gu-game-core = "gu_game.__main__:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"
