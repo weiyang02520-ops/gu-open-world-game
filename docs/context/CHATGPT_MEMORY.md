@@ -2,24 +2,36 @@
 
 ## Project goal
 
-高开放度《蛊真人》世界模拟 RPG。玩家自创蛊师，世界不等玩家，经济、NPC、战斗、情报、势力、修炼与蛊虫组合通过统一规则产生涌现剧情。
+高开放度《蛊真人》世界模拟 RPG，玩家自创蛊师，世界系统自行演化。
 
 ## Completed
 
 - M0 deterministic core
-- M1 living economy/cultivation sandbox
+- M1 living sandbox
 - M2 combat/reaction/injury
-- M3 information/rumor/belief + semantic repair
-- M4 factions/reputation/cases/governance/missions
+- M3 information/rumor/belief
+- M4 faction/institutional layer — completed as internal V0.1 checkpoint
 
-Reviewed M3 repair Gate:
+M4 checkpoint:
 
-`6d291afba23907768725ce9136414b673bdb3533`
+- code-bearing commit: `40597c401743dc79aa0baedf126c273507047838`
+- Gate-state commit: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
+- 40 tests and M1–M4 smoke passed
 
-## Current state
+## Current user instruction
 
-Milestone: M4
+The user wants the remaining V0.1 completed in one Sol run.
 
-Active task: TASK-M4-001, implementation complete and waiting for External ChatGPT review.
+Current task:
 
-M4 is the current user-authorized boundary. Do not start M5.
+`TASK-V0.1-FULL-001`
+
+Current internal phase:
+
+M5 resource crisis/logistics.
+
+M5→M6→M7→M8 must continue automatically.
+
+## Final review
+
+External ChatGPT reviews again only after full V0.1 completion or a true product-level blocker.
