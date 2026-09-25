@@ -1,3 +1,17 @@
+# Full V0.1 Execution Authorization
+
+> 2026-09-25 override: the user explicitly authorized M4→M8 as one continuous execution task, `TASK-V0.1-FULL-001`.
+>
+> M4/M5/M6/M7 remain architectural checkpoints but are no longer human-review stop points.
+> At each checkpoint: test → regressions → self-review → docs → commit → push → continue.
+> Final human Gate is after the integrated V0.1.
+>
+> Canonical long-run spec: `docs/V0_1_FULL_EXECUTION_SPEC.md`
+> Acceptance matrix: `docs/V0_1_ACCEPTANCE_MATRIX.md`
+> Content targets: `docs/V0_1_CONTENT_TARGETS.md`
+
+---
+
 # Development Roadmap — M0 to V0.1
 
 > This is the default development direction.
