@@ -1,86 +1,79 @@
 # Active Task
 
-## TASK-M2-001 — Combat, Injury and Hostile Decision Loop
+## TASK-M3-001 — Information, Memory, Relationships and Rumor
 
 ### Execution mode
 
 **LARGE TASK MODE**
 
-M1 has passed Master Review.
+M2 has passed Master Review.
 
 Before coding read:
 
 1. `docs/PRODUCT_DIRECTION.md`
 2. `docs/DEVELOPMENT_ROADMAP.md`
 3. `docs/CODEX_EXECUTION_POLICY.md`
-4. `docs/M2_TASK_SPEC.md`
+4. `docs/M3_TASK_SPEC.md`
 5. `.ai/MASTER_REVIEW.md`
 6. `docs/context/AGENT_MEMORY.md`
 
 ### Goal
 
-Implement the complete bounded M2 package in `docs/M2_TASK_SPEC.md`.
-
-The proof should be:
+Implement the full bounded M3 information package:
 
 ```text
-hostile intent
-→ preparation / Gu activation
-→ perception
-→ reaction window
-→ movement / evade or failure to react
-→ resolution
-→ body-part injury / escape
-→ durable events
-→ changed later combat choices
+World Event
+→ Observation
+→ Evidence
+→ Report
+→ Rumor
+→ Belief
+→ Memory / Relationship
+→ Decision under incomplete information
+→ New World Event
 ```
+
+The same underlying event must be able to produce different beliefs and different NPC behavior.
 
 ### Required package
 
-- deterministic sub-second/equivalent integer combat timing;
-- serializable CombatEncounter;
-- body-part injury model;
-- attack / movement / perception Gu roles;
-- reaction window;
-- local distance/position;
-- real primeval essence costs;
-- NPC attack / avoid / flee risk decision from perceived visible state;
-- deterministic combat scenarios;
-- mid-combat save/resume equivalence;
-- M1 regression;
-- CI install/test/M1 smoke/M2 smoke;
-- docs, Memory, Handoff, Report;
-- commit, push, remote verify.
-
-### Carried constraints
-
-- Do not reuse M1 hourly NPC cadence as combat timing.
-- Do not use hidden exact target state in NPC combat decisions.
-- Do not implement persistent M3 Belief/rumor early.
-- Do not implement M7 full Effect Graph early.
-- Preserve M1 saves or add explicit tested migration.
-- Record exact final Codex HEAD in CURRENT_STATE before Gate.
+- structured hypotheses;
+- rule-gated incomplete observations;
+- evidence + support/contradiction;
+- reports with claimed vs actual basis;
+- deliberate lies without mutating WorldTruth;
+- source credibility;
+- origin_chain_id / independence_group_id;
+- correlated-source discount;
+- per-NPC BeliefStore;
+- deterministic belief decay;
+- MemoryRecord;
+- multidimensional relationships;
+- RumorThread and delayed channels;
+- structured rumor mutation;
+- minimal investigation;
+- NPC information actions / incomplete-information decisions;
+- deterministic M3 smoke;
+- pending transmission save/resume equivalence;
+- M1/M2 regressions;
+- dedicated same-time combat ordering test;
+- CI, docs, Memory, Handoff, Report, commit/push/remote verify.
 
 ### Baseline
 
-Reviewed M1 remote HEAD:
+Reviewed M2 remote HEAD:
 
-`4d3523dc0fe42d799b34654e4ca2fe67ede6d82f`
+`60b4b776ef18c5992ceb6b7ed3131feac7f17469`
 
 ### Completion
 
-Execution status: COMPLETE; waiting for External ChatGPT review.
+Complete the entire coherent M3 package unless a genuine product-level blocker prevents it.
 
-M2 remains bounded to combat, injuries, reaction and visible-state hostile decisions. M3 information/rumor and M7 Effect Graph systems were not started.
-
-Complete the entire coherent M2 package before returning unless a genuine product-level blocker prevents it.
-
-When complete:
-
+At Gate:
 - WAITING_FOR_MASTER
 - next_actor=chatgpt
-- exact final SHA recorded
+- last_codex_commit must equal exact final pushed Codex HEAD
 - lock released
 - STOP
 
-Do not begin M3.
+Do not begin M4.
