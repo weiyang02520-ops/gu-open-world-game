@@ -11,7 +11,8 @@
 
 - Run the documented test and smoke commands.
 - Review the final commit and decide whether M0 passes.
-- Configure a GitHub remote before claiming Push/Remote Verify.
+- GitHub remote is configured and the initial M0 commit has passed SHA verification.
+- The final state commit must also be pushed and verified before this Gate is closed.
 
 ## Stop rule
 

@@ -42,4 +42,4 @@ docs/context/      项目 Memory
 
 ## 远端状态
 
-当前独立仓库尚未配置 GitHub remote。完成本地 M0 后，需要提供目标远端或授权创建远端，才能完成文档要求的 Push 与 Remote Verify。
+GitHub remote 已配置：`https://github.com/weiyang02520-ops/gu-open-world-game.git`。M0 初始提交已 Push，且已用 `git ls-remote origin refs/heads/main` 验证远端 SHA。

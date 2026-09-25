@@ -2,7 +2,7 @@
 
 Task: `TASK-M0-001`
 
-Status: PASS_WITH_NOTES
+Status: PASS
 
 ## Implementation
 
@@ -48,11 +48,13 @@ YES
 ## Agent Discovered Delta
 
 - The parent workspace already contains unrelated projects; this game is isolated in `gu-open-world-game`.
-- No Git remote is configured yet, so Push and Remote Verify remain pending.
+- GitHub remote is configured as `https://github.com/weiyang02520-ops/gu-open-world-game.git`.
 
 ## Repository
 
 Local nested repository at `gu-open-world-game`.
+
+Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
 ## Branch
 
@@ -60,19 +62,22 @@ Local nested repository at `gu-open-world-game`.
 
 ## Commit
 
-HEAD after local commit; verify with `git rev-parse HEAD`.
+M0 implementation commit: `0526f5cbcfbc6a942036410787131cfd6a83df5a`.
+The remote-gate state commit is the current `HEAD`; verify its exact SHA with `git rev-parse HEAD`.
 
 ## Push
 
-NOT RUN: no remote configured.
+SUCCESS
 
 ## Remote Verified
 
-NO
+YES
+
+Remote HEAD verified before the state commit: `0526f5cbcfbc6a942036410787131cfd6a83df5a`.
 
 ## Known Issues
 
-- GitHub remote URL and repository identity are not configured.
+- External ChatGPT review is still pending; M1 is not authorized.
 
 ## Current Gate
 

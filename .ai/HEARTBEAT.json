@@ -2,6 +2,6 @@
   "actor": "codex",
   "task_id": "TASK-M0-001",
   "state": "STOPPED_AT_GATE",
-  "last_seen_at": "2026-09-25T15:12:52+08:00",
-  "last_progress": "M0 core, tests, docs and handoff files created; awaiting external review."
+  "last_seen_at": "2026-09-25T15:34:02+08:00",
+  "last_progress": "GitHub remote created, initial M0 commit pushed and SHA verified; final state commit is being recorded."
 }
