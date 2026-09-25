@@ -298,8 +298,9 @@ class Simulation:
         }
         # M2 combat is an optional layer over M1. Preserve an active encounter
         # when a generic M1 save is requested instead of silently dropping it.
-        if "m2_combat" in self.world.game_state:
-            data["m2_combat"] = self.world.game_state["m2_combat"]
+        for optional_layer in ("m2_combat", "m3_information"):
+            if optional_layer in self.world.game_state:
+                data[optional_layer] = self.world.game_state[optional_layer]
         return data
 
     def _sync_world_state(self) -> None:

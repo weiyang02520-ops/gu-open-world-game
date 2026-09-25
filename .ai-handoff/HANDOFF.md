@@ -18,9 +18,9 @@ Verified:
 - active combat save/resume;
 - M1 regressions and final CI.
 
-## Authorized now
+## M3 result
 
-M3 / TASK-M3-001 — Information, Memory, Relationships and Rumor.
+M3 / TASK-M3-001 implementation is complete and ready for External ChatGPT review.
 
 Read:
 1. `.ai/CURRENT_STATE.json`
@@ -35,6 +35,14 @@ Read:
 - Formalize the M2 visible-state shortcut into a true observation/information boundary.
 - Add explicit same-time combat ordering regression coverage.
 - Final Gate bookkeeping must use exact final pushed Codex HEAD.
+
+## Evidence to review
+
+- `python -m pytest` passes 28 tests, including M1/M2 regressions, same-time combat ordering and M3 privacy/lineage cases.
+- M1, M2 and M3 CLI smoke scenarios pass.
+- Delayed transmission Save/Resume produces the same beliefs, rumor mutation and ordered durable events.
+- False reports do not mutate WorldTruth; correlated retellings are discounted; investigation generates evidence rather than revealing truth.
+- CI installs the project and runs M1, M2 and M3 smoke commands.
 
 ## Stop rule
 

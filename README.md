@@ -59,9 +59,12 @@ Codex 不自动跨 Milestone，每阶段结束进入 `WAITING_FOR_MASTER`。
 ```powershell
 python -m gu_game --scenario day1-2 --seed 20260925
 python -m gu_game --scenario m2 --seed 20260925
+python -m gu_game --scenario m3 --seed 20260925
 ```
 
-M3 完成后应增加 information/rumor smoke 命令。
+M3 smoke 会运行直接观察、延迟谣言、结构化变异、不同 NPC 决策和最小调查。
+
+M3 架构说明见 `docs/M3_ARCHITECTURE.md`。
 
 GitHub remote:
 

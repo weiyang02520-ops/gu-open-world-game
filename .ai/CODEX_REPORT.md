@@ -1,33 +1,35 @@
 # Codex Report
 
-Task: `TASK-M2-001`
+Task: `TASK-M3-001`
 
 Status: PASS
 
 ## Implementation
 
-- Added integer millisecond combat timing with deterministic `(execute_at_ms, sequence)` ordering.
-- Added serializable `CombatEncounter` with local positions, pending actions, reaction windows, status and exit reason.
-- Added six-part `BodyState` / `Injury` model with bleeding, impairment and incapacitation/death boundaries.
-- Added attack, movement and perception Gu combat role profiles over owned M1 Gu instances.
-- Added preparation, activation, perception, reaction, resolution and consequence events through the M1 durable event log.
-- Added integer-distance evade and flee behavior with real primeval essence costs.
-- Added `PerceivedCombatSnapshot` and NPC attack/hold/flee choice without hidden target essence or injury reads.
-- Added active-combat Save/Load and M1 save compatibility.
-- Added deterministic M2 scenarios, M2 architecture documentation and CI M1/M2 smoke coverage.
+- Added structured Hypothesis, Observation, EvidenceItem/EvidenceSupport and InformationReport models.
+- Added claimed-basis versus actual-basis reports, deliberate lies, intention, source profiles and lineage.
+- Added per-NPC BeliefRecord stores with certainty classes, correlated-source discount and deterministic decay.
+- Added MemoryRecord, multidimensional RelationshipState and information-aware decisions.
+- Added delayed FACE_TO_FACE, MARKET_GOSSIP, MESSENGER and LOCAL_NETWORK transmissions.
+- Added RumorThread structured semantic slots and deterministic rumor mutation.
+- Added minimal scene investigation that creates new observations/evidence instead of revealing truth.
+- Added M3 state persistence under `WorldState.game_state["m3_information"]` while preserving M1/M2 save compatibility.
+- Added M3 architecture documentation, CLI smoke, privacy/lineage tests and M1/M2/M3 CI smoke coverage.
 
 ## Tests
 
 - Command: `python -m pytest`
-- Result: PASS (22 passed; M1 regression plus M2 combat coverage)
+- Result: PASS (28 passed; M1/M2 regressions, equal-time combat ordering and M3 coverage)
 - Command: `python -m pip install --no-deps -e ".[dev]"`
 - Result: PASS
 - Command: `python -m gu_game --scenario day1-2 --seed 20260925`
 - Result: PASS (M1 Day 2 smoke; 337 durable events)
 - Command: `python -m gu_game --scenario m2 --seed 20260925`
-- Result: PASS (detected evade, landed injury and NPC retreat scenarios)
-- Command: active combat save/resume comparison
-- Result: PASS (resumed and uninterrupted combat state and ordered events match)
+- Result: PASS (evade, injury and retreat scenarios)
+- Command: `python -m gu_game --scenario m3 --seed 20260925`
+- Result: PASS (different information decisions, rumor mutation and investigation correction)
+- Command: pending transmission Save/Resume comparison
+- Result: PASS (beliefs, rumor state and ordered durable events match)
 - Command: `python -m compileall -q src tests`
 - Result: PASS
 - Command: `git diff --check`
@@ -39,17 +41,17 @@ Status: PASS
 
 - STATIC: PASS
 - UNIT: PASS
-- INTEGRATION: PASS (M1 regression, M1 smoke, M2 smoke and active combat resume)
-- REAL ENV: PASS (GitHub Actions run [36122088404](https://github.com/weiyang02520-ops/gu-open-world-game/actions/runs/36122088404), conclusion `success`)
+- INTEGRATION: PASS (M1/M2/M3 smoke, privacy, lineage and Save/Resume)
+- REAL ENV: PENDING final GitHub Actions run for the pushed M3 commit
 
 ## Files Changed
 
-- `src/gu_game/m2/`
+- `src/gu_game/m3/`
 - `src/gu_game/m1/simulation.py`
 - `src/gu_game/__main__.py`
-- `tests/test_m2_combat.py`
+- `tests/test_m3_information.py`
 - `.github/workflows/ci.yml`
-- `docs/M2_ARCHITECTURE.md`
+- `docs/M3_ARCHITECTURE.md`
 - `README.md`
 - `.ai/`, `.ai-handoff/`, `docs/context/`
 
@@ -59,10 +61,10 @@ YES
 
 ## Agent Discovered Delta
 
-- M2 is an optional combat layer over M1; M1 saves remain valid when `m2_combat` is absent.
-- Combat milliseconds reconcile to the authoritative whole-second WorldClock without using float time.
-- Combat events use the existing WorldState.event_log; no second durable log was introduced.
-- NPC combat decisions receive PerceivedCombatSnapshot only; persistent M3 information/belief systems remain out of scope.
+- M3 information state is optional and stored beside the M2 layer under `WorldState.game_state`; old M1/M2 saves remain loadable.
+- Observation payloads are projections and do not copy exact hidden essence or injury dictionaries into persistent beliefs.
+- Report lineage and independence groups survive delayed delivery, rumor mutation and Save/Resume.
+- Combat remains headless; no image assets or insect imagery were generated.
 
 ## Repository
 
@@ -74,21 +76,20 @@ Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
 ## Commit
 
-M2 implementation commit: `3c6c573a178370be66e668340f707d9c774cf603`.
-The final verification-record commit will be shown by `git rev-parse HEAD` after the Gate state update.
+The M3 implementation commit will be recorded exactly in CURRENT_STATE before the final Gate. The final Gate state commit will be shown by `git rev-parse HEAD` after push.
 
 ## Push
 
-SUCCESS (M2 implementation commit pushed; Gate state commit pending).
+PENDING until the final M3 commit is pushed.
 
 ## Remote Verified
 
-YES for M2 implementation commit: remote `refs/heads/main` matched `3c6c573a178370be66e668340f707d9c774cf603` before the Gate state commit.
+PENDING until `git ls-remote origin refs/heads/main` matches the final pushed SHA.
 
 ## Known Issues
 
-- External ChatGPT review is required before M3.
-- No visual assets were generated; M2 remains headless and uses no insect imagery.
+- External ChatGPT review is required before M4.
+- No visual assets were generated; M3 remains headless and uses no insect imagery.
 
 ## Current Gate
 
@@ -96,4 +97,4 @@ WAITING_FOR_MASTER after final push and remote verification.
 
 ## Next Action
 
-Run final CI, push, exact SHA verification, then stop. Do not begin M3.
+Run final CI, push exact state, remote-verify, then stop. Do not begin M4.

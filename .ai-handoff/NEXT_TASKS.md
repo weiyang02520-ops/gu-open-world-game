@@ -1,10 +1,10 @@
 # Next Tasks
 
-## Authorized now
+## Completed
 
 ### TASK-M3-001 — Information, Memory, Relationships and Rumor
 
-Execute the complete package in `docs/M3_TASK_SPEC.md`.
+Implementation is complete and awaiting External ChatGPT review.
 
 This is a large coherent task. Do not stop for routine implementation choices.
 

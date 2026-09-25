@@ -11,6 +11,7 @@
 - M2: PASS_WITH_NOTES
 - M2 reviewed HEAD: `60b4b776ef18c5992ceb6b7ed3131feac7f17469`
 - M3 is authorized.
+- M3 implementation is complete and waiting for External ChatGPT review.
 
 Read `docs/M3_TASK_SPEC.md` plus product/roadmap/execution-policy docs before coding.
 
@@ -72,6 +73,17 @@ M2:
 - M2 visible movement impairment must become a formal perceptual signal rather than persistent direct truth leakage.
 - Add explicit same-execute-time combat sequence ordering test.
 - At Gate, `last_codex_commit` must equal exact final pushed Codex HEAD.
+
+## M3 delivered baseline
+
+- structured hypotheses, incomplete observations and evidence support;
+- reports with claimed versus actual basis, intention, credibility and lineage;
+- correlated-source discount using origin and independence groups;
+- per-NPC beliefs, deterministic decay, memories and multidimensional relationships;
+- delayed rumor channels, structured mutation and pending transmission save/resume;
+- minimal scene investigation and incomplete-information NPC decisions;
+- M1/M2 regression plus same-time combat ordering coverage;
+- deterministic M3 integrated smoke scenario.
 
 ## Stop
 

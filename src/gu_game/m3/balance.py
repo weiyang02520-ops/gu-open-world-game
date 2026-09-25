@@ -1,0 +1,27 @@
+"""M3 information-system tuning values, all GAME_EXTENSION."""
+
+GAME_EXTENSION_INFORMATION_BALANCE: dict[str, int] = {
+    "observation_distance_limit": 10,
+    "observation_base_quality": 75,
+    "first_hand_gain": 28,
+    "second_hand_gain": 18,
+    "deliberate_lie_gain": 20,
+    "correlated_source_divisor": 4,
+    "independent_evidence_bonus": 10,
+    "rumor_decay_per_hour": 3,
+    "immediate_decay_per_hour": 8,
+    "violence_memory_salience": 90,
+    "gossip_memory_salience": 30,
+    "market_gossip_delay_seconds": 3_600,
+    "messenger_delay_seconds": 7_200,
+    "local_network_delay_seconds": 1_800,
+    "face_to_face_delay_seconds": 0,
+    "channel_quality_face_to_face": 95,
+    "channel_quality_market_gossip": 55,
+    "channel_quality_messenger": 80,
+    "channel_quality_local_network": 65,
+    "decision_avoid_threshold": 60,
+    "decision_approach_threshold": 35,
+    "relationship_trust_report_delta": 2,
+    "relationship_fear_danger_delta": 8,
+}

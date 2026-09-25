@@ -157,6 +157,8 @@ Delivered in TASK-M2-001:
 
 # M3 — Information, memory, relationships and rumor
 
+Status: COMPLETE_PENDING_MASTER_REVIEW
+
 Goal:
 
 World consequences should depend on who actually knows what.
@@ -187,6 +189,14 @@ NPC behavior changes because of that belief.
 Exit condition:
 
 The world no longer grants NPCs omniscient crime knowledge.
+
+Delivered in TASK-M3-001:
+
+- structured observations, evidence, hypotheses and reports;
+- claimed/actual report basis, source credibility and lineage;
+- per-NPC beliefs, decay, memories and multidimensional relationships;
+- delayed rumor channels, structured mutation and minimal investigation;
+- incomplete-information decisions, privacy tests and pending transmission Save/Resume.
 
 ---
 

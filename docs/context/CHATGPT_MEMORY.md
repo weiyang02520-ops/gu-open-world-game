@@ -33,3 +33,5 @@ Milestone: M3
 Active task: TASK-M3-001
 
 目标：让世界从“所有 NPC 都能看见真相”变成“NPC 只能基于观察、证据、转述、谣言和记忆形成自己的 Belief”，并让错误/不完整信息真正改变 NPC 行为。
+
+M3 implementation is complete and waiting for External ChatGPT review. It includes delayed transmissions, structured rumor mutation, source-lineage discount, investigation and incomplete-information decisions without starting M4.
