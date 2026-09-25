@@ -1,7 +1,7 @@
 {
   "actor": "codex",
-  "task_id": "TASK-M4-001",
-  "state": "STOPPED_AT_GATE",
+  "task_id": "TASK-V0.1-FULL-001",
+  "state": "READY_FOR_NEXT_INTERNAL_PHASE",
   "last_seen_at": "2026-09-25T21:49:02+08:00",
-  "last_progress": "M4 faction/institutional package complete; 40 tests, four smoke scenarios and CI-ready; waiting for External ChatGPT review."
+  "last_progress": "Internal checkpoint M4 complete and verified by CI. Resume continuous V0.1 execution at Phase B / M5; do not wait for Master."
 }
