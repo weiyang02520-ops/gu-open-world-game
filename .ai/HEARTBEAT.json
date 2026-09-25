@@ -1,7 +1,7 @@
 {
   "actor": "codex",
-  "task_id": "TASK-M3-FIX-001",
+  "task_id": "TASK-M4-001",
   "state": "STOPPED_AT_GATE",
-  "last_seen_at": "2026-09-25T20:26:33+08:00",
-  "last_progress": "M3 semantic repair complete; 34 tests, M1/M2/M3 smoke and GitHub Actions passed; waiting for External ChatGPT review."
+  "last_seen_at": "2026-09-25T21:49:02+08:00",
+  "last_progress": "M4 faction/institutional package complete; 40 tests, four smoke scenarios and CI-ready; waiting for External ChatGPT review."
 }

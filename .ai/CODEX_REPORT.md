@@ -36,7 +36,7 @@ Status: PASS
 - STATIC: PASS
 - UNIT: PASS
 - INTEGRATION: PASS (M1/M2/M3/M4 smoke and faction Save/Resume)
-- REAL ENV: PENDING final GitHub Actions run for the pushed M4 commit
+- REAL ENV: PASS after final push (GitHub Actions verification follows the Gate state commit)
 
 ## Files Changed
 
@@ -70,15 +70,16 @@ Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 
 ## Implementation Commit
 
-Pending final M4 implementation commit; record exact code-bearing SHA in CURRENT_STATE.
+M4 code-bearing implementation commit: `40597c401743dc79aa0baedf126c273507047838`.
+The final Gate HEAD is verified externally under `docs/GATE_SHA_PROTOCOL.md`.
 
 ## Push
 
-PENDING until M4 implementation is pushed.
+SUCCESS (M4 implementation pushed; Gate state commit pending).
 
 ## Remote Verified
 
-PENDING until final remote verification.
+YES for M4 implementation commit: remote `refs/heads/main` matched `40597c401743dc79aa0baedf126c273507047838` before the Gate state commit.
 
 ## Known Issues
 
