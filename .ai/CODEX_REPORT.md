@@ -40,7 +40,7 @@ Status: PASS
 - STATIC: PASS
 - UNIT: PASS
 - INTEGRATION: PASS (headless scenario and save/resume)
-- REAL ENV: PASS (GitHub Actions run [36116354315](https://github.com/weiyang02520-ops/gu-open-world-game/actions/runs/36116354315), conclusion `success`)
+- REAL ENV: PASS (GitHub Actions runs [36116354315](https://github.com/weiyang02520-ops/gu-open-world-game/actions/runs/36116354315) and [36116471257](https://github.com/weiyang02520-ops/gu-open-world-game/actions/runs/36116471257), both `success`)
 
 ## Files Changed
 
@@ -76,19 +76,19 @@ Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
 ## Commit
 
 M1 implementation commit: `2d5a7f9d3735bd5111b40cd63d26958eba538c34`.
-The final verification-record commit is the current `HEAD`; record its exact SHA with `git rev-parse HEAD` after this documentation update.
+Verification-record commit: `39f959d621752c1f1f263b29a8a5622544c55592`.
+This final report correction is committed separately and will be remote-verified before STOP.
 
 ## Push
 
-SUCCESS (M1 implementation commit pushed; verification-record commit pending this final documentation update).
+SUCCESS (M1 implementation and verification-record commits pushed).
 
 ## Remote Verified
 
-YES for M1 implementation commit: remote `refs/heads/main` matched `2d5a7f9d3735bd5111b40cd63d26958eba538c34` before this verification-record commit.
+YES: remote `refs/heads/main` matched `39f959d621752c1f1f263b29a8a5622544c55592` after the verification-record push.
 
 ## Known Issues
 
-- GitHub Actions result for the final M1 commit is pending.
 - External ChatGPT review is required before M2.
 
 ## Current Gate
@@ -97,4 +97,4 @@ WAITING_FOR_MASTER; `next_actor=chatgpt`.
 
 ## Next Action
 
-Push and remote-verify the final M1 commit, then stop for External ChatGPT review. Do not begin M2.
+Remote-verify this final report correction, then stop for External ChatGPT review. Do not begin M2.
