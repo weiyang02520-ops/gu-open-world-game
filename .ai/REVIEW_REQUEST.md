@@ -1,13 +1,17 @@
 # Review Request
 
-M4 / TASK-M4-001 is complete and ready for External ChatGPT review.
+No human review is requested.
 
-Review focus:
+The user authorized `TASK-V0.1-FULL-001` as a continuous M4→M8 execution.
 
-1. Faction, membership, offices, blocs, needs and influence separation.
-2. Institutional belief sourced only from delivered M3 information.
-3. Reputation audience/identity scope versus official standing.
-4. Case state, investigation, proposal votes, governance and missions.
-5. M1/M2/M3 regression, M4 Save/Resume and all CI smoke commands.
+M4 is complete and is accepted as an internal checkpoint for continuation purposes:
 
-The current user task stops at M4. Do not authorize M5 from this request.
+- code-bearing checkpoint: `40597c401743dc79aa0baedf126c273507047838`
+- Gate-state commit: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
+- CI: PASS
+
+Continue immediately with M5, then M6, M7 and M8.
+
+Do not request Master review at internal checkpoints.
+
+Request review only when the full V0.1 acceptance matrix is complete, or when a genuine product-level blocker requires a decision.
