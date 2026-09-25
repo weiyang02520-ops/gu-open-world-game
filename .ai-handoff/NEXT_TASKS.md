@@ -1,26 +1,23 @@
 # Next Tasks
 
-## Completed
+## Authorized now
 
-### TASK-M2-001 — Combat, Injury and Hostile Decision Loop
+### TASK-M3-001 — Information, Memory, Relationships and Rumor
 
-Implementation is complete and awaiting External ChatGPT review.
+Execute the complete package in `docs/M3_TASK_SPEC.md`.
 
-This is a large coherent task. Do not stop for routine micro-decisions.
+This is a large coherent task. Do not stop for routine implementation choices.
 
 ## Planned — not authorized
-
-### M3 — Information / memory / relationships / rumor
-Observation, evidence, reports, source chains, rumors, beliefs, memory, relationships and incomplete-information decisions.
 
 ### M4 — Faction / reputation / institutional response
 Faction state, offices, institutional belief, reputation, cases, investigation, proposals and missions.
 
 ### M5 — Resource crisis / logistics / world evolution
-More resource nodes, price divergence, shipments/caravans, route danger, shortages and faction procurement.
+More resource nodes, price divergence, shipments/caravans, route danger, shortage and faction procurement.
 
 ### M6 — Breakthrough / attainment
-Minor-stage breakthrough, deeper cultivation, path attainment, insight events and inheritance hooks.
+Minor-stage breakthrough, deeper cultivation, path attainment, insights and inheritance hooks.
 
 ### M7 — Gu composition / killer-move prototype
 Effect nodes/graph, multi-Gu composition, stability, complexity and backlash.
