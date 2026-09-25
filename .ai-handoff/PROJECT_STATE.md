@@ -5,14 +5,15 @@
 - M1: PASS_WITH_NOTES
 - M2: PASS_WITH_NOTES
 - M3: PASS_WITH_NOTES
-- Current milestone: M4
-- Active task: TASK-M4-001
+- Remaining V0.1 M4→M8: AUTHORIZED AS ONE LONG RUN
+- Active task: TASK-V0.1-FULL-001
 - Gate: READY_FOR_CODEX
 - Next actor: codex
-- Reviewed M3 Gate HEAD: `6d291afba23907768725ce9136414b673bdb3533`
+- Reviewed baseline: `6d291afba23907768725ce9136414b673bdb3533`
+- Execution mode: LONG_RUN_NO_INTERMEDIATE_HUMAN_GATE
 
-Current product boundary:
+Current target:
 
-Faction state, membership/offices, political blocs, FactionNeeds, institutional beliefs, SocialIdentity, audience reputation, official standing, cases, investigation, proposals/governance and missions.
+A complete deterministic headless Day1–10 V0.1 proving institutions, logistics/resource crisis, cultivation/breakthrough/attainment, compositional killer moves and same-seed strategy divergence.
 
-M5 logistics/resource-crisis expansion is not authorized.
+Post-V0.1 graphical/client work is not authorized.
