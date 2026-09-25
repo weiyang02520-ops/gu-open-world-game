@@ -1,32 +1,50 @@
-# Handoff — M4 Institutional Gate
+# Handoff — Continue Full V0.1 Run
 
-## Reviewed baseline
+## Continuous task
 
-M3 repair Gate:
+`TASK-V0.1-FULL-001`
 
-`6d291afba23907768725ce9136414b673bdb3533`
+## Completed internal checkpoint
 
-## M4 result
+Phase A / M4 is complete.
 
-M4 / TASK-M4-001 implementation is complete and ready for External ChatGPT review.
+Evidence:
 
-Delivered:
+- code-bearing commit: `40597c401743dc79aa0baedf126c273507047838`
+- M4 Gate-state commit: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
+- 40 tests passed at M4 checkpoint
+- M1/M2/M3/M4 smoke passed
+- GitHub Actions passed
 
-- three local factions with needs, states, memberships and offices;
-- political blocs, influence and deterministic governance votes;
-- institutional beliefs sourced from delivered M3 reports only;
-- social identities, audience-scoped reputation and official standing;
-- non-binary cases and deterministic investigation;
-- recruitment, watch/sanction/close-case actions and faction missions;
-- integrated M4 smoke and faction Save/Resume.
+This is **not** a human Gate.
 
-## Evidence to review
+## Continue now
 
-- `python -m pytest` passes 40 tests.
-- M1, M2, M3 and M4 CLI smoke scenarios pass.
-- M4 smoke demonstrates three factions, institutional belief, a disputed case, disagreement, official standing, recruitment and mission generation.
-- CI installs the project and runs all four smoke commands.
+Phase B / M5:
 
-## Stop
+- resource-node expansion;
+- multiple markets;
+- local supply/demand pricing;
+- market belief;
+- Shipment;
+- Caravan;
+- actual cargo;
+- routes and route risk;
+- faction treasury/warehouse/procurement;
+- systemic shortage;
+- player/NPC multiple responses;
+- save/resume while cargo is in transit.
 
-This task ends at `WAITING_FOR_MASTER` / `next_actor=chatgpt`. M5 is not started by this task.
+Then continue automatically through M6 → M7 → M8.
+
+## Canonical docs
+
+- `docs/V0_1_FULL_EXECUTION_SPEC.md`
+- `docs/V0_1_ACCEPTANCE_MATRIX.md`
+- `docs/V0_1_CONTENT_TARGETS.md`
+
+## Stop rule
+
+Do not stop after M5/M6/M7.
+
+Only full V0.1 Gate or a genuine product blocker.
