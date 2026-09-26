@@ -335,6 +335,16 @@ class InformationEngine:
         if seconds < 0:
             raise ValueError("seconds cannot be negative")
         self.world.clock.advance(seconds)
+        self.process_elapsed_time(seconds)
+
+    def process_elapsed_time(self, seconds: int) -> None:
+        """Process information consequences after another authoritative layer advanced time.
+
+        This lets later integrated engines share one WorldClock instead of
+        advancing the clock once per subsystem.
+        """
+        if seconds < 0:
+            raise ValueError("seconds cannot be negative")
         self._decay_beliefs(seconds)
         due = sorted(
             [item for item in self.transmissions if item.deliver_at <= self.world.clock.elapsed_seconds],
