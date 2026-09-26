@@ -318,7 +318,7 @@ class FactionMission:
     reward: int
     deadline: int
     eligibility: list[str]
-    status: str = "OPEN"
+    status: str = "AVAILABLE"
     assignee_id: str | None = None
     progress: int = 0
     required_quantity: int = 1
