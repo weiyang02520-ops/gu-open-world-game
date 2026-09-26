@@ -66,3 +66,24 @@ def test_reputation_is_audience_scoped_and_separate_from_official_standing() -> 
 
 def test_m4_smoke_is_deterministic() -> None:
     assert run_m4_smoke(20260925) == run_m4_smoke(20260925)
+
+
+def test_membership_and_standing_change_real_faction_access() -> None:
+    simulation = Simulation.new(20260926)
+    factions = FactionEngine.new(simulation, InformationEngine.new(simulation))
+    faction_id = "faction-river-traders"
+    player_id = simulation.player_id
+
+    assert not factions.can_access_faction_warehouse(faction_id, player_id)
+
+    sponsor = next(
+        office.character_id
+        for office in factions.offices.values()
+        if office.faction_id == faction_id
+        and "RECRUIT" in office.authority
+        and office.active
+    )
+    membership = factions.recruit(faction_id, player_id, sponsor)
+
+    assert membership.status.value == "AFFILIATE"
+    assert factions.can_access_faction_warehouse(faction_id, player_id)
