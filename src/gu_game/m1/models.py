@@ -255,6 +255,7 @@ class GuInstance:
     hunger_state: HungerState = HungerState.NORMAL
     condition: int = B["default_gu_condition"]
     hunger_remainder: int = 0
+    starvation_remainder_seconds: int = 0
 
     def update_hunger(self, seconds: int, definition: GuDefinition) -> tuple[int, HungerState]:
         old_satiety = self.satiety
@@ -288,6 +289,7 @@ class GuInstance:
             "hunger_state": self.hunger_state.value,
             "condition": self.condition,
             "hunger_remainder": self.hunger_remainder,
+            "starvation_remainder_seconds": self.starvation_remainder_seconds,
         }
 
     @classmethod
@@ -301,6 +303,9 @@ class GuInstance:
             hunger_state=HungerState(data.get("hunger_state", HungerState.NORMAL.value)),
             condition=int(data.get("condition", 100)),
             hunger_remainder=int(data.get("hunger_remainder", 0)),
+            starvation_remainder_seconds=int(
+                data.get("starvation_remainder_seconds", 0)
+            ),
         )
 
 
