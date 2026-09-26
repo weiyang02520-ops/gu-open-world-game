@@ -1,8 +1,8 @@
 {
   "project": "gu-open-world-game",
   "milestone": "V0.1_FULL",
-  "status": "READY_FOR_CODEX",
-  "next_actor": "codex",
+  "status": "IN_PROGRESS",
+  "next_actor": "chatgpt",
   "active_task": "TASK-V0.1-FULL-001",
   "internal_phase": "M6",
   "completed_checkpoints": [
@@ -23,5 +23,12 @@
     "M7",
     "M8"
   ],
-  "updated_at": "2026-09-25"
+  "updated_at": "2026-09-26",
+  "active_executor": "chatgpt-web",
+  "executor_compatible": [
+    "chatgpt-web",
+    "sol",
+    "astre",
+    "codex"
+  ]
 }
