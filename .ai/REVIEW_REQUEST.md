@@ -1,8 +1,8 @@
 # Review Request
 
-Current task is `TASK-V0.1-PLAYABLE-LAYER`; no intermediate human review is
-requested. Review becomes available after playable regression, push and
-remote verification.
+Current task `TASK-V0.1-PLAYABLE-LAYER` is complete and ready for External
+ChatGPT review. The implementation commit and remote verification are recorded
+in `CODEX_REPORT.md`.
 
 No human review is requested.
 

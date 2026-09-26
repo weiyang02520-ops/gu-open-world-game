@@ -1,8 +1,8 @@
 {
   "project": "gu-open-world-game",
   "milestone": "V0.1_PLAYABLE_LAYER",
-  "status": "IN_PROGRESS",
-  "next_actor": "codex",
+  "status": "WAITING_FOR_MASTER",
+  "next_actor": "chatgpt",
   "active_task": "TASK-V0.1-PLAYABLE-LAYER",
   "internal_phase": "PLAYABLE",
   "completed_checkpoints": [
@@ -10,11 +10,12 @@
     "M5",
     "M6",
     "M7",
-    "M8"
+    "M8",
+    "PLAYABLE_LAYER"
   ],
   "baseline_commit": "6d291afba23907768725ce9136414b673bdb3533",
   "working_branch": "main",
-  "last_codex_commit": "40597c401743dc79aa0baedf126c273507047838",
+  "last_codex_commit": "61078ee332196f805492b0b6f32d3ae4312bf54b",
   "last_internal_checkpoint_head": "9e90c3422fdee5bcb675bc061d26a0aa62b077c9",
   "last_reviewed_commit": "6d291afba23907768725ce9136414b673bdb3533",
   "review_verdict": "PASS_WITH_NOTES",

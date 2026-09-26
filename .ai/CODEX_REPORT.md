@@ -1,95 +1,68 @@
 # Codex Report
 
-Task: `TASK-M4-001`
+Task: `TASK-V0.1-PLAYABLE-LAYER`
 
-Status: PASS
+Status: `WAITING_FOR_MASTER`
 
 ## Implementation
 
-- Added three local GAME_EXTENSION factions with FactionDefinition/State, needs, memberships, offices, blocs and influence.
-- Added institutional beliefs sourced from delivered M3 reports rather than hidden WorldTruth.
-- Added SocialIdentity, audience-scoped ReputationVector and separate official FactionStanding.
-- Added FactionCase state, deterministic institutional investigation, proposals, votes and governance resolution.
-- Added recruitment, standing changes, faction missions and durable institutional events.
-- Added M4 integrated smoke and faction Save/Resume.
-- Preserved M1/M2/M3 state layers and regression behavior.
+- Added `PlayerCharacter` creation for `散修` and `家族弟子`, with the requested Rank 1 starter state, Moonlight Gu, 30 primeval essence and 20 yuan stones for the rogue origin.
+- Added a three-action-point daily loop with morning/afternoon/night phases and cultivate, explore, gather, trade, status and rest actions.
+- Added a deterministic four-location Qing Mao Mountain outer map and World Tick updates for weather, finite resources, local economy, NPC routines, danger and history.
+- Replaced process-global random use in the playable event path with a serializable seed/counter stream.
+- Added complete serializable pending `WorldEvent` envelopes, dynamic context generation, unified `Effect(target, attribute, change, reason)` consequences and direct resume-safe event resolution.
+- Added saveable NPC identity, role, goal, wealth, memory, relationship and independent tick behavior.
+- Added versioned Save/Load/Resume helpers, a root `main.py` launcher, a deterministic 30-day demo and reserved network/server/realtime/multiplayer namespaces.
+- Preserved M1–M8 modules and added only adapter interfaces around the playable layer.
 
-## Tests
+## Tests and verification
 
-- Command: `python -m pytest`
-- Result: PASS (40 passed; M1/M2/M3 regressions and M4 coverage)
-- Command: `python -m pip install --no-deps -e ".[dev]"`
-- Result: PASS
-- Commands: `python -m gu_game --scenario day1-2 --seed 20260925`, `m2`, `m3`, `m4`
-- Result: PASS (all four smoke scenarios)
-- Command: faction Save/Resume comparison
-- Result: PASS
-- Command: `python -m compileall -q src tests`
-- Result: PASS
-- Command: `git diff --check`
-- Result: PASS
-- Command: secret scan
-- Result: CLEAN
+- `python -m pytest -q`: **83 passed**.
+- Playable/event tests: **12 passed**, including same-seed determinism, pending-event Save/Resume and process-global random isolation.
+- CLI smoke passed for `day1-2`, `m2`, `m3`, `m4`, `m5`, `m6`, `m7`, V0.1 cooperative, V0.1 adversarial, V0.1 comparison and playable 30-day demo.
+- `python main.py` passed and produced the 30-day playable summary; `python main.py --scenario play --interactive` remains available for terminal input.
+- `python -m compileall -q src main.py`: PASS.
+- `git diff --check`: PASS.
+- Secret scan for common key/private-key patterns: CLEAN.
+- GitHub Actions CI for implementation commit: **success** (`36236013752`).
 
-## Verification Level
+## Files changed
 
-- STATIC: PASS
-- UNIT: PASS
-- INTEGRATION: PASS (M1/M2/M3/M4 smoke and faction Save/Resume)
-- REAL ENV: PASS after final push (GitHub Actions verification follows the Gate state commit)
-
-## Files Changed
-
-- `src/gu_game/m4/`
-- `src/gu_game/m1/simulation.py`
+- `src/gu_game/playable.py`
+- `src/gu_game/event_system.py`
+- `src/gu_game/event_resolver.py`
+- `src/gu_game/npc_sim.py`
+- `src/gu_game/save_load.py`
 - `src/gu_game/__main__.py`
-- `tests/test_m4_factions.py`
+- `main.py`
+- `tests/test_playable_layer.py`
+- `tests/test_playable_events.py`
+- `docs/PLAYABLE_LAYER.md`
 - `.github/workflows/ci.yml`
-- `docs/M4_ARCHITECTURE.md`
-- `README.md`
-- `.ai/`, `.ai-handoff/`, `docs/context/`
+- `.ai/`, `.ai-handoff/`, `docs/context/AGENT_MEMORY.md`, `README.md`
+- reserved `src/gu_game/network/`, `server/`, `realtime/`, `multiplayer/` namespaces
 
-## Memory Updated
+## Gate SHA
 
-YES
+Code-bearing implementation commit:
 
-## Agent Discovered Delta
+`61078ee332196f805492b0b6f32d3ae4312bf54b`
 
-- M4 institutional state is stored under `WorldState.game_state["m4_factions"]` beside M1/M2/M3 layers.
-- Faction governance is deterministic and inspectable: needs, blocs, offices, votes and influence remain separate fields.
-- Official standing, reputation, institutional belief, membership and personal relationship are independent state.
-- No M5 logistics, M6 attainment or M7 Effect Graph was started.
+Remote verification before final Gate bookkeeping:
 
-## Repository
+`git ls-remote origin refs/heads/main` matched
+`61078ee332196f805492b0b6f32d3ae4312bf54b`.
 
-Remote: `https://github.com/weiyang02520-ops/gu-open-world-game`
-
-## Branch
-
-`main`
-
-## Implementation Commit
-
-M4 code-bearing implementation commit: `40597c401743dc79aa0baedf126c273507047838`.
-The final Gate HEAD is verified externally under `docs/GATE_SHA_PROTOCOL.md`.
-
-## Push
-
-SUCCESS (M4 implementation pushed; Gate state commit pending).
-
-## Remote Verified
-
-YES for M4 implementation commit: remote `refs/heads/main` matched `40597c401743dc79aa0baedf126c273507047838` before the Gate state commit.
-
-## Known Issues
-
-- External ChatGPT review is required before M5.
-- No visual assets were generated; M4 remains headless and uses no insect imagery.
+The final state/report bookkeeping commit is separate because a commit cannot
+truthfully contain its own SHA; `CURRENT_STATE.last_codex_commit` records the
+code-bearing implementation commit above.
 
 ## Current Gate
 
-WAITING_FOR_MASTER after final push and remote verification.
+`WAITING_FOR_MASTER`
 
-## Next Action
+## Next actor
 
-Run final CI, push Gate state, externally verify final remote HEAD, then stop. Do not begin M5.
+`chatgpt`
+
+No post-V0.1 scope was started.

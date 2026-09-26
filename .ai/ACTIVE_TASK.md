@@ -11,8 +11,9 @@ World Tick, NPC routines, complete pending events, unified Effects,
 four-location Qing Mao Mountain outer map, Save/Load/Resume, 30-day demo and
 reserved network/server/realtime/multiplayer namespaces.
 
-After full regression, push and remote verification, set
-`WAITING_FOR_MASTER / next_actor=chatgpt` and stop. Do not start post-V0.1.
+Completed: full regression, playable and historical smoke, implementation
+push and remote verification. Current Gate is `WAITING_FOR_MASTER /
+next_actor=chatgpt`. Do not start post-V0.1.
 
 ## TASK-V0.1-FULL-001 — Complete V0.1 One-Pass Build
 

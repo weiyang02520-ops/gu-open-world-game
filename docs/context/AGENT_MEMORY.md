@@ -35,7 +35,8 @@ routines and Save/Load/Resume without replacing the core modules.
 
 ## Stop
 
-Only after playable verification, push and remote verification; then set
+Playable verification, push and remote verification completed. Code-bearing
+commit: `61078ee332196f805492b0b6f32d3ae4312bf54b`. Current Gate:
 WAITING_FOR_MASTER / next_actor=chatgpt.
 
 

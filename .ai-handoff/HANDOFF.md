@@ -6,7 +6,8 @@ The M1–M8 core is already on remote `main`. The playable adapter supplies
 PlayerCharacter creation, daily actions, deterministic World Tick, NPC state,
 complete pending events, unified Effects, Save/Load/Resume and a 30-day demo
 without replacing milestone modules. Final handoff is after push and remote
-verification with `WAITING_FOR_MASTER / next_actor=chatgpt`.
+verification with `WAITING_FOR_MASTER / next_actor=chatgpt`. The playable
+implementation code-bearing commit is `61078ee332196f805492b0b6f32d3ae4312bf54b`.
 
 ## Active task
 

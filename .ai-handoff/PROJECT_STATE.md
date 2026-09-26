@@ -4,10 +4,10 @@
 
 - Active task: `TASK-V0.1-PLAYABLE-LAYER`
 - Current phase: PLAYABLE
-- Gate: IN_PROGRESS
-- Next actor: codex
+- Gate: WAITING_FOR_MASTER
+- Next actor: chatgpt
 - M1–M8 headless core: present on remote main
-- Playable adapter: implemented locally; final push/remote verify pending
+- Playable adapter: implemented, pushed and remotely verified
 
 - Project: gu-open-world-game
 - M0: PASS

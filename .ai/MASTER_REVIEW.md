@@ -54,3 +54,10 @@ Full specifications:
 - `docs/V0_1_FULL_EXECUTION_SPEC.md`
 - `docs/V0_1_ACCEPTANCE_MATRIX.md`
 - `docs/V0_1_CONTENT_TARGETS.md`
+
+## Playable Layer Review Boundary
+
+`TASK-V0.1-PLAYABLE-LAYER` is complete at the headless adapter boundary. The
+review target includes deterministic PlayerCharacter creation, daily actions,
+World Tick, NPC state, dynamic pending events, unified Effects and Save/Load;
+it does not begin a graphical client or post-V0.1 scope.
