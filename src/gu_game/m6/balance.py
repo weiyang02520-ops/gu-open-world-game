@@ -1,0 +1,26 @@
+"""GAME_EXTENSION tuning values for M6 cultivation and attainment."""
+
+GAME_EXTENSION_M6_BALANCE = {
+    "safe_threshold_percent": 100,
+    "supported_threshold_percent": 85,
+    "forced_threshold_percent": 60,
+    "supported_resource_cost": 2,
+    "supported_resource_id": "resource-strategic-01",
+    "breakthrough_duration_seconds": 2 * 3_600,
+    "safe_fatigue_cost": 12,
+    "supported_fatigue_cost": 18,
+    "forced_fatigue_cost": 30,
+    "forced_base_success": 25,
+    "forced_progress_bonus_max": 45,
+    "supported_success_target": 88,
+    "failure_wall_regression": 20,
+    "failure_instability_gain": 30,
+    "failure_health_loss": 12,
+    "success_capacity_gain": 8,
+    "success_essence_max_gain": 10,
+    "rest_essence_per_hour": 6,
+    "rest_fatigue_per_hour": 8,
+    "rest_instability_per_hour": 5,
+    "insight_repeat_decay_percent": 55,
+    "insight_min_percent": 20,
+}
