@@ -28,6 +28,17 @@ def test_m8_content_targets_and_world_lod() -> None:
     assert SimulationLevel.ABSTRACT in levels
     assert any(location.hidden for location in engine.locations.values())
 
+    kinds = [location.kind for location in engine.locations.values()]
+    assert kinds.count("MAIN_SETTLEMENT") == 1
+    assert 2 <= kinds.count("SMALL_SETTLEMENT") <= 4
+    assert kinds.count("RESOURCE_AREA") >= 5
+    assert any(kind in {"ROUTE", "DANGER_ROUTE", "ROUTE_STOP"} for kind in kinds)
+    assert all(
+        location.neighbors
+        for location in engine.locations.values()
+        if location.kind not in {"TRAINING", "MARKET_WARD", "FACTION_HQ"}
+    )
+
 
 def test_m8_canon_anchor_scaffold_is_conditional_not_forced() -> None:
     engine = IntegratedV01Engine.new(802)
