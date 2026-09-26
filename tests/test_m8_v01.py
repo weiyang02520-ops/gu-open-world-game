@@ -138,3 +138,7 @@ def test_m8_remote_world_acts_without_player_input() -> None:
         event.event_type == "M8_REMOTE_NPC_ACTION"
         for event in engine.world.event_log
     )
+    assert any(
+        event.event_type == "M6_ABSTRACT_CULTIVATION_SESSION"
+        for event in engine.world.event_log
+    )
