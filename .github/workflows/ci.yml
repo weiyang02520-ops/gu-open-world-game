@@ -27,3 +27,6 @@ jobs:
         run: python -m gu_game --scenario m4 --seed 20260925
       - name: Run M5 economy smoke
         run: python -m gu_game --scenario m5 --seed 20260925
+
+      - name: Run M6 cultivation smoke
+        run: python -m gu_game --scenario m6 --seed 20260925
