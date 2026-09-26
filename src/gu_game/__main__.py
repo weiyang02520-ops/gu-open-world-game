@@ -16,6 +16,7 @@ from .m7.scenario import run_m7_smoke
 from .m8.models import StrategyProfile
 from .m8.scenario import run_v0_1_comparison, run_v0_1_smoke
 from .playable import run_playable
+from .save_load import load_game, save_game
 
 
 def main() -> None:
