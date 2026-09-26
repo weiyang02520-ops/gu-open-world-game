@@ -99,6 +99,7 @@ class Membership:
     privileges: list[str] = field(default_factory=list)
     restrictions: list[str] = field(default_factory=list)
     sponsor_id: str | None = None
+    favor_balance: int = 0
 
     def to_dict(self) -> dict[str, Any]:
         data = self.__dict__.copy()
@@ -318,6 +319,11 @@ class FactionMission:
     deadline: int
     eligibility: list[str]
     status: str = "OPEN"
+    assignee_id: str | None = None
+    progress: int = 0
+    required_quantity: int = 1
+    accepted_at: int | None = None
+    completed_at: int | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return self.__dict__.copy()
