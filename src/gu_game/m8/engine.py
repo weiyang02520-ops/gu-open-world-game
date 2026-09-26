@@ -1372,6 +1372,7 @@ class IntegratedV01Engine:
                 },
             },
             "killer_moves": self.effects.summary(player_id)["killer_moves"],
+            "economy": self.economy.summary(),
             "relationships": relationship_summary,
             "npc_goals": {
                 npc_id: self.economy.npc_goals.get(npc_id)
