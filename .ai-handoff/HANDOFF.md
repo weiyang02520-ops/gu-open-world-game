@@ -48,3 +48,23 @@ Then continue automatically through M6 → M7 → M8.
 Do not stop after M5/M6/M7.
 
 Only full V0.1 Gate or a genuine product blocker.
+
+
+## ChatGPT Web checkpoint update — M6 complete
+
+M6 is complete and CI-green at:
+`c5e86027a4c79061b3e4575bc742580432363ed7`
+
+Delivered:
+- Rank1 INITIAL/MIDDLE/UPPER/PEAK model;
+- cultivation sessions consuming time/essence;
+- shared-clock M3/M4/M5 progression during cultivation;
+- SAFE/SUPPORTED/FORCED breakthrough;
+- aptitude-sensitive aperture growth;
+- PathDefinition / PathAttainmentState / InsightEvent;
+- diminishing repeated insight;
+- KnowledgeRecord separate from attainment;
+- study/inheritance sources;
+- deterministic save/resume.
+
+Current internal phase: **M7**.
