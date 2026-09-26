@@ -15,7 +15,7 @@
 - M6 final verified code/CI head: `c5e86027a4c79061b3e4575bc742580432363ed7`.
 - Executor workflow is agent-agnostic; local Sol/Astre/Codex are reserved for real-machine tasks.
 
-## Current phase PLAYABLE
+## Current phase PHASE1 BASIC UI
 
 Build Effect Graph and killer-move composition:
 
@@ -36,9 +36,10 @@ map art, animation, audio, combat UI and later UI phases.
 
 ## Stop
 
-Playable verification, push and remote verification completed. Phase 1 UI is
-currently in progress; after its push and remote verification set
-WAITING_FOR_MASTER / next_actor=chatgpt.
+Playable verification, push and remote verification completed. Phase 1 UI
+code-bearing commit `2c853893a07eebd84f82dcc061275b96136d8acf` is pushed and
+CI-green. Current Gate: WAITING_FOR_MASTER / next_actor=chatgpt. Phase 2 is
+not started.
 
 
 ## ChatGPT Web checkpoint update — M7 complete

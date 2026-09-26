@@ -4,7 +4,7 @@
 
 - Active task: `TASK-V0.1.2-BASIC-UI`
 - Current phase: PHASE1
-- UI layer: implemented locally; final push/remote verify pending
+- UI Phase 1: implemented, pushed, remotely verified and CI-green
 - Gate: WAITING_FOR_MASTER
 - Next actor: chatgpt
 - M1–M8 headless core: present on remote main

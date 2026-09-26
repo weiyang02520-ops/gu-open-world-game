@@ -8,8 +8,9 @@ action buttons, event display, history and GameController/API connection.
 Keep `src/gu_game` authoritative; do not start map art, audio, animation,
 3D, combat UI or Phase 2–4 work.
 
-After tests, smoke, commit, push and remote verification, set
-`WAITING_FOR_MASTER / next_actor=chatgpt` and stop.
+Completed: Phase 1 tests, full regression, UI HTTP smoke, implementation
+commit, push, remote verification and GitHub CI. Current Gate is
+`WAITING_FOR_MASTER / next_actor=chatgpt`. Do not start Phase 2.
 
 ## Current task override — TASK-V0.1-PLAYABLE-LAYER
 

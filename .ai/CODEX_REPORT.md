@@ -1,61 +1,61 @@
 # Codex Report
 
-Task: `TASK-V0.1-PLAYABLE-LAYER`
+Task: `TASK-V0.1.2-BASIC-UI / PHASE1`
 
 Status: `WAITING_FOR_MASTER`
 
-## Implementation
+## Scope completed
 
-- Added `PlayerCharacter` creation for `散修` and `家族弟子`, with the requested Rank 1 starter state, Moonlight Gu, 30 primeval essence and 20 yuan stones for the rogue origin.
-- Added a three-action-point daily loop with morning/afternoon/night phases and cultivate, explore, gather, trade, status and rest actions.
-- Added a deterministic four-location Qing Mao Mountain outer map and World Tick updates for weather, finite resources, local economy, NPC routines, danger and history.
-- Replaced process-global random use in the playable event path with a serializable seed/counter stream.
-- Added complete serializable pending `WorldEvent` envelopes, dynamic context generation, unified `Effect(target, attribute, change, reason)` consequences and direct resume-safe event resolution.
-- Added saveable NPC identity, role, goal, wealth, memory, relationship and independent tick behavior.
-- Added versioned Save/Load/Resume helpers, a root `main.py` launcher, a deterministic 30-day demo and reserved network/server/realtime/multiplayer namespaces.
-- Preserved M1–M8 modules and added only adapter interfaces around the playable layer.
+Phase 1 adds a dependency-free 2D Web UI adapter over the existing playable
+core. It does not rewrite `src/gu_game`, add a 3D engine, or start later UI
+phases.
+
+- Added canonical `ui.controller.GameController` as the only UI gameplay boundary.
+- Added stdlib `ui.app` HTTP/static transport with JSON state/action/end-day/event/save/load endpoints.
+- Added responsive Phase 1 page with character creation, player status, action buttons, current location, event panel, history log, lightweight Gu/NPC/inventory cards and save/load controls.
+- Added no-CDN CSS and browser JavaScript; UI state is detached snapshots and browser code never receives core objects.
+- Added `python main.py --scenario ui` and `python -m ui.app` launch paths.
+- Kept `src/gu_game` authoritative; no map-art, animation, audio, combat UI or Phase 2 work was started.
 
 ## Tests and verification
 
-- `python -m pytest -q`: **83 passed**.
-- Playable/event tests: **12 passed**, including same-seed determinism, pending-event Save/Resume and process-global random isolation.
-- CLI smoke passed for `day1-2`, `m2`, `m3`, `m4`, `m5`, `m6`, `m7`, V0.1 cooperative, V0.1 adversarial, V0.1 comparison and playable 30-day demo.
-- `python main.py` passed and produced the 30-day playable summary; `python main.py --scenario play --interactive` remains available for terminal input.
-- `python -m compileall -q src main.py`: PASS.
+- `python -m pytest -q`: **93 passed**.
+- UI/controller tests: **10 passed**, including controller snapshot isolation, action routing, event resolution, Save/Load/Resume, HTTP API, page assets and startup.
+- Full historical M1–M8 and playable CLI smoke: PASS.
+- Local HTTP smoke: `GET /`, `GET /static/style.css`, `GET /static/app.js`, `GET /api/state`, `POST /api/create`, `POST /api/action`: PASS.
 - `git diff --check`: PASS.
-- Secret scan for common key/private-key patterns: CLEAN.
-- GitHub Actions CI for implementation commit: **success** (`36236013752`).
+- GitHub Actions CI: **success**, Run `36237847326`.
 
 ## Files changed
 
-- `src/gu_game/playable.py`
-- `src/gu_game/event_system.py`
-- `src/gu_game/event_resolver.py`
-- `src/gu_game/npc_sim.py`
-- `src/gu_game/save_load.py`
+- `ui/controller.py`
+- `ui/app.py`
+- `ui/templates/index.html`
+- `ui/static/style.css`
+- `ui/static/app.js`
+- `ui/__init__.py`
+- `tests/test_ui_controller.py`
+- `tests/test_basic_ui.py`
 - `src/gu_game/__main__.py`
-- `main.py`
-- `tests/test_playable_layer.py`
-- `tests/test_playable_events.py`
-- `docs/PLAYABLE_LAYER.md`
 - `.github/workflows/ci.yml`
-- `.ai/`, `.ai-handoff/`, `docs/context/AGENT_MEMORY.md`, `README.md`
-- reserved `src/gu_game/network/`, `server/`, `realtime/`, `multiplayer/` namespaces
+- `docs/PLAYABLE_LAYER.md`
+- `README.md`
+- `.ai/`, `.ai-handoff/`, `docs/context/AGENT_MEMORY.md`
 
 ## Gate SHA
 
 Code-bearing implementation commit:
 
-`61078ee332196f805492b0b6f32d3ae4312bf54b`
+`2c853893a07eebd84f82dcc061275b96136d8acf`
 
-Remote verification before final Gate bookkeeping:
+Remote verification before Gate bookkeeping:
 
 `git ls-remote origin refs/heads/main` matched
-`61078ee332196f805492b0b6f32d3ae4312bf54b`.
+`2c853893a07eebd84f82dcc061275b96136d8acf`.
 
-The final state/report bookkeeping commit is separate because a commit cannot
-truthfully contain its own SHA; `CURRENT_STATE.last_codex_commit` records the
-code-bearing implementation commit above.
+The Gate bookkeeping commit is separate because a commit cannot truthfully
+contain its own SHA. `CURRENT_STATE.last_codex_commit` records the code-bearing
+implementation commit above.
 
 ## Current Gate
 
@@ -65,4 +65,4 @@ code-bearing implementation commit above.
 
 `chatgpt`
 
-No post-V0.1 scope was started.
+Phase 2 (map, art, animation, audio) and Phase 3/4 were not started.

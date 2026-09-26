@@ -1,8 +1,7 @@
 # Review Request
 
-Current task is `TASK-V0.1.2-BASIC-UI / PHASE1`; no intermediate review is
-requested. Review becomes available after UI tests, push and remote
-verification.
+Current task `TASK-V0.1.2-BASIC-UI / PHASE1` is complete and ready for
+External ChatGPT review. Phase 2 is intentionally not started.
 
 No human review is requested.
 

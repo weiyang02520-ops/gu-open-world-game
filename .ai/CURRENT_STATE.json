@@ -1,8 +1,8 @@
 {
   "project": "gu-open-world-game",
   "milestone": "V0.1.2_BASIC_UI",
-  "status": "IN_PROGRESS",
-  "next_actor": "codex",
+  "status": "WAITING_FOR_MASTER",
+  "next_actor": "chatgpt",
   "active_task": "TASK-V0.1.2-BASIC-UI",
   "internal_phase": "PHASE1",
   "completed_checkpoints": [
@@ -16,7 +16,7 @@
   ],
   "baseline_commit": "6d291afba23907768725ce9136414b673bdb3533",
   "working_branch": "main",
-  "last_codex_commit": "61078ee332196f805492b0b6f32d3ae4312bf54b",
+  "last_codex_commit": "2c853893a07eebd84f82dcc061275b96136d8acf",
   "last_internal_checkpoint_head": "9e90c3422fdee5bcb675bc061d26a0aa62b077c9",
   "last_reviewed_commit": "6d291afba23907768725ce9136414b673bdb3533",
   "review_verdict": "PASS_WITH_NOTES",

@@ -1,7 +1,7 @@
 {
   "actor": "codex",
   "task_id": "TASK-V0.1.2-BASIC-UI",
-  "state": "IN_PROGRESS",
+  "state": "WAITING_FOR_MASTER",
   "internal_phase": "PHASE1",
   "executor_mode": "AGENT_AGNOSTIC",
   "compatible_executors": [
@@ -10,5 +10,5 @@
     "astre",
     "codex"
   ],
-  "last_progress": "Phase 1 Web UI and GameController implemented; 93 tests and local HTTP smoke pass."
+  "last_progress": "Phase 1 Web UI complete; 93 tests, HTTP smoke, push and GitHub CI pass at code-bearing 2c853893a07eebd84f82dcc061275b96136d8acf."
 }
