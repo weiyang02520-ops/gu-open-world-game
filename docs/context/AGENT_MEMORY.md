@@ -34,3 +34,23 @@ Then continue M8 without human review.
 ## Stop
 
 Only at complete V0.1 or genuine product-level blocker.
+
+
+## ChatGPT Web checkpoint update — M7 complete
+
+M7 is complete and CI-green at:
+`24db39a3131293ea8342994b6d38301232977e4b`
+
+Delivered:
+- serializable Effect Graphs;
+- M2 combat-profile graph wrappers;
+- multi-Gu KillerMove definitions/instances;
+- attainment-gated complexity;
+- stability/mastery;
+- unstable backlash and Gu strain;
+- real refinement-material research;
+- research-generated Insight;
+- M2 combat-clock/body integration;
+- deterministic save/resume.
+
+Current internal phase: **M8 / integrated Day1–10 V0.1**.
