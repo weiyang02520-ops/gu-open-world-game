@@ -285,7 +285,10 @@ class EffectGraphEngine:
         effective = self.effective_stability(instance_id)
         roll = self.world.rng.randint(1, 100)
         instance.last_test_at = self.world.clock.elapsed_seconds
-        if roll > effective:
+        unstable_failure = effective < 10 or (
+            effective < B["proficient_threshold"] and roll > effective
+        )
+        if unstable_failure:
             essence_spent = max(1, definition.essence_cost // 2)
             actor.cultivation.primeval_current -= essence_spent
             injury = encounter.actors[actor_id].body.apply_hit(
