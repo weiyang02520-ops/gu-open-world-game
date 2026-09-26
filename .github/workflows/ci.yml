@@ -33,3 +33,12 @@ jobs:
 
       - name: Run M7 killer-move smoke
         run: python -m gu_game --scenario m7 --seed 20260925
+
+      - name: Run V0.1 cooperative smoke
+        run: python -m gu_game --scenario v0.1 --seed 20260925 --strategy cooperative
+
+      - name: Run V0.1 adversarial smoke
+        run: python -m gu_game --scenario v0.1 --seed 20260925 --strategy adversarial
+
+      - name: Run V0.1 strategy divergence smoke
+        run: python -m gu_game --scenario v0.1-compare --seed 20260925
