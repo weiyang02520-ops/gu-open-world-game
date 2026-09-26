@@ -192,3 +192,40 @@ def test_m8_mission_lifecycle_player_ignore_and_npc_completion() -> None:
     assert snapshot["missions"][npc_mission_id]["status"] == "COMPLETED"
     assert snapshot["missions"][ignored_mission_id]["status"] == "EXPIRED"
     assert snapshot["missions"][npc_mission_id]["assignee_id"] in engine.simulation.npc_ids
+
+
+def test_m8_factions_evolve_during_48h_player_idle() -> None:
+    engine = IntegratedV01Engine.new(810)
+
+    grove = "faction-grove-watch"
+    river = "faction-river-traders"
+    grove_mission = engine.factions.generate_mission(
+        grove,
+        engine._issuer_for(grove, "ISSUE_MISSION"),
+        "WATCH_TARGET",
+        target_id=engine.simulation.player_id,
+    )
+    river_mission = engine.factions.generate_mission(
+        river,
+        engine._issuer_for(river, "ISSUE_MISSION"),
+        "GATHER",
+        target_id=engine.simulation.FOOD_RESOURCE_ID,
+    )
+
+    need_updates_before = {
+        key: need.updated_at for key, need in engine.factions.needs.items()
+    }
+    engine.advance_seconds(48 * 3_600)
+
+    assert engine.factions.missions[grove_mission.mission_id].status == "EXPIRED"
+    assert engine.factions.missions[river_mission.mission_id].status == "EXPIRED"
+    assert all(
+        need.updated_at >= need_updates_before[key]
+        for key, need in engine.factions.needs.items()
+    )
+    expired_factions = {
+        event.payload["faction_id"]
+        for event in engine.world.event_log
+        if event.event_type == "FACTION_MISSION_EXPIRED"
+    }
+    assert {grove, river}.issubset(expired_factions)
