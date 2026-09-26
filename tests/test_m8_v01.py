@@ -229,3 +229,11 @@ def test_m8_factions_evolve_during_48h_player_idle() -> None:
         if event.event_type == "FACTION_MISSION_EXPIRED"
     }
     assert {grove, river}.issubset(expired_factions)
+
+
+def test_m8_same_identity_can_have_different_faction_standings() -> None:
+    cooperative = IntegratedV01Engine.new(811)
+    snapshot = cooperative.run_to_day(StrategyProfile.COOPERATIVE, 5)
+
+    assert len(snapshot["standings"]) >= 3
+    assert len(set(snapshot["standings"].values())) >= 2
