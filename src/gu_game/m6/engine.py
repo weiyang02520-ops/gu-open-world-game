@@ -192,6 +192,95 @@ class CultivationAttainmentEngine:
             "breakthrough_ready": profile.breakthrough_ready,
         }
 
+    def cultivate_elapsed(
+        self,
+        character_id: str,
+        *,
+        hours: int = 1,
+        method_id: str | None = None,
+    ) -> dict[str, Any]:
+        """Apply cultivation during time already advanced by a higher LOD layer.
+
+        This uses the same Rank-1 cultivation economics as the normal cultivate
+        action but deliberately does not advance WorldClock again. It is
+        intended for remote or aggregated NPC simulation.
+        """
+
+        if hours <= 0 or hours > 12:
+            raise CultivationValidationError(
+                "elapsed cultivation hours must be between 1 and 12"
+            )
+        actor = self.simulation._character(character_id)
+        cultivation = actor.cultivation
+        if cultivation.rank != 1:
+            raise CultivationValidationError(
+                "V0.1 M6 supports Rank 1 cultivation only"
+            )
+        profile = self._profile(character_id)
+        selected = self.methods[method_id or profile.active_method_id]
+        essence_cost = selected.essence_cost_per_hour * hours
+        if cultivation.primeval_current < essence_cost:
+            return {
+                "character_id": character_id,
+                "hours": 0,
+                "progress": 0,
+                "reason": "insufficient_primeval_essence",
+            }
+
+        wall_before = cultivation.wall_progress
+        essence_before = cultivation.primeval_current
+        fatigue_before = profile.fatigue
+        quality_bonus = max(0, cultivation.essence_quality - 1) * hours
+        fatigue_penalty = max(0, profile.fatigue - 70) * hours // 20
+        progress = max(
+            hours,
+            selected.progress_per_hour * hours
+            + quality_bonus
+            - fatigue_penalty,
+        )
+        cultivation.primeval_current -= essence_cost
+        cultivation.wall_progress = min(
+            cultivation.wall_threshold,
+            cultivation.wall_progress + progress,
+        )
+        profile.fatigue = min(
+            100, profile.fatigue + selected.fatigue_per_hour * hours
+        )
+        profile.breakthrough_ready = (
+            cultivation.wall_progress >= cultivation.wall_threshold
+        )
+        profile.last_session_at = self.world.clock.elapsed_seconds
+
+        self.simulation._emit(
+            "M6_ABSTRACT_CULTIVATION_SESSION",
+            actor_id=character_id,
+            location_id=actor.location_id,
+            payload={
+                "method_id": selected.method_id,
+                "hours": hours,
+                "essence_before": essence_before,
+                "essence_after": cultivation.primeval_current,
+                "wall_progress_before": wall_before,
+                "wall_progress_after": cultivation.wall_progress,
+                "fatigue_before": fatigue_before,
+                "fatigue_after": profile.fatigue,
+                "breakthrough_ready": profile.breakthrough_ready,
+                "time_already_advanced": True,
+                "provenance": Provenance.GAME_EXTENSION.value,
+            },
+        )
+        self._sync_world_state()
+        return {
+            "character_id": character_id,
+            "hours": hours,
+            "progress": cultivation.wall_progress - wall_before,
+            "wall_progress": cultivation.wall_progress,
+            "wall_threshold": cultivation.wall_threshold,
+            "primeval_current": cultivation.primeval_current,
+            "fatigue": profile.fatigue,
+            "breakthrough_ready": profile.breakthrough_ready,
+        }
+
     def rest(self, character_id: str, *, hours: int = 1) -> dict[str, int]:
         if hours <= 0 or hours > 24:
             raise CultivationValidationError("rest hours must be between 1 and 24")
