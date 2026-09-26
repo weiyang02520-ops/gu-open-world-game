@@ -743,8 +743,10 @@ class InformationEngine:
         hours = seconds // 3_600
         if hours <= 0:
             return
-        for character_id, records in self.beliefs.items():
-            for record in records.values():
+        for character_id in sorted(self.beliefs):
+            records = self.beliefs[character_id]
+            for hypothesis_id in sorted(records):
+                record = records[hypothesis_id]
                 decay = B["immediate_decay_per_hour"] if record.category == "IMMEDIATE" else B["rumor_decay_per_hour"]
                 if record.confidence > 50:
                     record.confidence = max(50, record.confidence - decay * hours)
