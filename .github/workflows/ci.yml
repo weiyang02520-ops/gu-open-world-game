@@ -30,3 +30,6 @@ jobs:
 
       - name: Run M6 cultivation smoke
         run: python -m gu_game --scenario m6 --seed 20260925
+
+      - name: Run M7 killer-move smoke
+        run: python -m gu_game --scenario m7 --seed 20260925
