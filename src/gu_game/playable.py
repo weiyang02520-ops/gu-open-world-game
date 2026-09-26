@@ -1,13 +1,14 @@
-"""Player-facing V0.1 playable layer.
+"""V0.1 playable layer.
 
-A small playable shell over the deterministic simulation core.
-The first goal is not visual presentation, but making the 30-day survival
-loop testable: player decision -> world feedback -> next day.
+Player loop:
+player action -> world feedback -> world tick -> next day.
+This is intentionally separated from future UI/network layers.
 """
 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
+import random
 
 
 LOCATIONS = {
@@ -16,6 +17,33 @@ LOCATIONS = {
     "坊市": {"danger": 15, "resource": "交易"},
     "山洞": {"danger": 70, "resource": "未知蛊材"},
 }
+
+
+@dataclass
+class WorldState:
+    day: int = 1
+    danger_level: int = 20
+    resources: dict[str, int] = field(default_factory=lambda: {
+        "月兰草": 10,
+        "兽材": 5,
+        "食物": 20,
+    })
+    npc_status: dict[str, str] = field(default_factory=lambda: {
+        "村民": "正常",
+        "巡山弟子": "巡逻",
+    })
+    events: list[str] = field(default_factory=list)
+
+    def tick(self, player: "PlayerGuMaster") -> None:
+        self.day += 1
+        self.danger_level = min(100, self.danger_level + random.randint(-2, 3))
+        self.resources["食物"] = max(0, self.resources["食物"] - 1)
+        self.npc_status["巡山弟子"] = "巡逻" if self.day % 2 else "调查"
+
+        if random.random() < 0.25:
+            self.events.append("附近出现异常气息，可能存在野外蛊材或危险。")
+
+        player.record(f"世界Tick完成，当前危险度{self.danger_level}。")
 
 
 @dataclass
@@ -54,14 +82,14 @@ def create_player() -> PlayerGuMaster:
     return PlayerGuMaster(name=name, origin=origin)
 
 
-def world_tick(player: PlayerGuMaster) -> None:
+def world_tick(player: PlayerGuMaster, world: WorldState) -> None:
     player.day += 1
     player.action_points = 3
-    player.inventory["食物"] = max(0, player.inventory["食物"] - 1)
-    player.record("世界推进一天，资源与状态更新。")
+    player.inventory["食物"] = max(0, player.inventory.get("食物", 0) - 1)
+    world.tick(player)
 
 
-def apply_action(player: PlayerGuMaster, action: str) -> str:
+def apply_action(player: PlayerGuMaster, world: WorldState, action: str) -> str:
     if player.action_points <= 0:
         return "今日行动次数已耗尽，请结束一天。"
 
@@ -76,11 +104,15 @@ def apply_action(player: PlayerGuMaster, action: str) -> str:
         player.location = "荒林"
         gain = 2
         player.yuan_stones += gain
-        result = f"进入荒林探索，发现线索并获得{gain}枚元石。"
+        result = f"探索荒林，获得{gain}枚元石，并记录附近情报。"
 
     elif action == "3":
-        player.inventory["月兰草"] = player.inventory.get("月兰草", 0) + 1
-        result = "采集月兰草，可用于蛊虫培养。"
+        if world.resources["月兰草"] > 0:
+            world.resources["月兰草"] -= 1
+            player.inventory["月兰草"] = player.inventory.get("月兰草", 0) + 1
+            result = "采集月兰草成功。"
+        else:
+            result = "附近月兰草资源不足。"
 
     elif action == "4":
         player.location = "坊市"
@@ -90,12 +122,12 @@ def apply_action(player: PlayerGuMaster, action: str) -> str:
         result = (
             f"地点:{player.location} 境界:{player.rank} "
             f"真元:{player.primeval_essence} 元石:{player.yuan_stones} "
-            f"蛊虫:{','.join(player.owned_gu)}"
+            f"世界危险:{world.danger_level}"
         )
 
     elif action == "6":
         player.action_points = 0
-        world_tick(player)
+        world_tick(player, world)
         return "结束今日行动，进入下一天。"
 
     else:
@@ -107,16 +139,19 @@ def apply_action(player: PlayerGuMaster, action: str) -> str:
 
 def run_playable() -> None:
     player = create_player()
+    world = WorldState()
     print("进入青茅山外围，V0.1 Playable Layer 启动。")
 
     while player.day <= 30:
         print(f"\n第 {player.day} 天 | {player.name} | {player.rank}")
         print(
             f"地点:{player.location} 真元:{player.primeval_essence} "
-            f"元石:{player.yuan_stones} 行动点:{player.action_points}"
+            f"元石:{player.yuan_stones} 行动点:{player.action_points} "
+            f"危险:{world.danger_level}"
         )
+
         for key, value in ACTIONS.items():
             print(f"{key}. {value}")
 
         choice = input("> ").strip()
-        print(apply_action(player, choice))
+        print(apply_action(player, world, choice))
