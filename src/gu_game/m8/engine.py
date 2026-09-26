@@ -125,6 +125,7 @@ class IntegratedV01Engine:
         self.active_strategy: StrategyProfile | None = None
         self.flags: dict[str, Any] = {}
         self.day_history: list[dict[str, Any]] = []
+        self.strategic_npc_goals: dict[str, str] = {}
 
         saved = self.world.game_state.get("m8_integrated")
         if saved:
@@ -1220,7 +1221,7 @@ class IntegratedV01Engine:
         else:
             goals = ("WATCH_PLAYER", "GUARD_CARAVAN", "INVESTIGATE_PLAYER")
         for npc_id, goal in zip(self.simulation.npc_ids[:3], goals):
-            self.economy.npc_goals[npc_id] = goal
+            self.strategic_npc_goals[npc_id] = goal
             self.simulation._emit(
                 "M8_NPC_GOAL_CHANGED",
                 actor_id=npc_id,
@@ -1389,7 +1390,10 @@ class IntegratedV01Engine:
             "economy": self.economy.summary(),
             "relationships": relationship_summary,
             "npc_goals": {
-                npc_id: self.economy.npc_goals.get(npc_id)
+                npc_id: {
+                    "strategic": self.strategic_npc_goals.get(npc_id),
+                    "economic": self.economy.npc_goals.get(npc_id),
+                }
                 for npc_id in self.simulation.npc_ids[:3]
             },
             "combat": {
@@ -1521,6 +1525,7 @@ class IntegratedV01Engine:
             "active_strategy": self.active_strategy.value if self.active_strategy else None,
             "flags": dict(self.flags),
             "day_history": list(self.day_history),
+            "strategic_npc_goals": dict(self.strategic_npc_goals),
         }
 
     def _load_dict(self, data: dict[str, Any]) -> None:
@@ -1547,6 +1552,10 @@ class IntegratedV01Engine:
         self.active_strategy = StrategyProfile(strategy) if strategy else None
         self.flags = dict(data.get("flags", {}))
         self.day_history = list(data.get("day_history", []))
+        self.strategic_npc_goals = {
+            str(key): str(value)
+            for key, value in data.get("strategic_npc_goals", {}).items()
+        }
 
     def _sync_world_state(self) -> None:
         self.effects._sync_world_state()
