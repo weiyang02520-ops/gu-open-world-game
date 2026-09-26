@@ -256,7 +256,13 @@ def test_m8_event_log_explains_strategy_divergence() -> None:
     adversarial_events = result["adversarial"]["event_types"]
 
     assert cooperative_events.get("M8_SUPPLY_MISSION_DELIVERED", 0) >= 1
-    assert cooperative_events.get("M5_SHIPMENT_ARRIVED", 0) >= 1
+    assert cooperative_events.get("M5_SHIPMENT_DEPARTED", 0) >= 1
+    assert (
+        cooperative_events.get("M5_SHIPMENT_ARRIVED", 0)
+        + cooperative_events.get("M5_SHIPMENT_LOST", 0)
+        >= 1
+    )
+    assert cooperative_events.get("M8_SHIPMENT_ROBBED", 0) == 0
 
     assert adversarial_events.get("M8_MARKET_THEFT", 0) >= 1
     assert adversarial_events.get("M8_SHIPMENT_ROBBED", 0) >= 1
