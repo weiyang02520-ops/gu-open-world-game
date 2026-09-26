@@ -4,88 +4,89 @@
 
 ### Execution mode
 
-**LONG-RUN / LARGE TASK / NO HUMAN GATE BETWEEN INTERNAL PHASES**
+**LONG-RUN / LARGE TASK / EXECUTOR-AGNOSTIC**
 
-The user explicitly authorized the remaining V0.1 to be completed in one continuous Sol/Codex run.
+The repository is not tied to Codex.
 
-### Progress already completed inside this task
+Authorized executors include:
 
-- Phase A / M4 institutional world: **CHECKPOINT COMPLETE**
-- M4 code-bearing checkpoint commit: `40597c401743dc79aa0baedf126c273507047838`
-- M4 gate-state commit created by Codex: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
-- M4 CI: PASS
-- M1/M2/M3/M4 smoke: PASS
+- ChatGPT Web
+- Sol
+- Astre
+- Codex
+- another explicitly user-selected coding executor
 
-M4 is now treated as an **internal checkpoint**, not a human-review stop.
+The repository state is the source of truth.
 
-### Continue now
+## Completed internal checkpoints
 
-Completed internal checkpoint:
+- M4 — faction / institutional world
+- M5 — resource crisis / logistics / local economy
+- M6 — Rank1 progression / breakthrough / attainment
+- M7 — Effect Graph / killer-move prototype
 
-**Phase B / M5 — Resource Crisis, Logistics and World Economy**
+## Current internal phase
 
-Evidence: `tests/test_m5_economy.py`, 45-test regression, and `--scenario m5` smoke.
+**M8 — Integrated Day1–10 V0.1**
 
-Next internal phase:
+Current goal:
 
-**Phase C / M6 — Rank1 progression, breakthrough, attainment**
+- integrate all previous systems;
+- expand local world content;
+- add LOD;
+- add CanonAnchor scaffold;
+- run cooperative/adversarial same-seed strategies;
+- prove material world divergence;
+- finish final V0.1 acceptance matrix.
 
-Then continue automatically:
-
-- Phase C / M6 — Rank1 progression, breakthrough, attainment
-- Phase D / M7 — Effect Graph and killer-move prototype
-- Phase E / M8 — integrated Day1–10 V0.1 and strategy divergence
-
-### Read first
+## Required reading
 
 1. `docs/V0_1_FULL_EXECUTION_SPEC.md`
 2. `docs/V0_1_ACCEPTANCE_MATRIX.md`
 3. `docs/V0_1_CONTENT_TARGETS.md`
-4. `docs/M4_TASK_SPEC.md`
-5. `docs/PRODUCT_DIRECTION.md`
-6. `docs/DEVELOPMENT_ROADMAP.md`
-7. `docs/CODEX_EXECUTION_POLICY.md`
-8. `docs/GATE_SHA_PROTOCOL.md`
-9. `docs/context/AGENT_MEMORY.md`
+4. `docs/PRODUCT_DIRECTION.md`
+5. `docs/DEVELOPMENT_ROADMAP.md`
+6. `docs/EXECUTOR_POLICY.md`
+7. `docs/GATE_SHA_PROTOCOL.md`
+8. `docs/context/AGENT_MEMORY.md`
 
-### Internal checkpoint rule
+## Executor handoff rule
 
-At M5/M6/M7 completion:
+If another executor takes over:
 
-- run phase tests;
-- run all previous regressions and smoke;
-- diff self-review;
-- update docs/Memory;
-- commit;
-- push;
-- keep `status = IN_PROGRESS`;
-- keep `next_actor = codex`;
-- continue.
+- pull latest `main`;
+- read CURRENT_STATE;
+- do not assume previous chat context;
+- continue the same active task;
+- do not redo completed checkpoints unless regression evidence requires it.
 
-Do NOT write WAITING_FOR_MASTER at M5/M6/M7.
+## Real-machine boundary
 
-### Stop conditions
+Use a local executor such as Sol/Astre/Codex only when work depends on:
 
-Stop only when:
+- local GUI;
+- hardware;
+- camera/microphone;
+- robot/sensor;
+- device drivers;
+- local-only software;
+- real latency/performance measurements;
+- physical demonstration.
 
-1. full V0.1 acceptance matrix is complete; or
-2. a genuine product-level decision is required; or
-3. repository/data/licensing integrity is at risk.
+Pure repository code/tests/docs/assets may be handled directly by ChatGPT Web.
 
-Routine implementation choices are not blockers.
+## Final V0.1 Gate only
 
-### Final Gate only
-
-After complete V0.1:
+Only after the full V0.1 acceptance matrix is satisfied:
 
 - full pytest PASS;
-- all smoke PASS;
+- all smokes PASS;
 - cooperative/adversarial Day1–10 validation PASS;
-- docs/Memory/Handoff/CODEX_REPORT current;
+- docs/Memory/Handoff/report current;
 - final code-bearing commit pushed;
 - remote verified per Gate SHA protocol;
 - status = WAITING_FOR_MASTER;
 - next_actor = chatgpt;
 - STOP.
 
-Do not start post-V0.1 graphical client or Gu Immortal scope.
+Do not begin post-V0.1 graphical client or Gu Immortal scope.
