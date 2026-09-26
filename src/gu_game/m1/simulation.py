@@ -581,24 +581,28 @@ class Simulation:
                     },
                 )
             if gu.hunger_state is HungerState.CRITICAL and gu.condition > 0:
-                hours = max(1, seconds // 3_600)
-                loss = B["gu_starvation_condition_loss_per_hour"] * hours
-                condition_before = gu.condition
-                gu.condition = max(0, gu.condition - loss)
-                if gu.condition != condition_before:
-                    self._emit(
-                        "GU_CONDITION_CHANGED",
-                        actor_id=gu.owner_id,
-                        target_ids=(gu.instance_id,),
-                        location_id=self.LOCATION_ID,
-                        payload={
-                            "gu_id": gu.instance_id,
-                            "condition_before": condition_before,
-                            "condition_after": gu.condition,
-                            "reason": "starvation",
-                            "balance_provenance": Provenance.GAME_EXTENSION.value,
-                        },
-                    )
+                interval = B["gu_starvation_condition_loss_interval_hours"] * 3_600
+                after = self.world.clock.elapsed_seconds
+                before = max(0, after - seconds)
+                periods = after // interval - before // interval
+                if periods > 0:
+                    loss = B["gu_starvation_condition_loss_per_hour"] * periods
+                    condition_before = gu.condition
+                    gu.condition = max(0, gu.condition - loss)
+                    if gu.condition != condition_before:
+                        self._emit(
+                            "GU_CONDITION_CHANGED",
+                            actor_id=gu.owner_id,
+                            target_ids=(gu.instance_id,),
+                            location_id=self.LOCATION_ID,
+                            payload={
+                                "gu_id": gu.instance_id,
+                                "condition_before": condition_before,
+                                "condition_after": gu.condition,
+                                "reason": "starvation",
+                                "balance_provenance": Provenance.GAME_EXTENSION.value,
+                            },
+                        )
 
     def _regenerate_resources(self, seconds: int) -> None:
         node = self.resource_nodes[self.RESOURCE_NODE_ID]
