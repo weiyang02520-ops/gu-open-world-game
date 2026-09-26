@@ -291,6 +291,28 @@ class FactionEngine:
         self._sync_world_state()
         return vector
 
+    def process_elapsed_time(self, seconds: int) -> None:
+        """Apply coarse institutional consequences after the shared clock advances."""
+        if seconds < 0:
+            raise ValueError("seconds cannot be negative")
+        now = self.world.clock.elapsed_seconds
+        changed = False
+        for mission in self.missions.values():
+            if mission.status in {"OPEN", "AVAILABLE", "ACCEPTED", "IN_PROGRESS"} and mission.deadline <= now:
+                previous = mission.status
+                mission.status = "EXPIRED"
+                self._emit(
+                    "FACTION_MISSION_EXPIRED",
+                    mission.issuer_id,
+                    mission.faction_id,
+                    {"mission_id": mission.mission_id, "status_before": previous},
+                )
+                changed = True
+        for need in self.needs.values():
+            need.updated_at = now
+        if changed or self.needs:
+            self._sync_world_state()
+
     def summary(self) -> dict[str, Any]:
         return {
             "factions": len(self.definitions),
