@@ -1,15 +1,16 @@
 {
   "project": "gu-open-world-game",
-  "milestone": "V0.1_FULL",
+  "milestone": "V0.1_PLAYABLE_LAYER",
   "status": "IN_PROGRESS",
-  "next_actor": "chatgpt",
-  "active_task": "TASK-V0.1-FULL-001",
-  "internal_phase": "M8",
+  "next_actor": "codex",
+  "active_task": "TASK-V0.1-PLAYABLE-LAYER",
+  "internal_phase": "PLAYABLE",
   "completed_checkpoints": [
     "M4",
     "M5",
     "M6",
-    "M7"
+    "M7",
+    "M8"
   ],
   "baseline_commit": "6d291afba23907768725ce9136414b673bdb3533",
   "working_branch": "main",

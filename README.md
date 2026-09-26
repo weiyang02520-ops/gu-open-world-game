@@ -39,6 +39,18 @@
 
 ## Final V0.1 CLI
 
+第一版可玩层也提供根目录入口。裸运行会执行可复现的 30 天 headless
+试玩；加 `--interactive` 可逐日输入行动：
+
+```powershell
+python main.py
+python main.py --scenario play --interactive
+```
+
+可玩层 API、动态事件、NPC Tick 和 Save/Load 说明见
+`docs/PLAYABLE_LAYER.md`。它通过 `event_system`、`event_resolver`、
+`npc_sim` 和 `save_load` 接口工作，不替换 M1–M8 的规则模块。
+
 合作路线：
 
 ```powershell

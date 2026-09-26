@@ -255,3 +255,17 @@ Same seed, cooperative vs adversarial:
 - [ ] status WAITING_FOR_MASTER.
 - [ ] next_actor chatgpt.
 - [ ] STOP.
+
+## S. Playable Layer Extension
+
+- [x] PlayerCharacter creation supports 散修 and 家族弟子.
+- [x] Starter state is Rank 1, 30 primeval essence, 20 yuan stones and 月光蛊.
+- [x] Three daily action points and morning/afternoon/night phases.
+- [x] Cultivate, explore, gather, trade and rest actions.
+- [x] World Tick updates weather, resources, economy, NPC routines and events.
+- [x] Dynamic events retain complete pending choice context across Save/Load.
+- [x] Event consequences use serializable target/attribute/change/reason Effects.
+- [x] NPC identity, role, goal, wealth, memory and relationship state persists.
+- [x] Four-location Qing Mao Mountain outer map is exposed.
+- [x] 30-day same-seed demo and Save/Resume regression pass.
+- [x] Network/server/realtime/multiplayer namespaces are reserved without moving rule authority.

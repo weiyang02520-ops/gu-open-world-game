@@ -14,7 +14,7 @@ from .m5.scenario import run_m5_smoke
 from .m6.scenario import run_m6_smoke
 from .m7.scenario import run_m7_smoke
 from .m8.models import StrategyProfile
-from .m8.scenario import run_v0_1_comparison, run_v0_1_smoke
+from .m8.scenario import run_v01_comparison, run_v01_smoke
 from .playable import run_playable
 from .save_load import load_game, save_game
 
@@ -40,11 +40,17 @@ def main() -> None:
     )
     parser.add_argument("--seed", type=int, default=20260925)
     parser.add_argument("--seconds", type=int, default=60)
+    parser.add_argument("--interactive", action="store_true", help="use terminal input for the playable scenario")
     parser.add_argument("--strategy", choices=tuple(item.value for item in StrategyProfile), default=StrategyProfile.COOPERATIVE.value)
     args = parser.parse_args()
 
     if args.scenario == "play":
-        run_playable()
+        print(json.dumps(
+            run_playable(args.seed, interactive=args.interactive),
+            ensure_ascii=False,
+            indent=2,
+            sort_keys=True,
+        ))
         return
     if args.scenario == "day1-2":
         result = run_and_summarize(args.seed)
@@ -69,10 +75,10 @@ def main() -> None:
         print(json.dumps(run_m7_smoke(args.seed), ensure_ascii=False, indent=2, sort_keys=True))
         return
     if args.scenario == "v0.1":
-        print(json.dumps(run_v0_1_smoke(args.seed, args.strategy), ensure_ascii=False, indent=2, sort_keys=True))
+        print(json.dumps(run_v01_smoke(args.seed, args.strategy), ensure_ascii=False, indent=2, sort_keys=True))
         return
     if args.scenario == "v0.1-compare":
-        print(json.dumps(run_v0_1_comparison(args.seed), ensure_ascii=False, indent=2, sort_keys=True))
+        print(json.dumps(run_v01_comparison(args.seed), ensure_ascii=False, indent=2, sort_keys=True))
         return
 
     state = WorldState.new(seed=args.seed)

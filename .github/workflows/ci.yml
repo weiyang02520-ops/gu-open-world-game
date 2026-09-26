@@ -42,3 +42,9 @@ jobs:
 
       - name: Run V0.1 strategy divergence smoke
         run: python -m gu_game --scenario v0.1-compare --seed 20260925
+
+      - name: Run V0.1 playable 30-day smoke
+        run: python main.py --scenario play --seed 20260925
+
+      - name: Run V0.1 playable API tests
+        run: python -m pytest tests/test_playable_layer.py tests/test_playable_events.py

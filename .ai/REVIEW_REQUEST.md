@@ -1,5 +1,9 @@
 # Review Request
 
+Current task is `TASK-V0.1-PLAYABLE-LAYER`; no intermediate human review is
+requested. Review becomes available after playable regression, push and
+remote verification.
+
 No human review is requested.
 
 The user authorized `TASK-V0.1-FULL-001` as a continuous M4→M8 execution.

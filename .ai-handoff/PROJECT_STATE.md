@@ -1,5 +1,14 @@
 # Project State
 
+## Current task override
+
+- Active task: `TASK-V0.1-PLAYABLE-LAYER`
+- Current phase: PLAYABLE
+- Gate: IN_PROGRESS
+- Next actor: codex
+- M1–M8 headless core: present on remote main
+- Playable adapter: implemented locally; final push/remote verify pending
+
 - Project: gu-open-world-game
 - M0: PASS
 - M1: PASS_WITH_NOTES

@@ -1,5 +1,19 @@
 # Active Task
 
+## Current task override — TASK-V0.1-PLAYABLE-LAYER
+
+The M1–M8 headless V0.1 core is already present on remote `main`. This task
+adds a stable first playable adapter without replacing those rules.
+
+Delivered scope: PlayerCharacter creation, origin selection, three action
+points with day phases, cultivate/explore/gather/trade/rest, deterministic
+World Tick, NPC routines, complete pending events, unified Effects,
+four-location Qing Mao Mountain outer map, Save/Load/Resume, 30-day demo and
+reserved network/server/realtime/multiplayer namespaces.
+
+After full regression, push and remote verification, set
+`WAITING_FOR_MASTER / next_actor=chatgpt` and stop. Do not start post-V0.1.
+
 ## TASK-V0.1-FULL-001 — Complete V0.1 One-Pass Build
 
 ### Execution mode

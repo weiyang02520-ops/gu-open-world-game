@@ -4,18 +4,18 @@
 
 - Repository: `weiyang02520-ops/gu-open-world-game`
 - Branch: `main`
-- Active task: `TASK-V0.1-FULL-001`
+- Active task: `TASK-V0.1-PLAYABLE-LAYER`
 - Execution mode: LONG RUN
 - M0–M3: completed/reviewed
 - M4: completed as internal checkpoint
 - M4 code-bearing commit: `40597c401743dc79aa0baedf126c273507047838`
 - M4 Gate-state commit: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
-- Current internal phase: M7
+- Current internal phase: PLAYABLE
 - M6 completed by ChatGPT Web as an internal checkpoint.
 - M6 final verified code/CI head: `c5e86027a4c79061b3e4575bc742580432363ed7`.
 - Executor workflow is agent-agnostic; local Sol/Astre/Codex are reserved for real-machine tasks.
 
-## Current phase M7
+## Current phase PLAYABLE
 
 Build Effect Graph and killer-move composition:
 
@@ -29,11 +29,14 @@ Build Effect Graph and killer-move composition:
 - PathAttainment influence;
 - research loop improving stability.
 
-Then continue M8 without human review.
+The M8 V0.1 core is already present. The playable layer adds PlayerCharacter
+creation, deterministic daily actions, World Tick, dynamic events, NPC
+routines and Save/Load/Resume without replacing the core modules.
 
 ## Stop
 
-Only at complete V0.1 or genuine product-level blocker.
+Only after playable verification, push and remote verification; then set
+WAITING_FOR_MASTER / next_actor=chatgpt.
 
 
 ## ChatGPT Web checkpoint update — M7 complete

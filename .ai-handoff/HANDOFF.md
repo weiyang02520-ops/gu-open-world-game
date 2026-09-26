@@ -1,5 +1,13 @@
 # Handoff — V0.1 Final Integration
 
+## Current task override — TASK-V0.1-PLAYABLE-LAYER
+
+The M1–M8 core is already on remote `main`. The playable adapter supplies
+PlayerCharacter creation, daily actions, deterministic World Tick, NPC state,
+complete pending events, unified Effects, Save/Load/Resume and a 30-day demo
+without replacing milestone modules. Final handoff is after push and remote
+verification with `WAITING_FOR_MASTER / next_actor=chatgpt`.
+
 ## Active task
 
 `TASK-V0.1-FULL-001`
