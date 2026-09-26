@@ -1,7 +1,14 @@
 {
-  "actor": "codex",
+  "actor": "chatgpt-web",
   "task_id": "TASK-V0.1-FULL-001",
-  "state": "READY_FOR_NEXT_INTERNAL_PHASE",
-  "last_seen_at": "2026-09-25T21:49:02+08:00",
-  "last_progress": "Internal checkpoint M4 complete and verified by CI. Resume continuous V0.1 execution at Phase B / M5; do not wait for Master."
+  "state": "IN_PROGRESS",
+  "internal_phase": "M8",
+  "executor_mode": "AGENT_AGNOSTIC",
+  "compatible_executors": [
+    "chatgpt-web",
+    "sol",
+    "astre",
+    "codex"
+  ],
+  "last_progress": "M4-M7 checkpoints complete. Continue integrated Day1-10 V0.1 at M8."
 }
