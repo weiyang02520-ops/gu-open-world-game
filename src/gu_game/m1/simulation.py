@@ -577,15 +577,13 @@ class Simulation:
                     interval_seconds,
                 )
                 if intervals:
-                    # GAME_EXTENSION: preserve an effective one-condition-point
-                    # per starving hour while applying it in deterministic
-                    # interval batches. Critical starvation is twice as harsh.
-                    severity = 2 if gu.hunger_state is HungerState.CRITICAL else 1
+                    # GAME_EXTENSION: the pre-existing balance intends a small
+                    # periodic maintenance penalty, not rapid destruction.
+                    # We now measure the interval per Gu instead of against
+                    # global clock boundaries.
                     loss = (
                         intervals
                         * B["gu_starvation_condition_loss_per_hour"]
-                        * B["gu_starvation_condition_loss_interval_hours"]
-                        * severity
                     )
                     gu.condition = max(0, gu.condition - loss)
             else:
