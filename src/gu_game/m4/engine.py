@@ -270,14 +270,139 @@ class FactionEngine:
         self._sync_world_state()
         return membership
 
-    def generate_mission(self, faction_id: str, issuer_id: str, objective_type: str = "INVESTIGATE") -> FactionMission:
+    def generate_mission(
+        self,
+        faction_id: str,
+        issuer_id: str,
+        objective_type: str = "INVESTIGATE",
+        *,
+        target_id: str | None = None,
+        required_quantity: int = 1,
+    ) -> FactionMission:
         self._require_authority(faction_id, issuer_id, "ISSUE_MISSION")
-        need = max(self.needs.values(), key=lambda item: item.intensity if item.faction_id == faction_id else -1)
-        mission = FactionMission(self._id("mission"), faction_id, issuer_id, need.need_type, objective_type, None, 20 + need.intensity // 2, self.world.clock.elapsed_seconds + B["mission_deadline_seconds"], ["OUTSIDER", "AFFILIATE"])
+        need = max(
+            self.needs.values(),
+            key=lambda item: item.intensity if item.faction_id == faction_id else -1,
+        )
+        mission = FactionMission(
+            self._id("mission"),
+            faction_id,
+            issuer_id,
+            need.need_type,
+            objective_type,
+            target_id,
+            20 + need.intensity // 2,
+            self.world.clock.elapsed_seconds + B["mission_deadline_seconds"],
+            ["OUTSIDER", "AFFILIATE", "MEMBER", "INNER_MEMBER"],
+            required_quantity=max(1, required_quantity),
+        )
         self.missions[mission.mission_id] = mission
-        self._emit("FACTION_MISSION_CREATED", issuer_id, faction_id, {"mission_id": mission.mission_id, "need_type": need.need_type})
+        self._emit(
+            "FACTION_MISSION_CREATED",
+            issuer_id,
+            faction_id,
+            {
+                "mission_id": mission.mission_id,
+                "need_type": need.need_type,
+                "objective_type": objective_type,
+                "target_id": target_id,
+                "required_quantity": mission.required_quantity,
+            },
+        )
         self._sync_world_state()
         return mission
+
+    def accept_mission(self, mission_id: str, character_id: str) -> FactionMission:
+        mission = self.missions[mission_id]
+        if mission.status not in {"OPEN", "AVAILABLE"}:
+            raise FactionValidationError("mission is not available")
+        membership = self.memberships.get(self._membership_key(character_id, mission.faction_id))
+        status = membership.status.value if membership else MembershipStatus.OUTSIDER.value
+        if status not in mission.eligibility:
+            raise FactionValidationError("character is not eligible for this mission")
+        mission.status = "ACCEPTED"
+        mission.assignee_id = character_id
+        mission.accepted_at = self.world.clock.elapsed_seconds
+        self._emit(
+            "FACTION_MISSION_ACCEPTED",
+            character_id,
+            mission.faction_id,
+            {"mission_id": mission_id},
+        )
+        self._sync_world_state()
+        return mission
+
+    def progress_mission(self, mission_id: str, character_id: str, amount: int = 1) -> FactionMission:
+        mission = self.missions[mission_id]
+        if mission.assignee_id != character_id or mission.status not in {"ACCEPTED", "IN_PROGRESS"}:
+            raise FactionValidationError("character is not actively assigned to this mission")
+        if amount <= 0:
+            raise FactionValidationError("mission progress must be positive")
+        mission.progress += amount
+        mission.status = "IN_PROGRESS"
+        self._emit(
+            "FACTION_MISSION_PROGRESS",
+            character_id,
+            mission.faction_id,
+            {
+                "mission_id": mission_id,
+                "progress": mission.progress,
+                "required_quantity": mission.required_quantity,
+            },
+        )
+        self._sync_world_state()
+        return mission
+
+    def complete_mission(self, mission_id: str, character_id: str) -> FactionMission:
+        mission = self.missions[mission_id]
+        if mission.assignee_id != character_id:
+            raise FactionValidationError("mission is assigned to another character")
+        if mission.progress < mission.required_quantity:
+            raise FactionValidationError("mission objective is not complete")
+        mission.status = "COMPLETED"
+        mission.completed_at = self.world.clock.elapsed_seconds
+        membership = self.memberships.get(self._membership_key(character_id, mission.faction_id))
+        if membership:
+            membership.contribution += mission.required_quantity
+            membership.favor_balance += max(1, mission.required_quantity // 2)
+        faction = self.states[mission.faction_id]
+        payout = min(faction.treasury, mission.reward)
+        faction.treasury -= payout
+        self.simulation.characters[character_id].currency += payout
+        self._emit(
+            "FACTION_MISSION_COMPLETED",
+            character_id,
+            mission.faction_id,
+            {
+                "mission_id": mission_id,
+                "reward": payout,
+                "contribution": membership.contribution if membership else 0,
+                "favor_balance": membership.favor_balance if membership else 0,
+            },
+        )
+        self._sync_world_state()
+        return mission
+
+    def can_access_faction_warehouse(self, faction_id: str, character_id: str) -> bool:
+        membership = self.memberships.get(self._membership_key(character_id, faction_id))
+        if membership and membership.status not in {
+            MembershipStatus.OUTSIDER,
+            MembershipStatus.SUSPENDED,
+            MembershipStatus.EXILED,
+            MembershipStatus.TRAITOR,
+        }:
+            return True
+        identity = self._identity_for_character(character_id)
+        standing = self.standings.get(self._standing_key(faction_id, identity.identity_id))
+        return bool(
+            standing
+            and standing.level
+            in {
+                FactionStandingLevel.GUEST,
+                FactionStandingLevel.ALLY,
+                FactionStandingLevel.MEMBER,
+            }
+        )
 
     def set_reputation(self, faction_id: str, identity_id: str, *, danger: int, trust: int, competence: int = 50) -> ReputationVector:
         audience = f"faction:{faction_id}"
