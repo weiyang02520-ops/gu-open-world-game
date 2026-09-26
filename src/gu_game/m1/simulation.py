@@ -565,6 +565,34 @@ class Simulation:
             gu = self.gu_instances[gu_id]
             definition = self.gu_definitions[gu.definition_id]
             old_satiety, old_state = gu.update_hunger(seconds, definition)
+            old_condition = gu.condition
+
+            if gu.hunger_state in {HungerState.STARVING, HungerState.CRITICAL}:
+                gu.starvation_remainder_seconds += seconds
+                interval_seconds = (
+                    B["gu_starvation_condition_loss_interval_hours"] * 3_600
+                )
+                intervals, gu.starvation_remainder_seconds = divmod(
+                    gu.starvation_remainder_seconds,
+                    interval_seconds,
+                )
+                if intervals:
+                    # GAME_EXTENSION: preserve an effective one-condition-point
+                    # per starving hour while applying it in deterministic
+                    # interval batches. Critical starvation is twice as harsh.
+                    severity = 2 if gu.hunger_state is HungerState.CRITICAL else 1
+                    loss = (
+                        intervals
+                        * B["gu_starvation_condition_loss_per_hour"]
+                        * B["gu_starvation_condition_loss_interval_hours"]
+                        * severity
+                    )
+                    gu.condition = max(0, gu.condition - loss)
+            else:
+                # A fed/recovered Gu starts a fresh starvation exposure window.
+                # Existing condition damage is not healed automatically.
+                gu.starvation_remainder_seconds = 0
+
             if old_satiety != gu.satiety or old_state != gu.hunger_state:
                 self._emit(
                     "GU_HUNGER_CHANGED",
@@ -580,29 +608,21 @@ class Simulation:
                         "reason": "time",
                     },
                 )
-            if gu.hunger_state is HungerState.CRITICAL and gu.condition > 0:
-                interval = B["gu_starvation_condition_loss_interval_hours"] * 3_600
-                after = self.world.clock.elapsed_seconds
-                before = max(0, after - seconds)
-                periods = after // interval - before // interval
-                if periods > 0:
-                    loss = B["gu_starvation_condition_loss_per_hour"] * periods
-                    condition_before = gu.condition
-                    gu.condition = max(0, gu.condition - loss)
-                    if gu.condition != condition_before:
-                        self._emit(
-                            "GU_CONDITION_CHANGED",
-                            actor_id=gu.owner_id,
-                            target_ids=(gu.instance_id,),
-                            location_id=self.LOCATION_ID,
-                            payload={
-                                "gu_id": gu.instance_id,
-                                "condition_before": condition_before,
-                                "condition_after": gu.condition,
-                                "reason": "starvation",
-                                "balance_provenance": Provenance.GAME_EXTENSION.value,
-                            },
-                        )
+            if old_condition != gu.condition:
+                self._emit(
+                    "GU_CONDITION_CHANGED",
+                    actor_id=gu.owner_id,
+                    target_ids=(gu.instance_id,),
+                    location_id=self.LOCATION_ID,
+                    payload={
+                        "gu_id": gu.instance_id,
+                        "condition_before": old_condition,
+                        "condition_after": gu.condition,
+                        "reason": "starvation",
+                        "hunger_state": gu.hunger_state.value,
+                        "balance_provenance": Provenance.GAME_EXTENSION.value,
+                    },
+                )
 
     def _regenerate_resources(self, seconds: int) -> None:
         node = self.resource_nodes[self.RESOURCE_NODE_ID]
