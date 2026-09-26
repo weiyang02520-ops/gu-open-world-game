@@ -5,6 +5,7 @@ GAME_EXTENSION_M6_BALANCE = {
     "supported_threshold_percent": 85,
     "forced_threshold_percent": 60,
     "supported_resource_cost": 2,
+    "breakthrough_essence_cost": 0,
     "supported_resource_id": "resource-strategic-01",
     "breakthrough_duration_seconds": 2 * 3_600,
     "safe_fatigue_cost": 12,
