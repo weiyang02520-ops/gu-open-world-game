@@ -12,13 +12,14 @@ from .m3.scenario import run_m3_smoke
 from .m4.scenario import run_m4_smoke
 from .m5.scenario import run_m5_smoke
 from .m6.scenario import run_m6_smoke
+from .m7.scenario import run_m7_smoke
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run a minimal GU simulation smoke step")
     parser.add_argument(
         "--scenario",
-        choices=("core", "day1-2", "m2", "m3", "m4", "m5", "m6"),
+        choices=("core", "day1-2", "m2", "m3", "m4", "m5", "m6", "m7"),
         default="core",
         help="run the M0 core or M1-M6 deterministic smoke scenarios",
     )
@@ -44,6 +45,9 @@ def main() -> None:
         return
     if args.scenario == "m6":
         print(json.dumps(run_m6_smoke(args.seed), ensure_ascii=False, indent=2, sort_keys=True))
+        return
+    if args.scenario == "m7":
+        print(json.dumps(run_m7_smoke(args.seed), ensure_ascii=False, indent=2, sort_keys=True))
         return
 
     state = WorldState.new(seed=args.seed)
