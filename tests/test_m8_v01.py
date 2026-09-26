@@ -237,3 +237,19 @@ def test_m8_same_identity_can_have_different_faction_standings() -> None:
 
     assert len(snapshot["standings"]) >= 3
     assert len(set(snapshot["standings"].values())) >= 2
+
+
+def test_m8_event_log_explains_strategy_divergence() -> None:
+    result = run_v01_comparison(812)
+    cooperative_events = result["cooperative"]["event_types"]
+    adversarial_events = result["adversarial"]["event_types"]
+
+    assert cooperative_events.get("M8_SUPPLY_MISSION_DELIVERED", 0) >= 1
+    assert cooperative_events.get("M5_SHIPMENT_ARRIVED", 0) >= 1
+
+    assert adversarial_events.get("M8_MARKET_THEFT", 0) >= 1
+    assert adversarial_events.get("M8_SHIPMENT_ROBBED", 0) >= 1
+
+    # Both strategies still pass through the same systemic domains, but the
+    # causal event chains differ because the chosen actions differ.
+    assert cooperative_events != adversarial_events
