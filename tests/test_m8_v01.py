@@ -117,7 +117,13 @@ def test_m8_same_seed_strategies_materially_diverge() -> None:
         "standings",
         "membership_or_access",
     }
-    assert all(divergence["dimensions"][name] for name in required)
+    missing = sorted(
+        name for name in required if not divergence["dimensions"][name]
+    )
+    assert not missing, (
+        f"required V0.1 divergence dimensions did not change: {missing}; "
+        f"all dimensions={divergence['dimensions']}"
+    )
 
 
 def test_m8_remote_world_acts_without_player_input() -> None:
