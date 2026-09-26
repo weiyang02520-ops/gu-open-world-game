@@ -68,3 +68,23 @@ Delivered:
 - deterministic save/resume.
 
 Current internal phase: **M7**.
+
+
+## ChatGPT Web checkpoint update — M7 complete
+
+M7 final verified head:
+`24db39a3131293ea8342994b6d38301232977e4b`
+
+Current internal phase: **M8**.
+
+Final target:
+- 20–40 local locations;
+- 15–30 important NPCs;
+- 3–5 factions;
+- 30–50 Gu definitions;
+- 20+ meaningful feeding requirements;
+- 15–25 resource nodes;
+- 3–4 markets;
+- 5–8 routes;
+- LOD + CanonAnchor scaffold;
+- cooperative/adversarial Day1–10 deterministic divergence.
