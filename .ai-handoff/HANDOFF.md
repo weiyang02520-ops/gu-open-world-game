@@ -1,90 +1,66 @@
-# Handoff — Continue Full V0.1 Run
+# Handoff — V0.1 Final Integration
 
-## Continuous task
+## Active task
 
 `TASK-V0.1-FULL-001`
 
-## Completed internal checkpoint
+## Executor model
 
-Phase A / M4 is complete.
+This repository is executor-agnostic.
 
-Evidence:
+ChatGPT Web, Sol, Astre or Codex may continue from the same repository state.
 
-- code-bearing commit: `40597c401743dc79aa0baedf126c273507047838`
-- M4 Gate-state commit: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
-- 40 tests passed at M4 checkpoint
-- M1/M2/M3/M4 smoke passed
-- GitHub Actions passed
+## Completed checkpoints
 
-This is **not** a human Gate.
+### M4
+Faction / reputation / cases / governance / missions.
 
-## Continue now
+### M5
+Resource crisis / multi-market economy / Shipment / Caravan / real cargo / route risk.
 
-Phase B / M5 is complete as an internal checkpoint:
+### M6
+Rank1 INITIAL/MIDDLE/UPPER/PEAK, cultivation sessions, safe/forced breakthrough, PathAttainment, Insight and study/inheritance.
 
-- 20 finite nodes with health/overharvest/regeneration;
-- three divergent local markets and supply/demand pricing;
-- actual-cargo Shipment/Caravan across six stateful routes;
-- faction treasury, warehouse, procurement, shortage and NPC goal changes;
-- deterministic in-transit Save/Resume.
-
-Continue immediately with Phase C / M6:
-
-- Rank1 progression and cultivation sessions;
-- safe and forced breakthrough;
-- PathDefinition, PathAttainmentState, InsightEvent;
-- knowledge versus attainment and study/inheritance.
-
-Then continue automatically through M6 → M7 → M8.
-
-## Canonical docs
-
-- `docs/V0_1_FULL_EXECUTION_SPEC.md`
-- `docs/V0_1_ACCEPTANCE_MATRIX.md`
-- `docs/V0_1_CONTENT_TARGETS.md`
-
-## Stop rule
-
-Do not stop after M5/M6/M7.
-
-Only full V0.1 Gate or a genuine product blocker.
-
-
-## ChatGPT Web checkpoint update — M6 complete
-
-M6 is complete and CI-green at:
+Verified checkpoint:
 `c5e86027a4c79061b3e4575bc742580432363ed7`
 
-Delivered:
-- Rank1 INITIAL/MIDDLE/UPPER/PEAK model;
-- cultivation sessions consuming time/essence;
-- shared-clock M3/M4/M5 progression during cultivation;
-- SAFE/SUPPORTED/FORCED breakthrough;
-- aptitude-sensitive aperture growth;
-- PathDefinition / PathAttainmentState / InsightEvent;
-- diminishing repeated insight;
-- KnowledgeRecord separate from attainment;
-- study/inheritance sources;
-- deterministic save/resume.
+### M7
+Serializable Effect Graph, M2 combat wrappers, multi-Gu KillerMove, stability/mastery, backlash, attainment-gated complexity and research improvement.
 
-Current internal phase: **M7**.
-
-
-## ChatGPT Web checkpoint update — M7 complete
-
-M7 final verified head:
+Verified checkpoint:
 `24db39a3131293ea8342994b6d38301232977e4b`
 
-Current internal phase: **M8**.
+## Current checkpoint
 
-Final target:
-- 20–40 local locations;
-- 15–30 important NPCs;
+**M8 — Integrated Day1–10 V0.1**
+
+Required final targets:
+
+- 20–40 important local locations;
+- 15–30 important NPCs target;
 - 3–5 factions;
-- 30–50 Gu definitions;
+- 30–50 Gu definitions target;
 - 20+ meaningful feeding requirements;
 - 15–25 resource nodes;
 - 3–4 markets;
 - 5–8 routes;
-- LOD + CanonAnchor scaffold;
-- cooperative/adversarial Day1–10 deterministic divergence.
+- world LOD;
+- CanonAnchor scaffold;
+- cooperative/adversarial same-seed runs;
+- material divergence across economy, NPCs, factions, cultivation, Gu, killer moves, logistics and future goals;
+- event log explaining divergence.
+
+## Handoff behavior
+
+An incoming executor should:
+
+1. pull latest main;
+2. read `.ai/CURRENT_STATE.json`;
+3. read `docs/EXECUTOR_POLICY.md`;
+4. read V0.1 full spec + acceptance matrix;
+5. continue M8 directly;
+6. avoid redoing M4–M7 unless tests show regression.
+
+## Stop
+
+Only at full V0.1 Gate or a genuine product-level blocker.
