@@ -38,5 +38,6 @@ GAME_EXTENSION_BALANCE: dict[str, int] = {
     "gu_feed_quantity": 1,
     "gu_feed_satiety_gain": 36,
     "gu_hunger_per_hour": 8,
+    "gu_starvation_condition_loss_per_hour": 1,
     "npc_count": 3,
 }
