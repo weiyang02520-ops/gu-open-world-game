@@ -293,7 +293,7 @@ class FactionEngine:
             target_id,
             20 + need.intensity // 2,
             self.world.clock.elapsed_seconds + B["mission_deadline_seconds"],
-            ["OUTSIDER", "AFFILIATE", "MEMBER", "INNER_MEMBER"],
+            ["OUTSIDER", "AFFILIATE", "MEMBER", "INNER_MEMBER", "ELDER"],
             required_quantity=max(1, required_quantity),
         )
         self.missions[mission.mission_id] = mission
