@@ -37,8 +37,17 @@ class EventResolver:
                     message="你观察环境，发现附近危险正在增加。",
                     world_changes={"危险度": 2},
                 )
+            if choice == "leave":
+                return EventResult(message="你谨慎离开，没有引起额外注意。")
 
-        if event_id == "beast_trace" and choice == "avoid":
-            return EventResult(message="你避开了野兽活动区域。")
+        if event_id == "beast_trace":
+            if choice == "avoid":
+                return EventResult(message="你避开了野兽活动区域。")
+            if choice == "track":
+                return EventResult(
+                    message="你追踪野兽痕迹，获得少量兽材线索。",
+                    player_changes={"兽材": 1},
+                    world_changes={"危险度": 1},
+                )
 
         return EventResult(message="事件没有产生明显变化。")
