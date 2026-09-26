@@ -869,15 +869,29 @@ class IntegratedV01Engine:
         if strategy is StrategyProfile.COOPERATIVE:
             self.factions.accept_mission(mission.mission_id, player_id)
             node_id = "resource-node-m5-01"
-            needed = max(
-                0,
-                3
-                - self.simulation.characters[player_id].inventory_quantity(
+            target_quantity = mission.required_quantity
+            while (
+                self.simulation.characters[player_id].inventory_quantity(
                     crisis_resource
-                ),
-            )
-            if needed:
-                self.economy.gather(player_id, node_id, needed)
+                )
+                < target_quantity
+            ):
+                node = self.simulation.resource_nodes[node_id]
+                if node.current_stock <= 0:
+                    raise RuntimeError(
+                        "supply mission cannot be completed because the real resource node is depleted"
+                    )
+                before = self.simulation.characters[player_id].inventory_quantity(
+                    crisis_resource
+                )
+                self.economy.gather(player_id, node_id, 1)
+                after = self.simulation.characters[player_id].inventory_quantity(
+                    crisis_resource
+                )
+                if after <= before:
+                    raise RuntimeError(
+                        "supply mission gathering produced no real inventory"
+                    )
             self._deliver_supply_mission(mission.mission_id, player_id)
             ignored = self.factions.generate_mission(
                 "faction-grove-watch",
