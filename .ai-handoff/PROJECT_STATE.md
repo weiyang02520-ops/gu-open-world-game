@@ -7,7 +7,7 @@
 - M3: PASS_WITH_NOTES
 - M4: INTERNAL CHECKPOINT COMPLETE
 - Active task: TASK-V0.1-FULL-001
-- Current internal phase: M7
+- Current internal phase: M8
 - Gate: READY_FOR_CODEX
 - Next actor: codex
 - Execution mode: LONG_RUN_NO_INTERMEDIATE_HUMAN_GATE
@@ -26,3 +26,7 @@ M7 Effect Graph/killer move
 → M8 integrated Day1–10 V0.1.
 
 Do not return to human Gate until full V0.1 is complete.
+
+
+M7 Effect Graph/killer-move checkpoint is complete.
+Current remaining target: M8 integrated Day1–10 V0.1 and final divergence validation.
