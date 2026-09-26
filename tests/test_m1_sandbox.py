@@ -116,3 +116,30 @@ def test_same_seed_and_save_resume_match_uninterrupted_run(tmp_path: Path) -> No
     assert first.to_dict() == resumed.to_dict() == repeat.to_dict()
     assert _event_dicts(first) == _event_dicts(resumed) == _event_dicts(repeat)
     assert first.world.clock.day_number == 2
+
+
+def test_prolonged_gu_starvation_damages_condition_and_persists(tmp_path: Path) -> None:
+    simulation = Simulation.new(105)
+    gu_id = simulation.characters[simulation.player_id].owned_gu_ids[0]
+    gu = simulation.gu_instances[gu_id]
+    initial_condition = gu.condition
+
+    simulation.advance_time(18 * 3_600, run_npcs=False)
+
+    assert gu.hunger_state in {HungerState.STARVING, HungerState.CRITICAL}
+    assert gu.condition < initial_condition
+    assert any(
+        event.event_type == "GU_CONDITION_CHANGED"
+        and event.target_ids == (gu_id,)
+        for event in simulation.world.event_log
+    )
+
+    path = tmp_path / "starved-gu.json"
+    simulation.save(path)
+    restored = Simulation.load(path)
+    restored_gu = restored.gu_instances[gu_id]
+    assert restored_gu.condition == gu.condition
+    assert (
+        restored_gu.starvation_remainder_seconds
+        == gu.starvation_remainder_seconds
+    )
