@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>蛊师行记 · V0.1.2</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">GU MASTER / SOUTHERN BORDER</p>
+        <h1>蛊师行记</h1>
+      </div>
+      <div class="day-chip"><span id="day-label">第 1 天</span><span id="phase-label">上午</span></div>
+    </header>
+
+    <section id="creation" class="creation panel">
+      <div>
+        <p class="eyebrow">BEGIN YOUR RECORD</p>
+        <h2>创建蛊师</h2>
+        <p class="muted">先选身份，随后从青茅山外围开始第一天。</p>
+      </div>
+      <form id="create-form" class="create-form">
+        <label>姓名<input id="name-input" name="name" value="未央" maxlength="24" required></label>
+        <label>出身<select id="origin-input" name="origin"><option>散修</option><option>家族弟子</option></select></label>
+        <label>种子<input id="seed-input" name="seed" type="number" value="20260926"></label>
+        <button class="primary" type="submit">进入第一天</button>
+      </form>
+    </section>
+
+    <main id="game" class="layout hidden">
+      <section class="left-column">
+        <article class="panel profile-panel">
+          <div class="panel-heading"><span>玩家状态</span><span id="origin-label" class="tag">散修</span></div>
+          <div class="profile-name"><span id="player-name">未央</span><span id="player-rank">一转初阶</span></div>
+          <div class="meters">
+            <div><span>真元</span><strong id="essence">30 / 100</strong><div class="meter"><i id="essence-bar"></i></div></div>
+            <div><span>血量</span><strong id="health">100</strong><div class="meter health"><i id="health-bar"></i></div></div>
+          </div>
+          <div class="stat-grid"><div><span>元石</span><b id="stones">20</b></div><div><span>行动点</span><b id="ap">3 / 3</b></div><div><span>地点</span><b id="location">村庄</b></div><div><span>天气</span><b id="weather">晴</b></div></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><span>蛊虫</span><span class="muted">当前持有</span></div>
+          <div id="gu-list" class="card-list"></div>
+        </article>
+        <article class="panel">
+          <div class="panel-heading"><span>附近 NPC</span><span class="muted">世界会自行行动</span></div>
+          <div id="npc-list" class="npc-list"></div>
+        </article>
+      </section>
+
+      <section class="center-column">
+        <article class="panel location-panel">
+          <div class="eyebrow">CURRENT LOCATION</div>
+          <h2 id="location-title">村庄</h2>
+          <p id="location-description" class="muted">村庄是目前最安全的落脚点。</p>
+          <div class="location-stats"><span>危险 <b id="danger">20</b></span><span>资源 <b id="resource-note">生活补给</b></span><span>市场 <b id="market-note">等待观察</b></span></div>
+        </article>
+        <article id="event-panel" class="panel event-panel hidden">
+          <div class="panel-heading"><span>待处理事件</span><span id="event-danger" class="danger-tag">危险 0</span></div>
+          <h2 id="event-title"></h2><p id="event-location" class="muted"></p>
+          <div id="event-options" class="event-options"></div>
+        </article>
+        <article class="panel history-panel">
+          <div class="panel-heading"><span>世界日志</span><span class="muted">最近记录</span></div>
+          <ol id="history-list" class="history-list"></ol>
+        </article>
+      </section>
+
+      <aside class="right-column">
+        <article class="panel actions-panel">
+          <div class="panel-heading"><span>今日行动</span><span id="action-status" class="tag">3 点</span></div>
+          <p class="muted">每次行动都会改变状态；世界 Tick 会推进 NPC 与事件。</p>
+          <div class="action-grid">
+            <button data-action="cultivate"><span>☯</span>修炼<small>恢复真元</small></button>
+            <button data-action="explore"><span>⌖</span>探索<small>移动与发现</small></button>
+            <button data-action="gather"><span>✦</span>采集<small>取得资源</small></button>
+            <button data-action="trade"><span>¤</span>交易<small>坊市交换</small></button>
+          </div>
+          <button id="end-day" class="end-day">结束当天 · 推进世界</button>
+          <div class="save-actions"><button id="save-game">保存</button><button id="load-game">加载</button></div>
+          <p id="toast" class="toast" role="status"></p>
+        </article>
+        <article class="panel inventory-panel">
+          <div class="panel-heading"><span>背包</span><span class="muted">有限库存</span></div>
+          <div id="inventory-list" class="inventory-list"></div>
+        </article>
+      </aside>
+    </main>
+  </div>
+</body>
+</html>

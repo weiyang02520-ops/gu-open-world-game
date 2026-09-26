@@ -4,13 +4,13 @@
 
 - Repository: `weiyang02520-ops/gu-open-world-game`
 - Branch: `main`
-- Active task: `TASK-V0.1-PLAYABLE-LAYER`
+- Active task: `TASK-V0.1.2-BASIC-UI`
 - Execution mode: LONG RUN
 - M0–M3: completed/reviewed
 - M4: completed as internal checkpoint
 - M4 code-bearing commit: `40597c401743dc79aa0baedf126c273507047838`
 - M4 Gate-state commit: `9e90c3422fdee5bcb675bc061d26a0aa62b077c9`
-- Current internal phase: PLAYABLE
+- Current internal phase: PHASE1
 - M6 completed by ChatGPT Web as an internal checkpoint.
 - M6 final verified code/CI head: `c5e86027a4c79061b3e4575bc742580432363ed7`.
 - Executor workflow is agent-agnostic; local Sol/Astre/Codex are reserved for real-machine tasks.
@@ -29,14 +29,15 @@ Build Effect Graph and killer-move composition:
 - PathAttainment influence;
 - research loop improving stability.
 
-The M8 V0.1 core is already present. The playable layer adds PlayerCharacter
-creation, deterministic daily actions, World Tick, dynamic events, NPC
-routines and Save/Load/Resume without replacing the core modules.
+The M8 V0.1 core and playable layer are already present. Phase 1 adds a
+stdlib Web UI through `ui.controller.GameController` without replacing the
+core modules. Scope is status/actions/events/history/Save/Load only; defer
+map art, animation, audio, combat UI and later UI phases.
 
 ## Stop
 
-Playable verification, push and remote verification completed. Code-bearing
-commit: `61078ee332196f805492b0b6f32d3ae4312bf54b`. Current Gate:
+Playable verification, push and remote verification completed. Phase 1 UI is
+currently in progress; after its push and remote verification set
 WAITING_FOR_MASTER / next_actor=chatgpt.
 
 

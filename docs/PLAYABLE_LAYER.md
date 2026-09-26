@@ -25,6 +25,70 @@ python -m gu_game --scenario play
 The `play` scenario is a terminal adapter.  Rules remain in
 `gu_game.playable`; no UI input is part of the authoritative state.
 
+## V0.1.2 Phase 1 basic UI boundary
+
+Phase 1 adds a thin client adapter under `ui/`.  It is intentionally a
+presentation boundary, not a second game engine:
+
+```text
+Web or desktop view
+        |
+        v
+ui.controller.GameController
+        |
+        v
+gu_game.playable -> WorldState / PlayerCharacter / EventResolver / Save
+```
+
+`GameController.state()` returns a JSON-safe snapshot.  UI code submits an
+action through `action(name)`, advances the world with `end_day()`, resolves a
+pending event with `resolve_event(choice)`, and uses `save(path)` /
+`GameController.load(path)` for persistence.  A state snapshot is copied at
+the boundary, so rendering code cannot mutate the authoritative player or
+world objects directly.
+
+The lightweight web adapter can be started with:
+
+```powershell
+python -m ui.app
+python main.py --scenario ui
+```
+
+The local transport exposes read-only state and command endpoints used by the
+Phase 1 page:
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| `GET` | `/api/state` | Read the current UI snapshot |
+| `POST` | `/api/create` | Create a player (`name`, optional `origin`) |
+| `POST` | `/api/action` | Submit one action (`action`) |
+| `POST` | `/api/end-day` | Run the world tick |
+| `POST` | `/api/event/resolve` | Resolve a pending event (`choice`) |
+| `POST` | `/api/save` / `/api/load` | Save or restore a local slot |
+
+The transport is intentionally local and dependency-free.  It is suitable for
+Phase 1 smoke tests and can later be replaced by a different server or client
+without changing the controller contract.
+
+The same controller is available to an embedding client without starting a
+server:
+
+```python
+from ui.controller import GameController
+
+game = GameController.create(name="未央", origin="散修", seed=20260926)
+view_model = game.state()
+view_model = game.action("cultivate")["state"]
+game.end_day()
+game.save("savegames/ui-slot.json")
+resumed = GameController.load("savegames/ui-slot.json")
+```
+
+The Phase 1 surface covers the player status bar, current location, world
+summary, action buttons, event panel, and history log.  The node map, Gu cards,
+NPC cards, and visual assets remain later UI phases; no 3D engine or generated
+insect imagery is required for this boundary.
+
 ## Non-interactive API
 
 The small public API is suitable for smoke tests, a future UI, or a network
@@ -98,4 +162,10 @@ The complete regression suite remains the source of truth for M1–M8:
 
 ```powershell
 pytest -q
+```
+
+The UI boundary acceptance tests are also runnable on their own:
+
+```powershell
+pytest -q tests/test_basic_ui.py
 ```

@@ -48,3 +48,6 @@ jobs:
 
       - name: Run V0.1 playable API tests
         run: python -m pytest tests/test_playable_layer.py tests/test_playable_events.py
+
+      - name: Run V0.1.2 basic UI boundary tests
+        run: python -m pytest tests/test_basic_ui.py

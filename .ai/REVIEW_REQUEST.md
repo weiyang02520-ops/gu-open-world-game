@@ -1,8 +1,8 @@
 # Review Request
 
-Current task `TASK-V0.1-PLAYABLE-LAYER` is complete and ready for External
-ChatGPT review. The implementation commit and remote verification are recorded
-in `CODEX_REPORT.md`.
+Current task is `TASK-V0.1.2-BASIC-UI / PHASE1`; no intermediate review is
+requested. Review becomes available after UI tests, push and remote
+verification.
 
 No human review is requested.
 

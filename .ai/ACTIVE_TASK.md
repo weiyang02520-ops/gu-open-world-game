@@ -1,5 +1,16 @@
 # Active Task
 
+## Current task override — TASK-V0.1.2-BASIC-UI / PHASE1
+
+Build the dependency-free 2D Web UI adapter described in
+`docs/TASK-V0.1.2-BASIC-UI.md`. Phase 1 covers page framework, player status,
+action buttons, event display, history and GameController/API connection.
+Keep `src/gu_game` authoritative; do not start map art, audio, animation,
+3D, combat UI or Phase 2–4 work.
+
+After tests, smoke, commit, push and remote verification, set
+`WAITING_FOR_MASTER / next_actor=chatgpt` and stop.
+
 ## Current task override — TASK-V0.1-PLAYABLE-LAYER
 
 The M1–M8 headless V0.1 core is already present on remote `main`. This task

@@ -35,6 +35,7 @@ def main() -> None:
             "v0.1",
             "v0.1-compare",
             "play",
+            "ui",
         ),
         default="core",
     )
@@ -51,6 +52,11 @@ def main() -> None:
             indent=2,
             sort_keys=True,
         ))
+        return
+    if args.scenario == "ui":
+        from ui.app import run_server
+
+        run_server()
         return
     if args.scenario == "day1-2":
         result = run_and_summarize(args.seed)

@@ -1,5 +1,13 @@
 # Handoff — V0.1 Final Integration
 
+## Current task override — TASK-V0.1.2-BASIC-UI / PHASE1
+
+Phase 1 adds a stdlib Web UI transport and static page. `ui.controller.GameController`
+is the only UI gameplay boundary; the browser does not mutate `PlayableGame`
+or `WorldState` directly. Scope is limited to status, actions, events, logs,
+Save/Load and API smoke. Stop at `WAITING_FOR_MASTER / next_actor=chatgpt`
+after push and remote verification.
+
 ## Current task override — TASK-V0.1-PLAYABLE-LAYER
 
 The M1–M8 core is already on remote `main`. The playable adapter supplies

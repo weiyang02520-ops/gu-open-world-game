@@ -1,8 +1,8 @@
 {
   "actor": "codex",
-  "task_id": "TASK-V0.1-PLAYABLE-LAYER",
-  "state": "WAITING_FOR_MASTER",
-  "internal_phase": "PLAYABLE",
+  "task_id": "TASK-V0.1.2-BASIC-UI",
+  "state": "IN_PROGRESS",
+  "internal_phase": "PHASE1",
   "executor_mode": "AGENT_AGNOSTIC",
   "compatible_executors": [
     "chatgpt-web",
@@ -10,5 +10,5 @@
     "astre",
     "codex"
   ],
-  "last_progress": "Playable layer implementation, regression, smoke, push and remote verification complete at code-bearing 61078ee332196f805492b0b6f32d3ae4312bf54b."
+  "last_progress": "Phase 1 Web UI and GameController implemented; 93 tests and local HTTP smoke pass."
 }

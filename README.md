@@ -51,6 +51,15 @@ python main.py --scenario play --interactive
 `docs/PLAYABLE_LAYER.md`。它通过 `event_system`、`event_resolver`、
 `npc_sim` 和 `save_load` 接口工作，不替换 M1–M8 的规则模块。
 
+V0.1.2 Phase 1 Web UI：
+
+```powershell
+python main.py --scenario ui
+```
+
+浏览器打开 `http://127.0.0.1:8000/`。页面通过 `ui.controller.GameController`
+调用核心，不直接修改 `PlayableGame`。
+
 合作路线：
 
 ```powershell
