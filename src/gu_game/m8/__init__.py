@@ -2,6 +2,7 @@
 
 from .engine import IntegratedV01Engine
 from .models import CanonAnchor, CanonAnchorStatus, LocationNode, SimulationLevel, StrategyProfile
+from .scenario import run_v01_comparison, run_v01_smoke
 
 __all__ = [
     "CanonAnchor",
@@ -10,4 +11,6 @@ __all__ = [
     "LocationNode",
     "SimulationLevel",
     "StrategyProfile",
+    "run_v01_comparison",
+    "run_v01_smoke",
 ]
