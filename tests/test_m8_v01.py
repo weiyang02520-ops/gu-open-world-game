@@ -142,3 +142,17 @@ def test_m8_remote_world_acts_without_player_input() -> None:
         event.event_type == "M6_ABSTRACT_CULTIVATION_SESSION"
         for event in engine.world.event_log
     )
+
+
+def test_m8_mission_lifecycle_player_ignore_and_npc_completion() -> None:
+    engine = IntegratedV01Engine.new(809)
+    snapshot = engine.run_to_day(StrategyProfile.COOPERATIVE, 10)
+
+    player_mission_id = engine.flags["player_mission_id"]
+    ignored_mission_id = engine.flags["ignored_mission_id"]
+    npc_mission_id = engine.flags["npc_mission_id"]
+
+    assert snapshot["missions"][player_mission_id]["status"] == "COMPLETED"
+    assert snapshot["missions"][npc_mission_id]["status"] == "COMPLETED"
+    assert snapshot["missions"][ignored_mission_id]["status"] == "EXPIRED"
+    assert snapshot["missions"][npc_mission_id]["assignee_id"] in engine.simulation.npc_ids
