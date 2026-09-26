@@ -646,7 +646,6 @@ class Simulation:
 
     def _choose_npc_action(self, npc_id: str) -> tuple[ActionIntent, str]:
         npc = self.characters[npc_id]
-        food_id = self.FOOD_RESOURCE_ID
         hungry_gu = next(
             (
                 self.gu_instances[gu_id]
@@ -656,30 +655,64 @@ class Simulation:
             ),
             None,
         )
-        if hungry_gu and npc.inventory_quantity(food_id) >= self.gu_definitions[hungry_gu.definition_id].feed_quantity:
-            return (
-                ActionIntent(ActionType.FEED_GU, npc_id, gu_id=hungry_gu.instance_id),
-                "gu_feeding_need",
-            )
+
+        required_food_id = self.FOOD_RESOURCE_ID
+        required_quantity = 1
+        if hungry_gu is not None:
+            definition = self.gu_definitions[hungry_gu.definition_id]
+            required_food_id = definition.food_definition_id
+            required_quantity = definition.feed_quantity
+            if npc.inventory_quantity(required_food_id) >= required_quantity:
+                return (
+                    ActionIntent(ActionType.FEED_GU, npc_id, gu_id=hungry_gu.instance_id),
+                    "gu_feeding_need",
+                )
 
         market = self.markets[self.MARKET_ID]
-        unit_price = market.price_for(food_id)
-        if hungry_gu and market.inventory_quantity(food_id) and npc.currency >= unit_price:
+        if hungry_gu is not None:
+            unit_price = market.price_for(required_food_id)
+            if (
+                market.inventory_quantity(required_food_id) >= required_quantity
+                and npc.currency >= unit_price * required_quantity
+            ):
+                return (
+                    ActionIntent(
+                        ActionType.BUY,
+                        npc_id,
+                        resource_id=required_food_id,
+                        quantity=required_quantity,
+                    ),
+                    "gu_feeding_need",
+                )
+
+        # Sell only resources that the configured local market can actually price.
+        sellable = next(
+            (
+                resource_id
+                for resource_id in sorted(
+                    {lot.definition_id for lot in npc.inventory.values()}
+                )
+                if npc.inventory_quantity(resource_id) >= 3
+                and resource_id in market.base_prices
+                and market.currency >= market.price_for(resource_id)
+            ),
+            None,
+        )
+        if sellable is not None:
             return (
-                ActionIntent(ActionType.BUY, npc_id, resource_id=food_id, quantity=1),
-                "gu_feeding_need",
-            )
-        if npc.inventory_quantity(food_id) >= 3 and market.currency >= unit_price:
-            return (
-                ActionIntent(ActionType.SELL, npc_id, resource_id=food_id, quantity=1),
+                ActionIntent(ActionType.SELL, npc_id, resource_id=sellable, quantity=1),
                 "market_liquidity_need",
             )
+
+        # The legacy M1 gather node can only satisfy its own configured resource.
         node = self.resource_nodes[self.RESOURCE_NODE_ID]
-        if node.current_stock:
+        desired_resource = required_food_id if hungry_gu is not None else node.resource_definition_id
+        if node.resource_definition_id == desired_resource and node.current_stock:
             return (
-                ActionIntent(ActionType.GATHER, npc_id, resource_id=food_id, quantity=1),
+                ActionIntent(ActionType.GATHER, npc_id, resource_id=desired_resource, quantity=1),
                 "resource_stock_need",
             )
+
         return ActionIntent(ActionType.WAIT, npc_id, duration_seconds=3_600), "no_available_action"
 
     def _take_from_collection(
