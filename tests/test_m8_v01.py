@@ -126,6 +126,42 @@ def test_m8_same_seed_strategies_materially_diverge() -> None:
     )
 
 
+    cooperative = result["cooperative"]
+    adversarial = result["adversarial"]
+
+    relationship_differences = sum(
+        cooperative["relationships"].get(npc_id)
+        != adversarial["relationships"].get(npc_id)
+        for npc_id in set(cooperative["relationships"]) | set(adversarial["relationships"])
+    )
+    goal_differences = sum(
+        cooperative["npc_goals"].get(npc_id)
+        != adversarial["npc_goals"].get(npc_id)
+        for npc_id in set(cooperative["npc_goals"]) | set(adversarial["npc_goals"])
+    )
+    market_differences = sum(
+        cooperative["markets"].get(market_id)
+        != adversarial["markets"].get(market_id)
+        for market_id in set(cooperative["markets"]) | set(adversarial["markets"])
+    )
+    node_differences = sum(
+        cooperative["resource_nodes"].get(node_id)
+        != adversarial["resource_nodes"].get(node_id)
+        for node_id in set(cooperative["resource_nodes"]) | set(adversarial["resource_nodes"])
+    )
+    standing_differences = sum(
+        cooperative["standings"].get(faction_id)
+        != adversarial["standings"].get(faction_id)
+        for faction_id in set(cooperative["standings"]) | set(adversarial["standings"])
+    )
+
+    assert relationship_differences >= 3
+    assert goal_differences >= 2
+    assert market_differences >= 2
+    assert node_differences >= 2
+    assert standing_differences >= 2
+
+
 def test_m8_remote_world_acts_without_player_input() -> None:
     engine = IntegratedV01Engine.new(808)
     before = sum(state.action_count for state in engine.remote_actors.values())
