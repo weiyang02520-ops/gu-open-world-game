@@ -514,16 +514,28 @@ class IntegratedV01Engine:
             route = self.economy.routes[sorted(self.economy.routes)[state.action_count % len(self.economy.routes)]]
             route.patrol_strength = min(100, route.patrol_strength + 1)
             action = "PATROL"
-        elif role in {"scholar", "independent_cultivator"}:
-            path_id = "path-wisdom" if role == "scholar" else "path-strength"
+        elif role == "scholar":
             self.cultivation.gain_insight(
                 actor_id,
-                path_id,
+                "path-wisdom",
                 insight_type=InsightType.OBSERVATION,
                 source_key=f"remote-routine:{actor_id}:{state.action_count % 3}",
                 base_value=1,
             )
             action = "STUDY"
+        elif role == "independent_cultivator":
+            result = self.cultivation.cultivate_elapsed(actor_id, hours=1)
+            if result.get("hours", 0):
+                self.cultivation.gain_insight(
+                    actor_id,
+                    "path-strength",
+                    insight_type=InsightType.OBSERVATION,
+                    source_key=f"remote-cultivation:{actor_id}:{state.action_count % 3}",
+                    base_value=1,
+                )
+                action = "CULTIVATE"
+            else:
+                action = "MEDITATE"
         else:
             action = "LOCAL_WORK"
 
