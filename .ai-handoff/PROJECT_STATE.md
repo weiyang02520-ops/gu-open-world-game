@@ -7,7 +7,7 @@
 - M3: PASS_WITH_NOTES
 - M4: INTERNAL CHECKPOINT COMPLETE
 - Active task: TASK-V0.1-FULL-001
-- Current internal phase: M6
+- Current internal phase: M7
 - Gate: READY_FOR_CODEX
 - Next actor: codex
 - Execution mode: LONG_RUN_NO_INTERMEDIATE_HUMAN_GATE
@@ -17,13 +17,12 @@
 
 Completed internal checkpoints:
 
-M5 resource crisis/logistics/economy.
+- M5 resource crisis/logistics/economy.
+- M6 Rank1 cultivation/breakthrough/attainment.
 
 Remaining continuous sequence:
 
-M5 logistics/resource crisis
-→ M6 cultivation/breakthrough/attainment
-→ M7 Effect Graph/killer move
+M7 Effect Graph/killer move
 → M8 integrated Day1–10 V0.1.
 
 Do not return to human Gate until full V0.1 is complete.
